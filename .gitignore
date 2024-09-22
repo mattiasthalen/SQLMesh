@@ -2,3 +2,4 @@
 .env/
 jaffle-data/
 logs/
+__pycache__/
