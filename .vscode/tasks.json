@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Setup Virtual Environment",
+        "type": "shell",
+        "command": "python -m venv .env",
+        "problemMatcher": [],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "Activate Virtual Environment",
+        "type": "shell",
+        "command": "source .env/bin/activate",
+        "problemMatcher": [],
+        "dependsOn": "Setup Virtual Environment"
+      },
+      {
+        "label": "Install Requirements",
+        "type": "shell",
+        "command": "pip install -r requirements.txt",
+        "problemMatcher": [],
+        "dependsOn": "Activate Virtual Environment"
+      }
+    ]
+  }
