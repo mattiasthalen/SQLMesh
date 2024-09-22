@@ -3,3 +3,5 @@
 jaffle-data/
 logs/
 __pycache__/
+
+*.duckdb
