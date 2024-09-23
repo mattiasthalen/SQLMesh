@@ -31,6 +31,7 @@ with
         (
             select
                 @generate_surrogate_key(id) as order_hk
+                @generate_surrogate_key(id, valid_from) as order_pit_hk
             ,   @generate_surrogate_key(customer_id) as customer_hk
             ,   @generate_surrogate_key(store_id) as store_hk
             ,   @generate_surrogate_key(id, store_id) as order_hk__store_hk

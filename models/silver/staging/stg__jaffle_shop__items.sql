@@ -27,6 +27,7 @@ with
         (
             select
                 @generate_surrogate_key(id) as item_hk
+                @generate_surrogate_key(id, valid_from) as item_pit_hk
             ,   @generate_surrogate_key(order_id) as order_hk
             ,   @generate_surrogate_key(sku) as product_hk
             ,   @generate_surrogate_key(order_id, sku) as order_hk__product_hk
