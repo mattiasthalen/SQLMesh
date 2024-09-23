@@ -3,7 +3,8 @@ model (
     kind view,
     audits (
         not_null(columns := id),
-        unique_values(columns := id)
+        not_null(columns := sku),
+        unique_combination_of_columns(columns := (id, sku))
     )
 );
 
