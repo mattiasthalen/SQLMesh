@@ -30,6 +30,7 @@ with
             select
                 @generate_surrogate_key(id, sku) as supply_hk
             ,   concat(id, '|',sku) as supply_bk
+            ,   'jaffle shop' as source
             ,   *
 
             from

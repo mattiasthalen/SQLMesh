@@ -35,6 +35,7 @@ with
             ,   @generate_surrogate_key(store_id) as store_hk
             ,   @generate_surrogate_key(id, store_id) as order_hk__store_hk
             ,   id as order_bk
+            ,   'jaffle shop' as source
             ,   *
 
             from

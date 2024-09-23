@@ -29,6 +29,7 @@ with
             select
                 @generate_surrogate_key(id) as tweet_hk
             ,   id as tweet_bk
+            ,   'jaffle shop' as source
             ,   *
 
             from

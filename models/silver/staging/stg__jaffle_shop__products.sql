@@ -30,6 +30,7 @@ with
             select
                 @generate_surrogate_key(sku) as product_hk
             ,   sku as product_bk
+            ,   'jaffle shop' as source
             ,   *
 
             from

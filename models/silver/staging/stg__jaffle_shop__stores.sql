@@ -29,6 +29,7 @@ with
             select
                 @generate_surrogate_key(id) as store_hk
             ,   id as store_bk
+            ,   'jaffle shop' as source
             ,   *
 
             from

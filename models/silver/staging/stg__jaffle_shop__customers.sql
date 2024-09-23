@@ -27,6 +27,7 @@ with
             select
                 @generate_surrogate_key(name) as customer_hk
             ,   name as customer_bk
+            ,   'jaffle shop' as source
             ,   *
 
             from
