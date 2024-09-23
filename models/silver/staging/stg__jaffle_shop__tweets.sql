@@ -29,7 +29,7 @@ with
             select
                 @generate_surrogate_key(user_id) as tweeter_hk
             ,   @generate_surrogate_key(id) as tweet_hk
-                @generate_surrogate_key(id, valid_from) as tweet_pit_hk
+            ,   @generate_surrogate_key(id, valid_from) as tweet_pit_hk
             ,   @generate_surrogate_key(user_id,id) as tweeter_hk__tweet_hk
             ,   user_id as tweeter_bk
             ,   id as tweet_bk

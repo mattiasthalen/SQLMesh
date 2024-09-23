@@ -29,7 +29,7 @@ with
         (
             select
                 @generate_surrogate_key(sku) as product_hk
-                @generate_surrogate_key(sku, valid_from) as product_pit_hk
+            ,   @generate_surrogate_key(sku, valid_from) as product_pit_hk
             ,   sku as product_bk
             ,   'jaffle shop' as source
             ,   *

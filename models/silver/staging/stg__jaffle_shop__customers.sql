@@ -26,7 +26,7 @@ with
         (
             select
                 @generate_surrogate_key(id) as customer_hk
-                @generate_surrogate_key(id, valid_from) as customer_pit_hk
+            ,   @generate_surrogate_key(id, valid_from) as customer_pit_hk
             ,   name as customer_bk
             ,   'jaffle shop' as source
             ,   *
