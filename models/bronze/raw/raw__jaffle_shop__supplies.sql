@@ -9,7 +9,12 @@ model (
 );
 
 select
-    *
+    id
+,   name
+,   cost
+,   perishable
+,   sku
+,   filename
 
 from
     read_csv('./jaffle-data/raw_supplies.csv', all_varchar=true, filename=true)

@@ -8,7 +8,14 @@ model (
 );
 
 select
-    *
+    id
+,   customer
+,   ordered_at
+,   store_id
+,   subtotal
+,   tax_paid
+,   order_total
+,   filename 
 
 from
     read_csv('./jaffle-data/raw_orders.csv', all_varchar=true, filename=true)

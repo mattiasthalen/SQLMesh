@@ -8,7 +8,10 @@ model (
 );
 
 select
-    *
+    id
+,   order_id
+,   sku
+,   filename
 
 from
     read_csv('./jaffle-data/raw_items.csv', all_varchar=true, filename=true)

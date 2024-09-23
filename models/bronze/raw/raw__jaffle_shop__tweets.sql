@@ -8,7 +8,11 @@ model (
 );
 
 select
-    *
+    id
+,   user_id
+,   tweeted_at
+,   content
+,   filename
 
 from
     read_csv('./jaffle-data/raw_tweets.csv', all_varchar=true, filename=true)

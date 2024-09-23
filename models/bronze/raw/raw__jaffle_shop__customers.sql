@@ -8,7 +8,9 @@ model (
 );
 
 select
-    *
+    id
+,   name
+,   filename
 
 from
     read_csv('./jaffle-data/raw_customers.csv', all_varchar=true, filename=true)

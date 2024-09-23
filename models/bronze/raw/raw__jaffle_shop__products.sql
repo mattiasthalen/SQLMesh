@@ -8,7 +8,12 @@ model (
 );
 
 select
-    *
+    sku
+,   name
+,   type
+,   price
+,   description
+,   filename
 
 from
     read_csv('./jaffle-data/raw_products.csv', all_varchar=true, filename=true)
