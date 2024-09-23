@@ -28,7 +28,10 @@ with
         (
             select
                 @generate_surrogate_key(id) as tweet_hk
+            ,   @generate_surrogate_key(user_id) as tweeter_hk
+            ,   @generate_surrogate_key(id, user_id) as tweet_hk__tweeter_hk
             ,   id as tweet_bk
+            ,   user_id as tweeter_bk
             ,   'jaffle shop' as source
             ,   *
 
