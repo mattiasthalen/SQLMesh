@@ -4,6 +4,7 @@ model (
 
 select
     product_hk
+,   product_pit_hk
 
 ,   sku
 ,   name

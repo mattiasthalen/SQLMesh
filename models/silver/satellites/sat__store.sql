@@ -4,6 +4,7 @@ model (
 
 select
     store_hk
+,   store_pit_hk
 
 ,   id
 ,   name

@@ -4,6 +4,7 @@ model (
 
 select
     supply_hk
+,   supply_pit_hk
 
 ,   id
 ,   name

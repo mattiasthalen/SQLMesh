@@ -4,6 +4,7 @@ model (
 
 select
     order_hk
+,   order_pit_hk
 ,   id
 ,   ordered_at
 ,   subtotal
