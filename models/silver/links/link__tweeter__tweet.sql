@@ -1,5 +1,6 @@
 model (
-    name silver.link__tweeter__tweet
+    name silver.link__tweeter__tweet,
+    kind view
 );
 
 select

@@ -1,5 +1,6 @@
 model (
-    name silver.sat__tweet
+    name silver.sat__tweet,
+    kind view
 );
 
 select

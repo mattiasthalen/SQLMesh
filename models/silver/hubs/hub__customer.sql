@@ -1,5 +1,6 @@
 model (
-    name silver.hub__customer
+    name silver.hub__customer,
+    kind view
 );
 
 select

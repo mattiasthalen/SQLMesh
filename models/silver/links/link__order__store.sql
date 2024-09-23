@@ -1,5 +1,6 @@
 model (
-    name silver.link__order__store
+    name silver.link__order__store,
+    kind view
 );
 
 select

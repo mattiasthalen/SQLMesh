@@ -1,5 +1,6 @@
 model (
-    name silver.hub__product
+    name silver.hub__product,
+    kind view
 );
 
 select

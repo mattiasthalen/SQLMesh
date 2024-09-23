@@ -1,5 +1,6 @@
 model (
-    name silver.link__supply__product
+    name silver.link__supply__product,
+    kind view
 );
 
 select

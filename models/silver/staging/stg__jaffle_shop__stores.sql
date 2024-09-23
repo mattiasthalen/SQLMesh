@@ -1,5 +1,6 @@
 model (
-    name silver.stg__jaffle_shop__stores
+    name silver.stg__jaffle_shop__stores,
+    kind view
 );
 
 with

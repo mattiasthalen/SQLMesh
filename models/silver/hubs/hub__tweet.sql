@@ -1,5 +1,6 @@
 model (
-    name silver.hub__tweet
+    name silver.hub__tweet,
+    kind view
 );
 
 select
