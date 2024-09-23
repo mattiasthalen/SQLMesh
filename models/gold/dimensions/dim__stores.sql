@@ -5,4 +5,12 @@ model (
     )
 );
 
-select * from silver.sat__store;
+select
+    *
+
+from
+    silver.sat__store
+    
+where
+    sat__store.valid_from between @start_ds and @end_ds
+;
