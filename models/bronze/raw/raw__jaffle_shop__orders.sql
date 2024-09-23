@@ -1,6 +1,9 @@
 model (
     name bronze.raw__jaffle_shop__orders,
-    kind view
+    kind view,
+    audits (
+        not_null(columns := (id))
+    )
 );
 
 select
