@@ -6,7 +6,7 @@ select
     supply_hk
 ,   supply_bk
 ,   source
-,   min(valid_from) as load_date
+,   min(valid_from) as valid_from
 
 from
     silver.stg__jaffle_shop__supplies
