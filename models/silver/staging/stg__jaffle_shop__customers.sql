@@ -25,7 +25,8 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id, valid_from) as scd_id
+                @generate_surrogate_key(name) as customer_hk
+            ,   name as customer_bk
             ,   *
 
             from

@@ -27,7 +27,8 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id, valid_from) as scd_id
+                @generate_surrogate_key(id) as tweet_hk
+            ,   id as tweet_bk
             ,   *
 
             from

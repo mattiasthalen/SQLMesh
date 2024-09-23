@@ -28,7 +28,8 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id, valid_from) as scd_id
+                @generate_surrogate_key(id, sku) as supply_hk
+            ,   concat(id, '|',sku) as supply_bk
             ,   *
 
             from
