@@ -1,5 +1,8 @@
 model (
-    name gold.fact__orders
+    name gold.fact__orders,
+    kind incremental_by_time_range(
+        time_column valid_from
+    )
 );
 
 select
@@ -9,6 +12,12 @@ select
 ,   sat__store.store_pit_hk
 ,   sat__order.ordered_at
 ,   sat__item.quantity
+,   sat__product.price
+,   sat__store.tax_rate
+,   sat__product.price * sat__store.tax_rate as tax
+,   sat__product.price * (1 + sat__store.tax_rate) as price_with_tax
+,   sat__order.valid_from
+,   sat__order.valid_to
 
 from
     silver.hub__order
