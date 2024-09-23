@@ -12,5 +12,5 @@ from
     silver.sat__product
 
 where
-    sat__product.valid_from between @start_ds and @end_ds
+    sat__product.valid_from between @start_ts and @end_ts
 ;

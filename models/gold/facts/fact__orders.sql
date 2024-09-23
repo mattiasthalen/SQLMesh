@@ -63,5 +63,5 @@ from
         and sat__order.ordered_at between sat__store.valid_from and sat__store.valid_to
 
 where
-    sat__order.valid_from between @start_ds and @end_ds
+    sat__order.valid_from between @start_ts and @end_ts
 ;
