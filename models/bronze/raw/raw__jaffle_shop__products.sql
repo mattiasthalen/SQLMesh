@@ -2,7 +2,8 @@ model (
     name bronze.raw__jaffle_shop__products,
     kind view,
     audits (
-        not_null(columns := (sku))
+        not_null(columns := sku),
+        unique_values(columns := sku)
     )
 );
 

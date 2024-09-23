@@ -2,7 +2,8 @@ model (
     name bronze.raw__jaffle_shop__customers,
     kind view,
     audits (
-        not_null(columns := (id))
+        not_null(columns := id),
+        unique_values(columns := id)
     )
 );
 
