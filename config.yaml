@@ -5,6 +5,8 @@ gateways:
     connection:
       type: duckdb
       database: warehouse.duckdb
+      extensions:
+        - parquet
 
 default_gateway: local
 
