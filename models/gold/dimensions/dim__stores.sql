@@ -1,7 +1,7 @@
 model (
     name gold.dim__stores,
     cron '@hourly',
-    kind full
+    kind view
 );
 
 select * from silver.sat__store;

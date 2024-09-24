@@ -1,7 +1,7 @@
 model (
     name gold.fact__orders,
     cron '@hourly',
-    kind full
+    kind view
 );
 
 select
