@@ -29,10 +29,10 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id) as supply_hk
-            ,   @generate_surrogate_key(id, valid_from) as supply_pit_hk
-            ,   @generate_surrogate_key(sku) as product_hk
-            ,   @generate_surrogate_key(id, sku) as supply_hk__product_hk
+                @generate_surrogate_key(id)::uuid as supply_hk
+            ,   @generate_surrogate_key(id, valid_from)::uuid as supply_pit_hk
+            ,   @generate_surrogate_key(sku)::uuid as product_hk
+            ,   @generate_surrogate_key(id, sku)::uuid as supply_hk__product_hk
             ,   id as supply_bk
             ,   sku as product_bk
             ,   'jaffle shop' as source

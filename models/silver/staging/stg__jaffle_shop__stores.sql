@@ -28,8 +28,8 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id) as store_hk
-            ,   @generate_surrogate_key(id, valid_from) as store_pit_hk
+                @generate_surrogate_key(id)::uuid as store_hk
+            ,   @generate_surrogate_key(id, valid_from)::uuid as store_pit_hk
             ,   id as store_bk
             ,   'jaffle shop' as source
             ,   *

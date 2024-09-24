@@ -28,10 +28,10 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(user_id) as tweeter_hk
-            ,   @generate_surrogate_key(id) as tweet_hk
-            ,   @generate_surrogate_key(id, valid_from) as tweet_pit_hk
-            ,   @generate_surrogate_key(user_id,id) as tweeter_hk__tweet_hk
+                @generate_surrogate_key(user_id)::uuid as tweeter_hk
+            ,   @generate_surrogate_key(id)::uuid as tweet_hk
+            ,   @generate_surrogate_key(id, valid_from)::uuid as tweet_pit_hk
+            ,   @generate_surrogate_key(user_id,id)::uuid as tweeter_hk__tweet_hk
             ,   user_id as tweeter_bk
             ,   id as tweet_bk
             ,   'jaffle shop' as source
