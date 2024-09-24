@@ -6,6 +6,7 @@ model (
 
 select
     sat__order.order_pit_hk
+,   sat__item.item_pit_hk
 ,   sat__customer.customer_pit_hk
 ,   sat__product.product_pit_hk
 ,   sat__store.store_pit_hk
