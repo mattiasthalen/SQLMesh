@@ -1,7 +1,7 @@
 model (
     name gold.dim__stores,
     cron '@hourly',
-    kind view,
+    kind full,
     grain store_pit_hk
 );
 
