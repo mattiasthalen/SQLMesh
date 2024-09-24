@@ -1,6 +1,6 @@
 model (
     name gold.fact__orders,
-    kind view
+    kind full
 );
 
 select

@@ -1,6 +1,6 @@
 model (
     name gold.dim__stores,
-    kind view
+    kind full
 );
 
 select * from silver.sat__store;
