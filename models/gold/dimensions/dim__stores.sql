@@ -1,5 +1,6 @@
 model (
     name gold.dim__stores,
+    cron '@hourly',
     kind full
 );
 
