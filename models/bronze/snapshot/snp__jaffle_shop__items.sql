@@ -2,8 +2,7 @@ model (
     name bronze.snp__jaffle_shop__items,
     kind scd_type_2_by_column (
         unique_key id,
-        columns *,
-        execution_time_as_valid_from true
+        columns *
     )
 );
 
