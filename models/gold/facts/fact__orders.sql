@@ -16,8 +16,9 @@ select
 ,   sat__item.quantity
 ,   sat__product.price
 ,   sat__store.tax_rate
-,   sat__product.price * sat__store.tax_rate as tax
-,   sat__product.price * (1 + sat__store.tax_rate) as price_with_tax
+,   sat__product.price * sat__item.quantity as subtotal_price
+,   subtotal_price * sat__store.tax_rate as tax
+,   subtotal_price + tax as price_with_tax
 ,   sat__order.valid_from
 ,   sat__order.valid_to
 
