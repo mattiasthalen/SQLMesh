@@ -1,6 +1,13 @@
 model (
     name bronze.raw__jaffle_shop__stores,
     kind view,
+    columns (
+        id varchar,
+        name varchar,
+        opened_at varchar,
+        tax_rate varchar,
+        filename varchar
+    ),
     audits (
         not_null(columns := id),
         unique_values(columns := id)

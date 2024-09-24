@@ -1,6 +1,14 @@
 model (
     name bronze.raw__jaffle_shop__products,
     kind view,
+    columns (
+        sku varchar,
+        name varchar,
+        type varchar,
+        price varchar,
+        description varchar,
+        filename varchar
+    ),
     audits (
         not_null(columns := sku),
         unique_values(columns := sku)

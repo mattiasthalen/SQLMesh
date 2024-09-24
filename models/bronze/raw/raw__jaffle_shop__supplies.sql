@@ -1,6 +1,14 @@
 model (
     name bronze.raw__jaffle_shop__supplies,
     kind view,
+    columns (
+        id varchar,
+        name varchar,
+        cost varchar,
+        perishable varchar,
+        sku varchar,
+        filename varchar
+    ),
     audits (
         not_null(columns := id),
         not_null(columns := sku),
