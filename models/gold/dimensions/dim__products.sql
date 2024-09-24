@@ -1,16 +1,6 @@
 model (
     name gold.dim__products,
-    kind incremental_by_time_range(
-        time_column valid_from
-    )
+    kind view
 );
 
-select
-    *
-
-from
-    silver.sat__product
-
-where
-    sat__product.valid_from between @start_ts and @end_ts
-;
+select * from silver.sat__product;

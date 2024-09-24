@@ -1,8 +1,6 @@
 model (
     name gold.fact__orders,
-    kind incremental_by_time_range(
-        time_column valid_from
-    )
+    kind view
 );
 
 select
@@ -61,7 +59,4 @@ from
     inner join silver.sat__store
         on hub__store.store_hk = sat__store.store_hk
         and sat__order.valid_from between sat__store.valid_from and sat__store.valid_to
-
-where
-    sat__order.valid_from between @start_ts and @end_ts
 ;
