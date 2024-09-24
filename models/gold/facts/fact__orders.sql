@@ -1,7 +1,9 @@
 model (
     name gold.fact__orders,
     cron '@hourly',
-    kind view
+    kind view,
+    grain item_pit_hk,
+    references (order_pit_hk, customer_pit_hk, product_pit_hk, store_pit_hk)
 );
 
 select

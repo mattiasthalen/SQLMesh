@@ -1,7 +1,8 @@
 model (
     name gold.dim__customers,
     cron '@hourly',
-    kind view
+    kind view,
+    grain customer_pit_hk
 );
 
 select * from silver.sat__customer;
