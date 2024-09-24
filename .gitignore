@@ -1,5 +1,6 @@
 .cache/
 .env/
+exports/
 jaffle-data/
 logs/
 __pycache__/
