@@ -3,7 +3,8 @@ model (
     cron '*/5 * * * *',
     kind scd_type_2_by_column (
         unique_key id,
-        columns *
+        columns *,
+        execution_time_as_valid_from true
     )
 );
 
