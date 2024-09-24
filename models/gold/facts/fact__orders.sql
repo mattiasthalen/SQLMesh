@@ -61,3 +61,8 @@ from
         on hub__store.store_hk = sat__store.store_hk
         and sat__order.valid_from between sat__store.valid_from and sat__store.valid_to
 ;
+
+@if(
+  @runtime_stage = 'evaluating',
+  copy gold.fact__orders to 'exports/gold.fact__orders.parquet' (format parquet)
+);
