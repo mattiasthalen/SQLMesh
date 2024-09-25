@@ -9,11 +9,4 @@ SELECT
   *
 FROM silver.sat__product;
 
-@IF(
-  @runtime_stage = 'evaluating',
-  COPY gold.dim__products
-  TO 'exports/gold.dim__products.parquet' WITH (
-    FORMAT 'parquet',
-    COMPRESSION 'ZSTD'
-  )
-)
+@export_to_parquet('gold.dim__products', 'exports')

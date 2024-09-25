@@ -52,11 +52,4 @@ INNER JOIN silver.sat__store
   ON hub__store.store_hk = sat__store.store_hk
   AND sat__order.valid_from BETWEEN sat__store.valid_from AND sat__store.valid_to;
 
-@IF(
-  @runtime_stage = 'evaluating',
-  COPY gold.fact__orders
-  TO 'exports/gold.fact__orders.parquet' WITH (
-    FORMAT 'parquet',
-    COMPRESSION 'ZSTD'
-  )
-)
+@export_to_parquet('gold.fact__orders', 'exports')
