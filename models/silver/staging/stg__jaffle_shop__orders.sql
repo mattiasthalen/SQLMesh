@@ -31,12 +31,12 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id)::uuid as order_hk
-            ,   @generate_surrogate_key(id, valid_from)::uuid as order_pit_hk
-            ,   @generate_surrogate_key(customer_id)::uuid as customer_hk
-            ,   @generate_surrogate_key(store_id)::uuid as store_hk
-            ,   @generate_surrogate_key(id, store_id)::uuid as order_hk__store_hk
-            ,   @generate_surrogate_key(customer_id, id)::uuid as customer_hk__order_hk
+                @generate_surrogate_key__sha_256(id)::blob as order_hk
+            ,   @generate_surrogate_key__sha_256(id, valid_from)::blob as order_pit_hk
+            ,   @generate_surrogate_key__sha_256(customer_id)::blob as customer_hk
+            ,   @generate_surrogate_key__sha_256(store_id)::blob as store_hk
+            ,   @generate_surrogate_key__sha_256(id, store_id)::blob as order_hk__store_hk
+            ,   @generate_surrogate_key__sha_256(customer_id, id)::blob as customer_hk__order_hk
             ,   id as order_bk
             ,   'jaffle shop' as source
             ,   *

@@ -27,11 +27,11 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(id)::uuid as item_hk
-            ,   @generate_surrogate_key(id, valid_from)::uuid as item_pit_hk
-            ,   @generate_surrogate_key(order_id)::uuid as order_hk
-            ,   @generate_surrogate_key(sku)::uuid as product_hk
-            ,   @generate_surrogate_key(order_id, sku)::uuid as order_hk__product_hk
+                @generate_surrogate_key__sha_256(id)::blob as item_hk
+            ,   @generate_surrogate_key__sha_256(id, valid_from)::blob as item_pit_hk
+            ,   @generate_surrogate_key__sha_256(order_id)::blob as order_hk
+            ,   @generate_surrogate_key__sha_256(sku)::blob as product_hk
+            ,   @generate_surrogate_key__sha_256(order_id, sku)::blob as order_hk__product_hk
             ,   'jaffle shop' as source
             ,   1 as quantity
             ,   *

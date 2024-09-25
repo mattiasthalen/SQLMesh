@@ -29,8 +29,8 @@ with
 ,   final_data as
         (
             select
-                @generate_surrogate_key(sku)::uuid as product_hk
-            ,   @generate_surrogate_key(sku, valid_from)::uuid as product_pit_hk
+                @generate_surrogate_key__sha_256(sku)::blob as product_hk
+            ,   @generate_surrogate_key__sha_256(sku, valid_from)::blob as product_pit_hk
             ,   sku as product_bk
             ,   'jaffle shop' as source
             ,   *
