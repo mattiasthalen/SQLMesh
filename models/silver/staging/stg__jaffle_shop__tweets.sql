@@ -19,13 +19,13 @@ WITH source_data AS (
   FROM source_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(user_id)::BLOB AS tweeter_hk,
-    @generate_surrogate_key__sha_256(id)::BLOB AS tweet_hk,
-    @generate_surrogate_key__sha_256(id, valid_from)::BLOB AS tweet_pit_hk,
-    @generate_surrogate_key__sha_256(user_id, id)::BLOB AS tweeter_hk__tweet_hk,
+    'jaffle shop' AS source,
+    @generate_surrogate_key__sha_256(source, user_id)::BLOB AS tweeter_hk,
+    @generate_surrogate_key__sha_256(source, id)::BLOB AS tweet_hk,
+    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS tweet_pit_hk,
+    @generate_surrogate_key__sha_256(source, user_id, id)::BLOB AS tweeter_hk__tweet_hk,
     user_id AS tweeter_bk,
     id AS tweet_bk,
-    'jaffle shop' AS source,
     *
   FROM casted_data
 )
