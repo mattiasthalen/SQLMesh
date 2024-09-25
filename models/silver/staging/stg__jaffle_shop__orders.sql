@@ -19,7 +19,7 @@ with
             ,   subtotal::int as subtotal
             ,   tax_paid::int as tax_paid
             ,   order_total::int as order_total
-            ,   filename::varchar as filename
+            ,   filename::text as filename
             ,   valid_from::timestamp as valid_from
             ,   coalesce(valid_to::timestamp, '9999-12-31 23:59:59'::timestamp) as valid_to
 

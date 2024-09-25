@@ -13,10 +13,10 @@ with
         (
             select
                 id::uuid as id
-            ,   name::varchar as name
+            ,   name::text as name
             ,   opened_at::timestamp as opened_at
             ,   tax_rate::numeric as tax_rate
-            ,   filename::varchar as filename
+            ,   filename::text as filename
             ,   valid_from::timestamp as valid_from
             ,   coalesce(valid_to::timestamp, '9999-12-31 23:59:59'::timestamp) as valid_to
 

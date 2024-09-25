@@ -15,8 +15,8 @@ with
                 id::uuid as id
             ,   user_id::uuid as user_id
             ,   tweeted_at::timestamp as tweeted_at
-            ,   content::varchar as content
-            ,   filename::varchar as filename
+            ,   content::text as content
+            ,   filename::text as filename
             ,   valid_from::timestamp as valid_from
             ,   coalesce(valid_to::timestamp, '9999-12-31 23:59:59'::timestamp) as valid_to
 

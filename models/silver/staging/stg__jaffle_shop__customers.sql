@@ -13,8 +13,8 @@ with
         (
             select
                 id::uuid as id
-            ,   name::varchar as name
-            ,   filename::varchar as filename
+            ,   name::text as name
+            ,   filename::text as filename
             ,   valid_from::timestamp as valid_from
             ,   coalesce(valid_to::timestamp, '9999-12-31 23:59:59'::timestamp) as valid_to
 
