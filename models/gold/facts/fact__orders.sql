@@ -56,6 +56,7 @@ INNER JOIN silver.sat__store
   @runtime_stage = 'evaluating',
   COPY gold.fact__orders
   TO 'exports/gold.fact__orders.parquet' WITH (
-    format parquet
+    FORMAT 'parquet',
+    COMPRESSION 'ZSTD'
   )
 )

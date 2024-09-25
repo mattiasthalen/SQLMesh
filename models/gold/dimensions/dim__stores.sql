@@ -13,6 +13,7 @@ FROM silver.sat__store;
   @runtime_stage = 'evaluating',
   COPY gold.dim__stores
   TO 'exports/gold.dim__stores.parquet' WITH (
-    format parquet
+    FORMAT 'parquet',
+    COMPRESSION 'ZSTD'
   )
 )
