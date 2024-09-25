@@ -1,19 +1,15 @@
-model (
-    name silver.hub__order,
-    kind view
+MODEL (
+  name silver.hub__order,
+  kind VIEW
 );
 
-select
-    order_hk
-,   order_bk
-,   source
-,   min(valid_from) as valid_from
-
-from
-    silver.stg__jaffle_shop__orders
-
-group by
-    order_hk
-,   order_bk
-,   source
-;
+SELECT
+  order_hk,
+  order_bk,
+  source,
+  MIN(valid_from) AS valid_from
+FROM silver.stg__jaffle_shop__orders
+GROUP BY
+  order_hk,
+  order_bk,
+  source

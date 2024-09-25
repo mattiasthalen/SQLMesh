@@ -1,28 +1,22 @@
-model (
-    name bronze.raw__jaffle_shop__products,
-    kind view,
-    columns (
-        sku varchar,
-        name varchar,
-        type varchar,
-        price varchar,
-        description varchar,
-        filename varchar
-    ),
-    audits (
-        not_null(columns := sku),
-        unique_values(columns := sku)
-    )
+MODEL (
+  name bronze.raw__jaffle_shop__products,
+  kind VIEW,
+  columns (
+    sku TEXT,
+    name TEXT,
+    type TEXT,
+    price TEXT,
+    description TEXT,
+    filename TEXT
+  ),
+  audits (NOT_NULL(columns := sku), UNIQUE_VALUES(columns := sku))
 );
 
-select
-    sku
-,   name
-,   type
-,   price
-,   description
-,   filename
-
-from
-    read_csv('./jaffle-data/raw_products.csv', all_varchar=true, filename=true)
-;
+SELECT
+  sku,
+  name,
+  type,
+  price,
+  description,
+  filename
+FROM READ_CSV('./jaffle-data/raw_products.csv', all_varchar = TRUE, filename = TRUE)

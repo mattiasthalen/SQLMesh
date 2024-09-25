@@ -1,19 +1,15 @@
-model (
-    name silver.hub__store,
-    kind view
+MODEL (
+  name silver.hub__store,
+  kind VIEW
 );
 
-select
-    store_hk
-,   store_bk
-,   source
-,   min(valid_from) as valid_from
-
-from
-    silver.stg__jaffle_shop__stores
-
-group by
-    store_hk
-,   store_bk
-,   source
-;
+SELECT
+  store_hk,
+  store_bk,
+  source,
+  MIN(valid_from) AS valid_from
+FROM silver.stg__jaffle_shop__stores
+GROUP BY
+  store_hk,
+  store_bk,
+  source

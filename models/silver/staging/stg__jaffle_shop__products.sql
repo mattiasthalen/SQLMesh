@@ -1,42 +1,32 @@
-model (
-    name silver.stg__jaffle_shop__products,
-    kind view
+MODEL (
+  name silver.stg__jaffle_shop__products,
+  kind VIEW
 );
 
-with
-    source_data as
-        (
-            select * from bronze.snp__jaffle_shop__products
-        )
-
-,   casted_data as
-        (
-            select
-                sku::text as sku
-            ,   name::text as name
-            ,   type::text as type
-            ,   price::int as price
-            ,   description::text as description
-            ,   filename::text as filename
-            ,   valid_from::timestamp as valid_from
-            ,   coalesce(valid_to::timestamp, '9999-12-31 23:59:59'::timestamp) as valid_to
-
-            from
-                source_data
-
-        )
-
-,   final_data as
-        (
-            select
-                @generate_surrogate_key__sha_256(sku)::blob as product_hk
-            ,   @generate_surrogate_key__sha_256(sku, valid_from)::blob as product_pit_hk
-            ,   sku as product_bk
-            ,   'jaffle shop' as source
-            ,   *
-
-            from
-                casted_data
-        )
-
-select * from final_data;
+WITH source_data AS (
+  SELECT
+    *
+  FROM bronze.snp__jaffle_shop__products
+), casted_data AS (
+  SELECT
+    sku::TEXT AS sku,
+    name::TEXT AS name,
+    type::TEXT AS type,
+    price::INT AS price,
+    description::TEXT AS description,
+    filename::TEXT AS filename,
+    valid_from::TIMESTAMP AS valid_from,
+    COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
+  FROM source_data
+), final_data AS (
+  SELECT
+    @generate_surrogate_key__sha_256(sku)::BLOB AS product_hk,
+    @generate_surrogate_key__sha_256(sku, valid_from)::BLOB AS product_pit_hk,
+    sku AS product_bk,
+    'jaffle shop' AS source,
+    *
+  FROM casted_data
+)
+SELECT
+  *
+FROM final_data

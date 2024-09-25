@@ -1,32 +1,26 @@
-model (
-    name bronze.raw__jaffle_shop__orders,
-    kind view,
-    columns (
-        id varchar,
-        customer varchar,
-        ordered_at varchar,
-        store_id varchar,
-        subtotal varchar,
-        tax_paid varchar,
-        order_total varchar,
-        filename varchar
-    ),
-    audits (
-        not_null(columns := id),
-        unique_values(columns := id)
-    )
+MODEL (
+  name bronze.raw__jaffle_shop__orders,
+  kind VIEW,
+  columns (
+    id TEXT,
+    customer TEXT,
+    ordered_at TEXT,
+    store_id TEXT,
+    subtotal TEXT,
+    tax_paid TEXT,
+    order_total TEXT,
+    filename TEXT
+  ),
+  audits (NOT_NULL(columns := id), UNIQUE_VALUES(columns := id))
 );
 
-select
-    id
-,   customer
-,   ordered_at
-,   store_id
-,   subtotal
-,   tax_paid
-,   order_total
-,   filename 
-
-from
-    read_csv('./jaffle-data/raw_orders.csv', all_varchar=true, filename=true)
-;
+SELECT
+  id,
+  customer,
+  ordered_at,
+  store_id,
+  subtotal,
+  tax_paid,
+  order_total,
+  filename
+FROM READ_CSV('./jaffle-data/raw_orders.csv', all_varchar = TRUE, filename = TRUE)

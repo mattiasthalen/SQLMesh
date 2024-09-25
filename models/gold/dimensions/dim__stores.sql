@@ -1,13 +1,18 @@
-model (
-    name gold.dim__stores,
-    cron '@hourly',
-    kind full,
-    grain store_pit_hk
+MODEL (
+  name gold.dim__stores,
+  cron '@hourly',
+  kind FULL,
+  grain store_pit_hk
 );
 
-select * from silver.sat__store;
+SELECT
+  *
+FROM silver.sat__store;
 
-@if(
+@IF(
   @runtime_stage = 'evaluating',
-  copy gold.dim__stores to 'exports/gold.dim__stores.parquet' (format parquet)
-);
+  COPY gold.dim__stores
+  TO 'exports/gold.dim__stores.parquet' WITH (
+    format parquet
+  )
+)

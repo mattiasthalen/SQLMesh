@@ -1,26 +1,20 @@
-model (
-    name bronze.raw__jaffle_shop__tweets,
-    kind view,
-    columns (
-        id varchar,
-        user_id varchar,
-        tweeted_at varchar,
-        content varchar,
-        filename varchar
-    ),
-    audits (
-        not_null(columns := id),
-        unique_values(columns := id)
-    )
+MODEL (
+  name bronze.raw__jaffle_shop__tweets,
+  kind VIEW,
+  columns (
+    id TEXT,
+    user_id TEXT,
+    tweeted_at TEXT,
+    content TEXT,
+    filename TEXT
+  ),
+  audits (NOT_NULL(columns := id), UNIQUE_VALUES(columns := id))
 );
 
-select
-    id
-,   user_id
-,   tweeted_at
-,   content
-,   filename
-
-from
-    read_csv('./jaffle-data/raw_tweets.csv', all_varchar=true, filename=true)
-;
+SELECT
+  id,
+  user_id,
+  tweeted_at,
+  content,
+  filename
+FROM READ_CSV('./jaffle-data/raw_tweets.csv', all_varchar = TRUE, filename = TRUE)

@@ -1,24 +1,18 @@
-model (
-    name bronze.raw__jaffle_shop__items,
-    kind view,
-    columns (
-        id varchar,
-        order_id varchar,
-        sku varchar,
-        filename varchar
-    ),
-    audits (
-        not_null(columns := id),
-        unique_values(columns := id)
-    )
+MODEL (
+  name bronze.raw__jaffle_shop__items,
+  kind VIEW,
+  columns (
+    id TEXT,
+    order_id TEXT,
+    sku TEXT,
+    filename TEXT
+  ),
+  audits (NOT_NULL(columns := id), UNIQUE_VALUES(columns := id))
 );
 
-select
-    id
-,   order_id
-,   sku
-,   filename
-
-from
-    read_csv('./jaffle-data/raw_items.csv', all_varchar=true, filename=true)
-;
+SELECT
+  id,
+  order_id,
+  sku,
+  filename
+FROM READ_CSV('./jaffle-data/raw_items.csv', all_varchar = TRUE, filename = TRUE)

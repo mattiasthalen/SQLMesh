@@ -1,17 +1,14 @@
-model (
-    name silver.sat__item,
-    kind view
+MODEL (
+  name silver.sat__item,
+  kind VIEW
 );
 
-select
-    order_hk__product_hk
-,   item_hk
-,   item_pit_hk
-,   quantity
-,   source
-,   valid_from
-,   valid_to
-
-from
-    silver.stg__jaffle_shop__items
-;
+SELECT
+  order_hk__product_hk,
+  item_hk,
+  item_pit_hk,
+  quantity,
+  source,
+  valid_from,
+  valid_to
+FROM silver.stg__jaffle_shop__items

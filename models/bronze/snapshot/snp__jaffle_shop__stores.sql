@@ -1,11 +1,13 @@
-model (
-    name bronze.snp__jaffle_shop__stores,
-    cron '*/5 * * * *',
-    kind scd_type_2_by_column (
-        unique_key id,
-        columns *,
-        execution_time_as_valid_from true
-    )
+MODEL (
+  name bronze.snp__jaffle_shop__stores,
+  cron '*/5 * * * *',
+  kind SCD_TYPE_2_BY_COLUMN (
+    unique_key id,
+    columns *,
+    execution_time_as_valid_from TRUE
+  )
 );
 
-select * from bronze.raw__jaffle_shop__stores;
+SELECT
+  *
+FROM bronze.raw__jaffle_shop__stores

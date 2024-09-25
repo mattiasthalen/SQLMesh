@@ -1,22 +1,18 @@
-model (
-    name silver.link__customer__order,
-    kind view
+MODEL (
+  name silver.link__customer__order,
+  kind VIEW
 );
 
-select
-    customer_hk__order_hk
-,   customer_hk
-,   order_hk
-,   source
-,   min(valid_from) as valid_from
-,   max(valid_to) as valid_to
-
-from
-    silver.stg__jaffle_shop__orders
-
-group by
-    customer_hk__order_hk
-,   customer_hk
-,   order_hk
-,   source
-;
+SELECT
+  customer_hk__order_hk,
+  customer_hk,
+  order_hk,
+  source,
+  MIN(valid_from) AS valid_from,
+  MAX(valid_to) AS valid_to
+FROM silver.stg__jaffle_shop__orders
+GROUP BY
+  customer_hk__order_hk,
+  customer_hk,
+  order_hk,
+  source

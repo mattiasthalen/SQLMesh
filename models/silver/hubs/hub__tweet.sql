@@ -1,19 +1,15 @@
-model (
-    name silver.hub__tweet,
-    kind view
+MODEL (
+  name silver.hub__tweet,
+  kind VIEW
 );
 
-select
-    tweet_hk
-,   tweet_bk
-,   source
-,   min(valid_from) as valid_from
-
-from
-    silver.stg__jaffle_shop__tweets
-
-group by
-    tweet_hk
-,   tweet_bk
-,   source
-;
+SELECT
+  tweet_hk,
+  tweet_bk,
+  source,
+  MIN(valid_from) AS valid_from
+FROM silver.stg__jaffle_shop__tweets
+GROUP BY
+  tweet_hk,
+  tweet_bk,
+  source

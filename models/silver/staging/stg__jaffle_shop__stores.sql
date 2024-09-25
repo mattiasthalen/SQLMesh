@@ -1,41 +1,31 @@
-model (
-    name silver.stg__jaffle_shop__stores,
-    kind view
+MODEL (
+  name silver.stg__jaffle_shop__stores,
+  kind VIEW
 );
 
-with
-    source_data as
-        (
-            select * from bronze.snp__jaffle_shop__stores
-        )
-
-,   casted_data as
-        (
-            select
-                id::uuid as id
-            ,   name::text as name
-            ,   opened_at::timestamp as opened_at
-            ,   tax_rate::numeric as tax_rate
-            ,   filename::text as filename
-            ,   valid_from::timestamp as valid_from
-            ,   coalesce(valid_to::timestamp, '9999-12-31 23:59:59'::timestamp) as valid_to
-
-            from
-                source_data
-
-        )
-
-,   final_data as
-        (
-            select
-                @generate_surrogate_key__sha_256(id)::blob as store_hk
-            ,   @generate_surrogate_key__sha_256(id, valid_from)::blob as store_pit_hk
-            ,   id as store_bk
-            ,   'jaffle shop' as source
-            ,   *
-
-            from
-                casted_data
-        )
-
-select * from final_data;
+WITH source_data AS (
+  SELECT
+    *
+  FROM bronze.snp__jaffle_shop__stores
+), casted_data AS (
+  SELECT
+    id::UUID AS id,
+    name::TEXT AS name,
+    opened_at::TIMESTAMP AS opened_at,
+    tax_rate::DECIMAL(18, 3) AS tax_rate,
+    filename::TEXT AS filename,
+    valid_from::TIMESTAMP AS valid_from,
+    COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
+  FROM source_data
+), final_data AS (
+  SELECT
+    @generate_surrogate_key__sha_256(id)::BLOB AS store_hk,
+    @generate_surrogate_key__sha_256(id, valid_from)::BLOB AS store_pit_hk,
+    id AS store_bk,
+    'jaffle shop' AS source,
+    *
+  FROM casted_data
+)
+SELECT
+  *
+FROM final_data

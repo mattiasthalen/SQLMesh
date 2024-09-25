@@ -1,20 +1,15 @@
-model (
-    name silver.sat__tweet,
-    kind view
+MODEL (
+  name silver.sat__tweet,
+  kind VIEW
 );
 
-select
-    tweet_hk
-,   tweet_pit_hk
-
-,   tweeted_at
-,   content
-
-,   filename
-,   source
-,   valid_from
-,   valid_to
-
-from
-    silver.stg__jaffle_shop__tweets
-;
+SELECT
+  tweet_hk,
+  tweet_pit_hk,
+  tweeted_at,
+  content,
+  filename,
+  source,
+  valid_from,
+  valid_to
+FROM silver.stg__jaffle_shop__tweets
