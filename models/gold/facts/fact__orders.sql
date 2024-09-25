@@ -1,3 +1,4 @@
+/* Type 2 slowly changing fact table for order lines */
 MODEL (
   name gold.fact__orders,
   cron '@hourly',
@@ -7,20 +8,20 @@ MODEL (
 );
 
 SELECT
-  sat__order.order_pit_hk,
-  sat__item.item_pit_hk,
-  sat__customer.customer_pit_hk,
-  sat__product.product_pit_hk,
-  sat__store.store_pit_hk,
-  sat__order.ordered_at,
-  sat__item.quantity,
-  sat__product.price,
-  sat__store.tax_rate,
-  sat__product.price * sat__item.quantity AS subtotal_price,
-  subtotal_price * sat__store.tax_rate AS tax,
-  subtotal_price + tax AS price_with_tax,
-  sat__order.valid_from,
-  sat__order.valid_to
+  sat__item.item_pit_hk, /* Primary point in time hash key to the order line */
+  sat__order.order_pit_hk, /* Foreign point in time hash key to the order */
+  sat__customer.customer_pit_hk, /* Foreign point in time hash key to the customer */
+  sat__product.product_pit_hk, /* Foreign point in time hash key to the product */
+  sat__store.store_pit_hk, /* Foreign point in time hash key to the store */
+  sat__order.ordered_at, /* Timestamp of when the order was placed */
+  sat__item.quantity, /* Ordered quantity */
+  sat__product.price, /* Unit price */
+  sat__store.tax_rate, /* Tax rate for the order */
+  sat__product.price * sat__item.quantity AS subtotal_price, /* Subtotal for the order line */
+  subtotal_price * sat__store.tax_rate AS tax, /* Tax paid for the order line */
+  subtotal_price + tax AS price_with_tax, /* Price, including tax, for the order line */
+  sat__order.valid_from, /* Timestamp when the order line record became valid (inclusive) */
+  sat__order.valid_to /* Timestamp of when the order line record expired (exclusive) */
 FROM silver.hub__order
 INNER JOIN silver.sat__order
   ON hub__order.order_hk = sat__order.order_hk
