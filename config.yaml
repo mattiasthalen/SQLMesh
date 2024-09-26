@@ -1,5 +1,7 @@
 project: jaffle_shop
 
+default_target_environment: dev
+
 gateways:
   local:
     connection:
