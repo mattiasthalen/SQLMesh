@@ -1,6 +1,10 @@
 MODEL (
   name silver.link__customer__order,
-  kind VIEW
+  kind VIEW,
+  audits (
+    UNIQUE_VALUES(columns := customer_hk__order_hk),
+    NOT_NULL(columns := (customer_hk__order_hk, customer_hk, order_hk))
+  )
 );
 
 SELECT

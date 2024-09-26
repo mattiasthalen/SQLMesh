@@ -3,7 +3,8 @@ MODEL (
   name gold.dim__customers,
   cron '@hourly',
   kind FULL,
-  grain customer_pit_hk
+  grain customer_pit_hk,
+  audits (UNIQUE_VALUES(columns := customer_pit_hk), NOT_NULL(columns := customer_pit_hk))
 );
 
 SELECT

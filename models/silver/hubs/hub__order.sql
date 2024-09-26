@@ -1,6 +1,7 @@
 MODEL (
   name silver.hub__order,
-  kind VIEW
+  kind VIEW,
+  audits (UNIQUE_VALUES(columns := order_hk), NOT_NULL(columns := order_hk))
 );
 
 SELECT

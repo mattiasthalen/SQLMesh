@@ -5,6 +5,10 @@ MODEL (
     unique_key sku,
     columns *,
     execution_time_as_valid_from TRUE
+  ),
+  audits (
+    UNIQUE_COMBINATION_OF_COLUMNS(columns := (sku, valid_from)),
+    NOT_NULL(columns := (sku, valid_from))
   )
 );
 

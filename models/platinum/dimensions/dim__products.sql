@@ -2,7 +2,8 @@
 MODEL (
   name platinum.dim__products__ux,
   kind VIEW,
-  grain "product_pit_hk"
+  grain "product_pit_hk",
+  audits (UNIQUE_VALUES(columns := product_pit_hk), NOT_NULL(columns := product_pit_hk))
 );
 
 SELECT

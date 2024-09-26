@@ -1,6 +1,7 @@
 MODEL (
   name silver.sat__store,
-  kind VIEW
+  kind VIEW,
+  audits (UNIQUE_VALUES(columns := store_pit_hk), NOT_NULL(columns := store_pit_hk))
 );
 
 SELECT

@@ -5,6 +5,10 @@ MODEL (
     unique_key id,
     columns *,
     execution_time_as_valid_from TRUE
+  ),
+  audits (
+    UNIQUE_COMBINATION_OF_COLUMNS(columns := (id, valid_from)),
+    NOT_NULL(columns := (id, valid_from))
   )
 );
 

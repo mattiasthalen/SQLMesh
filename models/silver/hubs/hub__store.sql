@@ -1,6 +1,7 @@
 MODEL (
   name silver.hub__store,
-  kind VIEW
+  kind VIEW,
+  audits (UNIQUE_VALUES(columns := store_hk), NOT_NULL(columns := store_hk))
 );
 
 SELECT
