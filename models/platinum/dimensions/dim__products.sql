@@ -2,12 +2,12 @@
 MODEL (
   name platinum.dim__products__ux,
   kind VIEW,
-  grain "%product_pit_hk"
+  grain "product_pit_hk"
 );
 
 SELECT
-  product_hk AS "%product_hk", /* Surrogate hash key of the product */
-  product_pit_hk AS "%product_pit_hk", /* Point in time hash key of the product */
+  product_hk AS "product_hk", /* Surrogate hash key of the product */
+  product_pit_hk AS "product_pit_hk", /* Point in time hash key of the product */
   product_id AS "Product ID", /* Natural key of the product */
   product_name AS "Product", /* Name of the product */
   product_type AS "Product - Type", /* Type of product */

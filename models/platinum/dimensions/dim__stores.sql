@@ -2,12 +2,12 @@
 MODEL (
   name platinum.dim__stores__ux,
   kind VIEW,
-  grain "%store_pit_hk"
+  grain "store_pit_hk"
 );
 
 SELECT
-  store_hk AS "%store_hk", /* Surrogate hash key of the store */
-  store_pit_hk AS "%store_pit_hk", /* Point in time hash key of the store */
+  store_hk AS "store_hk", /* Surrogate hash key of the store */
+  store_pit_hk AS "store_pit_hk", /* Point in time hash key of the store */
   store_id AS "Store ID", /* Natueral key of the store */
   store_name AS "Store", /* Name of the store */
   store_opened_at AS "Store - Opened At", /* Timestamp of when the store opened */

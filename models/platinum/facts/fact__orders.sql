@@ -3,15 +3,15 @@ MODEL (
   name platinum.fact__orders__ux,
   kind VIEW,
   grain item_pit_hk,
-  references ("%order_pit_hk", "%customer_pit_hk", "%product_pit_hk", "%store_pit_hk")
+  references ("order_pit_hk", "customer_pit_hk", "product_pit_hk", "store_pit_hk")
 );
 
 SELECT
-  item_pit_hk AS "%item_pit_hk", /* Primary point in time hash key to the order line */
-  order_pit_hk AS "%order_pit_hk", /* Foreign point in time hash key to the order */
-  customer_pit_hk AS "%customer_pit_hk", /* Foreign point in time hash key to the customer */
-  product_pit_hk AS "%product_pit_hk", /* Foreign point in time hash key to the product */
-  store_pit_hk AS "%store_pit_hk", /* Foreign point in time hash key to the store */
+  item_pit_hk AS "item_pit_hk", /* Primary point in time hash key to the order line */
+  order_pit_hk AS "order_pit_hk", /* Foreign point in time hash key to the order */
+  customer_pit_hk AS "customer_pit_hk", /* Foreign point in time hash key to the customer */
+  product_pit_hk AS "product_pit_hk", /* Foreign point in time hash key to the product */
+  store_pit_hk AS "store_pit_hk", /* Foreign point in time hash key to the store */
   ordered_at AS "Ordered At", /* Timestamp of when the order was placed */
   quantity AS "Quantity", /* Ordered quantity */
   price AS "Unit Price", /* Unit price */
