@@ -5,4 +5,16 @@ repos:
         name: SQLMesh Format
         entry: bash -c '.env/bin/sqlmesh format || exit 0'
         language: system
-        types: [sql]
+        stages: [pre-commit]
+
+      - id: sqlmesh-plan
+        name: SQLMesh Plan
+        entry: |
+          bash -c '
+          branch=$(git rev-parse --abbrev-ref HEAD)
+          if [ "$branch" = "main" ]; then
+            .env/bin/sqlmesh plan || exit 1
+          fi
+          '
+        language: system
+        stages: [pre-commit]
