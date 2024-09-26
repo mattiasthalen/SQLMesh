@@ -9,8 +9,8 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__tweets
 ), casted_data AS (
   SELECT
-    id::BLOB AS id,
-    user_id::BLOB AS user_id,
+    id::BINARY AS id,
+    user_id::BINARY AS user_id,
     tweeted_at::TIMESTAMP AS tweeted_at,
     content::TEXT AS content,
     filename::TEXT AS filename,
@@ -20,10 +20,10 @@ WITH source_data AS (
 ), final_data AS (
   SELECT
     'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, user_id)::BLOB AS tweeter_hk,
-    @generate_surrogate_key__sha_256(source, id)::BLOB AS tweet_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS tweet_pit_hk,
-    @generate_surrogate_key__sha_256(source, user_id, id)::BLOB AS tweeter_hk__tweet_hk,
+    @generate_surrogate_key__sha_256(source, user_id)::BINARY AS tweeter_hk,
+    @generate_surrogate_key__sha_256(source, id)::BINARY AS tweet_hk,
+    @generate_surrogate_key__sha_256(source, id, valid_from)::BINARY AS tweet_pit_hk,
+    @generate_surrogate_key__sha_256(source, user_id, id)::BINARY AS tweeter_hk__tweet_hk,
     user_id AS tweeter_bk,
     id AS tweet_bk,
     *
