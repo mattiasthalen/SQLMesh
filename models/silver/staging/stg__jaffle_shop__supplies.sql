@@ -1,6 +1,8 @@
 MODEL (
   name silver.stg__jaffle_shop__supplies,
-  kind VIEW
+  kind VIEW,
+  grain supply_pit_hk,
+  references (supply_hk, product_hk, supply_hk__product_hk)
 );
 
 WITH source_data AS (

@@ -1,6 +1,8 @@
 MODEL (
   name silver.stg__jaffle_shop__products,
   kind VIEW,
+  grain product_pit_hk,
+  references product_hk,
   audits (UNIQUE_VALUES(columns := product_pit_hk), NOT_NULL(columns := product_pit_hk))
 );
 
