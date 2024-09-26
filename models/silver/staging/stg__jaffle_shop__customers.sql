@@ -9,7 +9,7 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__customers
 ), casted_data AS (
   SELECT
-    id::UUID AS id,
+    id::BLOB AS id,
     name::TEXT AS name,
     filename::TEXT AS filename,
     valid_from::TIMESTAMP AS valid_from,

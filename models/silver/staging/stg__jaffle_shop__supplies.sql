@@ -9,7 +9,7 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__supplies
 ), casted_data AS (
   SELECT
-    id::UUID AS id,
+    id::BLOB AS id,
     name::TEXT AS name,
     cost::DECIMAL(18, 3) AS cost,
     perishable::BOOLEAN AS perishable,

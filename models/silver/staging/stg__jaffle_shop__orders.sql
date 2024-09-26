@@ -9,10 +9,10 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__orders
 ), casted_data AS (
   SELECT
-    id::UUID AS id,
-    customer::UUID AS customer_id,
+    id::BLOB AS id,
+    customer::BLOB AS customer_id,
     ordered_at::TIMESTAMP AS ordered_at,
-    store_id::UUID AS store_id,
+    store_id::BLOB AS store_id,
     subtotal::INT AS subtotal,
     tax_paid::INT AS tax_paid,
     order_total::INT AS order_total,

@@ -9,8 +9,8 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__tweets
 ), casted_data AS (
   SELECT
-    id::UUID AS id,
-    user_id::UUID AS user_id,
+    id::BLOB AS id,
+    user_id::BLOB AS user_id,
     tweeted_at::TIMESTAMP AS tweeted_at,
     content::TEXT AS content,
     filename::TEXT AS filename,

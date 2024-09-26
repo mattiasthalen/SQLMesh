@@ -9,7 +9,7 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__stores
 ), casted_data AS (
   SELECT
-    id::UUID AS id,
+    id::BLOB AS id,
     name::TEXT AS name,
     opened_at::TIMESTAMP AS opened_at,
     tax_rate::DECIMAL(18, 3) AS tax_rate,

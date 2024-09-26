@@ -9,8 +9,8 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__items
 ), casted_data AS (
   SELECT
-    id::UUID AS id,
-    order_id::UUID AS order_id,
+    id::BLOB AS id,
+    order_id::BLOB AS order_id,
     sku::TEXT AS sku,
     filename::TEXT AS filename,
     valid_from::TIMESTAMP AS valid_from,
