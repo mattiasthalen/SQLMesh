@@ -28,6 +28,8 @@ WITH source_data AS (
     @generate_surrogate_key__sha_256(source_system, order_id)::BLOB AS order_hk,
     @generate_surrogate_key__sha_256(source_system, sku)::BLOB AS product_hk,
     @generate_surrogate_key__sha_256(source_system, order_id, sku)::BLOB AS order_hk__product_hk,
+    order_id AS order_bk,
+    sku AS product_bk,
     1 AS quantity,
     *
   FROM casted_data

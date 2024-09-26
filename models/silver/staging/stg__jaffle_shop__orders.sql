@@ -34,6 +34,8 @@ WITH source_data AS (
     @generate_surrogate_key__sha_256(source_system, id, store_id)::BLOB AS order_hk__store_hk,
     @generate_surrogate_key__sha_256(source_system, customer_id, id)::BLOB AS customer_hk__order_hk,
     id AS order_bk,
+    customer_id AS customer_bk,
+    store_id AS store_bk,
     *
   FROM casted_data
 )

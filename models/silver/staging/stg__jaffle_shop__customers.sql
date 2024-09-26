@@ -24,7 +24,7 @@ WITH source_data AS (
     'raw_customers' AS source_table,
     @generate_surrogate_key__sha_256(source_system, id)::BLOB AS customer_hk,
     @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS customer_pit_hk,
-    name AS customer_bk,
+    id AS customer_bk,
     *
   FROM casted_data
 )
