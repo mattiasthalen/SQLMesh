@@ -9,7 +9,7 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__customers
 ), casted_data AS (
   SELECT
-    id::BINARY AS id,
+    id::BLOB AS id,
     name::TEXT AS name,
     filename::TEXT AS filename,
     valid_from::TIMESTAMP AS valid_from,
@@ -18,8 +18,8 @@ WITH source_data AS (
 ), final_data AS (
   SELECT
     'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, id)::BINARY AS customer_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BINARY AS customer_pit_hk,
+    @generate_surrogate_key__sha_256(source, id)::BLOB AS customer_hk,
+    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS customer_pit_hk,
     name AS customer_bk,
     *
   FROM casted_data

@@ -9,8 +9,8 @@ WITH source_data AS (
   FROM bronze.snp__jaffle_shop__items
 ), casted_data AS (
   SELECT
-    id::BINARY AS id,
-    order_id::BINARY AS order_id,
+    id::BLOB AS id,
+    order_id::BLOB AS order_id,
     sku::TEXT AS sku,
     filename::TEXT AS filename,
     valid_from::TIMESTAMP AS valid_from,
@@ -19,11 +19,11 @@ WITH source_data AS (
 ), final_data AS (
   SELECT
     'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, id)::BINARY AS item_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BINARY AS item_pit_hk,
-    @generate_surrogate_key__sha_256(source, order_id)::BINARY AS order_hk,
-    @generate_surrogate_key__sha_256(source, sku)::BINARY AS product_hk,
-    @generate_surrogate_key__sha_256(source, order_id, sku)::BINARY AS order_hk__product_hk,
+    @generate_surrogate_key__sha_256(source, id)::BLOB AS item_hk,
+    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS item_pit_hk,
+    @generate_surrogate_key__sha_256(source, order_id)::BLOB AS order_hk,
+    @generate_surrogate_key__sha_256(source, sku)::BLOB AS product_hk,
+    @generate_surrogate_key__sha_256(source, order_id, sku)::BLOB AS order_hk__product_hk,
     1 AS quantity,
     *
   FROM casted_data

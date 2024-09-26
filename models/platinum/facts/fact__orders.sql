@@ -21,7 +21,6 @@ SELECT
   price_with_tax AS "Price With Tax", /* Price, including tax, for the order line */
   valid_from AS "Valid From", /* Timestamp when the order line record became valid (inclusive) */
   valid_to AS "Valid To" /* Timestamp of when the order line record expired (exclusive) */
-FROM gold.fact__orders
-;
+FROM gold.fact__orders;
 
 @export_to_parquet('platinum.fact__orders__ux', 'exports')
