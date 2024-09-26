@@ -1,3 +1,4 @@
 sqlmesh~=0.123.3
 duckcli~=0.2.1
 jafgen~=0.4.14
+pre-commit~=3.8.0

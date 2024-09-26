@@ -24,6 +24,13 @@
         "command": "pip install -r requirements.txt",
         "problemMatcher": [],
         "dependsOn": "Activate Virtual Environment"
+      },
+      {
+        "label": "Pre-Commit Install",
+        "type": "shell",
+        "command": "pre-commit install",
+        "problemMatcher": [],
+        "dependsOn": "Install Requirements"
       }
     ]
   }

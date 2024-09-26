@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: sqlmesh-format
+        name: SQLMesh Format
+        entry: .env/bin/sqlmesh format
+        language: system
+        types: [sql]
