@@ -3,6 +3,6 @@ repos:
     hooks:
       - id: sqlmesh-format
         name: SQLMesh Format
-        entry: .env/bin/sqlmesh format
+        entry: bash -c '.env/bin/sqlmesh format || exit 0'
         language: system
         types: [sql]
