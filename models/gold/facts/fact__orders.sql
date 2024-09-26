@@ -25,35 +25,27 @@ SELECT
   sat__item.source_table, /* Source table of the fact record */
   sat__item.valid_from, /* Timestamp when the order line record became valid (inclusive) */
   sat__item.valid_to /* Timestamp of when the order line record expired (exclusive) */
-FROM silver.hub__order
-INNER JOIN silver.sat__order
-  ON hub__order.order_hk = sat__order.order_hk
-INNER JOIN silver.link__customer__order
-  ON hub__order.order_hk = link__customer__order.order_hk
-  AND sat__order.valid_from BETWEEN link__customer__order.valid_from AND link__customer__order.valid_to
-INNER JOIN silver.hub__customer
-  ON link__customer__order.customer_hk = hub__customer.customer_hk
-INNER JOIN silver.sat__customer
-  ON hub__customer.customer_hk = sat__customer.customer_hk
-  AND sat__order.valid_from BETWEEN sat__customer.valid_from AND sat__customer.valid_to
+FROM silver.link__customer__order
 INNER JOIN silver.link__order__product
-  ON hub__order.order_hk = link__order__product.order_hk
-  AND sat__order.valid_from BETWEEN link__order__product.valid_from AND link__order__product.valid_to
+  ON link__customer__order.order_hk = link__order__product.order_hk
+  AND link__customer__order.valid_from BETWEEN link__order__product.valid_from AND link__order__product.valid_to
+INNER JOIN silver.link__order__store
+  ON link__customer__order.order_hk = link__order__store.order_hk
+  AND link__customer__order.valid_from BETWEEN link__order__store.valid_from AND link__order__store.valid_to
+INNER JOIN silver.sat__order
+  ON link__customer__order.order_hk = sat__order.order_hk
+  AND link__customer__order.valid_from BETWEEN sat__order.valid_from AND sat__order.valid_to
+INNER JOIN silver.sat__customer
+  ON link__customer__order.customer_hk = sat__customer.customer_hk
+  AND link__customer__order.valid_from BETWEEN sat__customer.valid_from AND sat__customer.valid_to
 INNER JOIN silver.sat__item
   ON link__order__product.order_hk__product_hk = sat__item.order_hk__product_hk
-  AND sat__order.valid_from BETWEEN sat__item.valid_from AND sat__item.valid_to
-INNER JOIN silver.hub__product
-  ON link__order__product.product_hk = hub__product.product_hk
+  AND link__customer__order.valid_from BETWEEN sat__item.valid_from AND sat__item.valid_to
 INNER JOIN silver.sat__product
-  ON hub__product.product_hk = sat__product.product_hk
-  AND sat__order.valid_from BETWEEN sat__product.valid_from AND sat__product.valid_to
-INNER JOIN silver.link__order__store
-  ON hub__order.order_hk = link__order__store.order_hk
-  AND sat__order.valid_from BETWEEN link__order__store.valid_from AND link__order__store.valid_to
-INNER JOIN silver.hub__store
-  ON link__order__store.store_hk = hub__store.store_hk
+  ON link__order__product.product_hk = sat__product.product_hk
+  AND link__customer__order.valid_from BETWEEN sat__product.valid_from AND sat__product.valid_to
 INNER JOIN silver.sat__store
-  ON hub__store.store_hk = sat__store.store_hk
-  AND sat__order.valid_from BETWEEN sat__store.valid_from AND sat__store.valid_to;
+  ON link__order__store.store_hk = sat__store.store_hk
+  AND link__customer__order.valid_from BETWEEN sat__store.valid_from AND sat__store.valid_to;
 
 @export_to_parquet('gold.fact__orders', 'exports')
