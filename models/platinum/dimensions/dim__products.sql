@@ -15,7 +15,8 @@ SELECT
   product__unit_price AS "Product - Unit Price", /* Unit price of the product */
   product__description AS "Product - Description", /* Description of the product */
   product__filename AS "Product - Filename", /* Filename of the import */
-  product__record_source AS "Product - Record Source", /* Source of the product record */
+  product__source_system AS "Product - Source System", /* Source system of the product record */
+  product__source_table AS "Product - Source Table", /* Source table of the product record */
   product__record_valid_from AS "Product - Record Valid From", /* Timestamp when the product record became valid (inclusive) */
   product__record_valid_to AS "Product - Record Valid To" /* Timestamp of when the product record expired (exclusive) */
 FROM gold.dim__products;

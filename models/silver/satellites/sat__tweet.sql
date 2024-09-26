@@ -10,7 +10,8 @@ SELECT
   tweeted_at,
   content,
   filename,
-  source,
+  source_system,
+  source_table,
   valid_from,
   valid_to
 FROM silver.stg__jaffle_shop__tweets

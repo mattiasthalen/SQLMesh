@@ -12,7 +12,8 @@ SELECT
   opened_at,
   tax_rate,
   filename,
-  source,
+  source_system,
+  source_table,
   valid_from,
   valid_to
 FROM silver.stg__jaffle_shop__stores

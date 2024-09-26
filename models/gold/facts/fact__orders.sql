@@ -21,8 +21,10 @@ SELECT
   sat__product.price * sat__item.quantity AS subtotal_price, /* Subtotal for the order line */
   subtotal_price * sat__store.tax_rate AS tax, /* Tax paid for the order line */
   subtotal_price + tax AS price_with_tax, /* Price, including tax, for the order line */
-  sat__order.valid_from, /* Timestamp when the order line record became valid (inclusive) */
-  sat__order.valid_to /* Timestamp of when the order line record expired (exclusive) */
+  sat__item.source_system, /* Source system of the fact record */
+  sat__item.source_table, /* Source table of the fact record */
+  sat__item.valid_from, /* Timestamp when the order line record became valid (inclusive) */
+  sat__item.valid_to /* Timestamp of when the order line record expired (exclusive) */
 FROM silver.hub__order
 INNER JOIN silver.sat__order
   ON hub__order.order_hk = sat__order.order_hk

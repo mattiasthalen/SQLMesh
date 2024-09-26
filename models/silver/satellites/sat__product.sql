@@ -13,7 +13,8 @@ SELECT
   price,
   description,
   filename,
-  source,
+  source_system,
+  source_table,
   valid_from,
   valid_to
 FROM silver.stg__jaffle_shop__products

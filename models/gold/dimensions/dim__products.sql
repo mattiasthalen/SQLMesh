@@ -16,7 +16,8 @@ SELECT
   price AS product__unit_price, /* Unit price of the product */
   description AS product__description, /* Description of the product */
   filename AS product__filename, /* Filename of the import */
-  source AS product__record_source, /* Source of the product record */
+  source_system AS product__source_system, /* Source system of the product record */
+  source_table AS product__source_table, /* Source table of the product record */
   valid_from AS product__record_valid_from, /* Timestamp when the product record became valid (inclusive) */
   valid_to AS product__record_valid_to /* Timestamp of when the product record expired (exclusive) */
 FROM silver.sat__product;

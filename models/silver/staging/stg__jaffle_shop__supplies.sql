@@ -22,11 +22,12 @@ WITH source_data AS (
   FROM source_data
 ), final_data AS (
   SELECT
-    'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, id)::BLOB AS supply_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS supply_pit_hk,
-    @generate_surrogate_key__sha_256(source, sku)::BLOB AS product_hk,
-    @generate_surrogate_key__sha_256(source, id, sku)::BLOB AS supply_hk__product_hk,
+    'jaffle_shop' AS source_system,
+    'raw_supplies' AS source_table,
+    @generate_surrogate_key__sha_256(source_system, id)::BLOB AS supply_hk,
+    @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS supply_pit_hk,
+    @generate_surrogate_key__sha_256(source_system, sku)::BLOB AS product_hk,
+    @generate_surrogate_key__sha_256(source_system, id, sku)::BLOB AS supply_hk__product_hk,
     id AS supply_bk,
     sku AS product_bk,
     *

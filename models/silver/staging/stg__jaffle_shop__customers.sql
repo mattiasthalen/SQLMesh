@@ -20,9 +20,10 @@ WITH source_data AS (
   FROM source_data
 ), final_data AS (
   SELECT
-    'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, id)::BLOB AS customer_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS customer_pit_hk,
+    'jaffle_shop' AS source_system,
+    'raw_customers' AS source_table,
+    @generate_surrogate_key__sha_256(source_system, id)::BLOB AS customer_hk,
+    @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS customer_pit_hk,
     name AS customer_bk,
     *
   FROM casted_data

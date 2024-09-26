@@ -23,9 +23,10 @@ WITH source_data AS (
   FROM source_data
 ), final_data AS (
   SELECT
-    'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, sku)::BLOB AS product_hk,
-    @generate_surrogate_key__sha_256(source, sku, valid_from)::BLOB AS product_pit_hk,
+    'jaffle_shop' AS source_system,
+    'raw_products' AS source_table,
+    @generate_surrogate_key__sha_256(source_system, sku)::BLOB AS product_hk,
+    @generate_surrogate_key__sha_256(source_system, sku, valid_from)::BLOB AS product_pit_hk,
     sku AS product_bk,
     *
   FROM casted_data

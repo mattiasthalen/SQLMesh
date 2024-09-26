@@ -13,7 +13,8 @@ SELECT
   id AS customer_id, /* Natural key for the customer */
   name AS customer, /* Name of the customer */
   filename AS customer__filename, /* Filename of the import */
-  source AS customer__record_source, /* Source of the customer record */
+  source_system AS customer__source_system, /* Source system of the customer record */
+  source_table AS customer__source_table, /* Source table of the customer record */
   valid_from AS customer__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
   valid_to AS customer__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
 FROM silver.sat__customer;

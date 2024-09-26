@@ -9,7 +9,8 @@ SELECT
   item_hk,
   item_pit_hk,
   quantity,
-  source,
+  source_system,
+  source_table,
   valid_from,
   valid_to
 FROM silver.stg__jaffle_shop__items

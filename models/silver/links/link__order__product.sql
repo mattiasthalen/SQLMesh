@@ -11,7 +11,8 @@ SELECT
   order_hk__product_hk,
   order_hk,
   product_hk,
-  source,
+  source_system,
+  source_table,
   MIN(valid_from) AS valid_from,
   MAX(valid_to) AS valid_to
 FROM silver.stg__jaffle_shop__items
@@ -19,4 +20,5 @@ GROUP BY
   order_hk__product_hk,
   order_hk,
   product_hk,
-  source
+  source_system,
+  source_table

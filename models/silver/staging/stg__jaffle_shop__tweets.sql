@@ -22,11 +22,12 @@ WITH source_data AS (
   FROM source_data
 ), final_data AS (
   SELECT
-    'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, user_id)::BLOB AS tweeter_hk,
-    @generate_surrogate_key__sha_256(source, id)::BLOB AS tweet_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS tweet_pit_hk,
-    @generate_surrogate_key__sha_256(source, user_id, id)::BLOB AS tweeter_hk__tweet_hk,
+    'jaffle_shop' AS source_system,
+    'raw_tweets' AS source_table,
+    @generate_surrogate_key__sha_256(source_system, user_id)::BLOB AS tweeter_hk,
+    @generate_surrogate_key__sha_256(source_system, id)::BLOB AS tweet_hk,
+    @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS tweet_pit_hk,
+    @generate_surrogate_key__sha_256(source_system, user_id, id)::BLOB AS tweeter_hk__tweet_hk,
     user_id AS tweeter_bk,
     id AS tweet_bk,
     *

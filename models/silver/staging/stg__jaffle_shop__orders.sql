@@ -25,13 +25,14 @@ WITH source_data AS (
   FROM source_data
 ), final_data AS (
   SELECT
-    'jaffle shop' AS source,
-    @generate_surrogate_key__sha_256(source, id)::BLOB AS order_hk,
-    @generate_surrogate_key__sha_256(source, id, valid_from)::BLOB AS order_pit_hk,
-    @generate_surrogate_key__sha_256(source, customer_id)::BLOB AS customer_hk,
-    @generate_surrogate_key__sha_256(source, store_id)::BLOB AS store_hk,
-    @generate_surrogate_key__sha_256(source, id, store_id)::BLOB AS order_hk__store_hk,
-    @generate_surrogate_key__sha_256(source, customer_id, id)::BLOB AS customer_hk__order_hk,
+    'jaffle_shop' AS source_system,
+    'raw_orders' AS source_table,
+    @generate_surrogate_key__sha_256(source_system, id)::BLOB AS order_hk,
+    @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS order_pit_hk,
+    @generate_surrogate_key__sha_256(source_system, customer_id)::BLOB AS customer_hk,
+    @generate_surrogate_key__sha_256(source_system, store_id)::BLOB AS store_hk,
+    @generate_surrogate_key__sha_256(source_system, id, store_id)::BLOB AS order_hk__store_hk,
+    @generate_surrogate_key__sha_256(source_system, customer_id, id)::BLOB AS customer_hk__order_hk,
     id AS order_bk,
     *
   FROM casted_data

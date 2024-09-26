@@ -15,7 +15,8 @@ SELECT
   opened_at AS store__opened_at, /* Timestamp of when the store opened */
   tax_rate AS store__tax_rate, /* Tax rate for the store */
   filename AS store__filename, /* Filename of the import */
-  source AS store__record_source, /* Source of the store record */
+  source_system AS store__source_system, /* Source system of the store record */
+  source_table AS store__source_table, /* Source table of the store record */
   valid_from AS store__record_valid_from, /* Timestamp when the store record became valid (inclusive) */
   valid_to AS store__record_valid_to /* Timestamp of when the store record expired (exclusive) */
 FROM silver.sat__store;

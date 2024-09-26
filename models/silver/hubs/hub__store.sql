@@ -7,10 +7,12 @@ MODEL (
 SELECT
   store_hk,
   store_bk,
-  source,
+  source_system,
+  source_table,
   MIN(valid_from) AS valid_from
 FROM silver.stg__jaffle_shop__stores
 GROUP BY
   store_hk,
   store_bk,
-  source
+  source_system,
+  source_table

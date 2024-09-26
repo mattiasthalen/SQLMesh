@@ -7,7 +7,8 @@ MODEL (
 SELECT
   customer_hk,
   customer_pit_hk,
-  source,
+  source_system,
+  source_table,
   id,
   name,
   filename,

@@ -20,6 +20,8 @@ SELECT
   subtotal_price AS "Subtotal", /* Subtotal for the order line */
   tax AS "Tax Paid", /* Tax paid for the order line */
   price_with_tax AS "Price With Tax", /* Price, including tax, for the order line */
+  source_system AS "Source System", /* Source system of the fact record */
+  source_table AS "Source Table", /* Source table of the fact record */
   valid_from AS "Valid From", /* Timestamp when the order line record became valid (inclusive) */
   valid_to AS "Valid To" /* Timestamp of when the order line record expired (exclusive) */
 FROM gold.fact__orders;
