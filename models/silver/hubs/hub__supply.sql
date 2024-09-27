@@ -4,15 +4,11 @@ MODEL (
   audits (UNIQUE_VALUES(columns := supply_hk), NOT_NULL(columns := supply_hk))
 );
 
-SELECT
-  supply_hk,
-  supply_bk,
-  source_system,
-  source_table,
-  MIN(valid_from) AS valid_from
-FROM silver.stg__jaffle_shop__supplies
-GROUP BY
-  supply_hk,
-  supply_bk,
-  source_system,
-  source_table
+@data_vault__load_hub(
+  sources := silver.stg__jaffle_shop__supplies,
+  business_key := supply_bk,
+  hash_key := supply_hk,
+  source_system := source_system,
+  source_table := source_table,
+  load_date := valid_from
+)

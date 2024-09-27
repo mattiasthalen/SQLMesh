@@ -4,47 +4,11 @@ MODEL (
   audits (UNIQUE_VALUES(columns := store_hk), NOT_NULL(columns := store_hk))
 );
 
-WITH primary_source AS (
-  SELECT
-    store_hk,
-    store_bk,
-    source_system,
-    source_table,
-    MIN(valid_from) AS valid_from
-  FROM silver.stg__jaffle_shop__stores
-  GROUP BY
-    store_hk,
-    store_bk,
-    source_system,
-    source_table
-), secondary_source AS (
-  SELECT
-    store_hk,
-    store_bk,
-    source_system,
-    source_table,
-    MIN(valid_from) AS valid_from
-  FROM silver.stg__jaffle_shop__orders
-  GROUP BY
-    store_hk,
-    store_bk,
-    source_system,
-    source_table
-), union_all AS (
-  SELECT
-    *
-  FROM primary_source
-  UNION ALL
-  SELECT
-    *
-  FROM secondary_source
-  WHERE
-    NOT store_bk IN (
-      SELECT
-        store_bk
-      FROM primary_source
-    )
+@data_vault__load_hub(
+  sources := (silver.stg__jaffle_shop__stores, silver.stg__jaffle_shop__orders),
+  business_key := store_bk,
+  hash_key := store_hk,
+  source_system := source_system,
+  source_table := source_table,
+  load_date := valid_from
 )
-SELECT
-  *
-FROM union_all
