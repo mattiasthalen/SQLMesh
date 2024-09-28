@@ -44,6 +44,9 @@ def execute(
         "Los Angeles": {"lat": "34.0522", "lon": "-118.2437"}
     }
 
+    locations_df = pd.DataFrame.from_dict(locations, orient='index').reset_index()
+    locations_df.columns = ['city', 'lat', 'lon']
+
     url = "https://meteostat.p.rapidapi.com/point/daily"
 
     headers = {
@@ -51,12 +54,12 @@ def execute(
         "x-rapidapi-host": "meteostat.p.rapidapi.com"
     }
 
-    final_df = pd.DataFrame()
+    all_data = []
 
-    for city, coords in locations.items():
+    for _, row in locations_df.iterrows():
         querystring = {
-            "lat": coords["lat"],
-            "lon": coords["lon"],
+            "lat": row['lat'],
+            "lon": row['lon'],
             "start": start.strftime('%Y-%m-%d'),
             "end": end.strftime('%Y-%m-%d')
         }
@@ -65,10 +68,12 @@ def execute(
         data = response.json()
 
         df = pd.DataFrame(data['data'])
-        df['city'] = city
-        df['lat'] = coords["lat"]
-        df['lon'] = coords["lon"]
+        df['city'] = row['city']
 
-        final_df = pd.concat([final_df, df], ignore_index=True)
+        all_data.append(df)
+
+    weather_df = pd.concat(all_data, ignore_index=True)
+
+    final_df = locations_df.merge(weather_df, on='city', how='inner')
 
     return final_df
