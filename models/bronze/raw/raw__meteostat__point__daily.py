@@ -65,15 +65,23 @@ def execute(
         }
 
         response = requests.get(url, headers=headers, params=querystring)
+        if response.status_code != 200:
+            print(f"Failed to fetch data for {row['city']}, status code: {response.status_code}")
+            continue
+
         data = response.json()
+        if 'data' not in data:
+            print(f"No data found for {row['city']}")
+            continue
 
         df = pd.DataFrame(data['data'])
         df['city'] = row['city']
-
         all_data.append(df)
 
-    weather_df = pd.concat(all_data, ignore_index=True)
+    if not all_data:
+        return locations_df
 
-    final_df = locations_df.merge(weather_df, on='city', how='inner')
+    weather_df = pd.concat(all_data, ignore_index=True)
+    final_df = locations_df.merge(weather_df, on='city', how='left')
 
     return final_df
