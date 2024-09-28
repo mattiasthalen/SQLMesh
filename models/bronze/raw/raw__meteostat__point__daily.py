@@ -75,13 +75,19 @@ def execute(
             continue
 
         df = pd.DataFrame(data['data'])
+        if df.empty:
+            print(f"No data available for {row['city']}")
+            continue
+
         df['city'] = row['city']
         all_data.append(df)
 
-    if not all_data:
-        return locations_df
+    all_data__filtered = [df for df in all_data if not df.empty]
 
-    weather_df = pd.concat(all_data, ignore_index=True)
+    if not all_data__filtered:
+        return locations_df
+    
+    weather_df = pd.concat(all_data__filtered, ignore_index=True)
     final_df = locations_df.merge(weather_df, on='city', how='left')
 
     return final_df
