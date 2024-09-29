@@ -80,14 +80,12 @@ def execute(
             continue
 
         df['city'] = row['city']
+
+        print(f"{row['city']}: {len(df)}")
+
         all_data.append(df)
 
-    all_data__filtered = [df for df in all_data if not df.empty]
-
-    if not all_data__filtered:
-        return None
-    
-    weather_df = pd.concat(all_data__filtered, ignore_index=True)
-    final_df = locations_df.merge(weather_df, on='city', how='left')
+    weather_df = pd.concat(all_data, ignore_index=True)
+    final_df = locations_df.merge(weather_df, on='city', how='inner')
 
     return final_df
