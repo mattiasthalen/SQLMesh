@@ -8,7 +8,10 @@ from sqlmesh.core.model.kind import ModelKindName
 
 @model(
     "bronze.raw__meteostat__point__daily",
-    kind="full",
+    kind=dict(
+        name=ModelKindName.INCREMENTAL_BY_TIME_RANGE,
+        time_column="date"
+    ),
     columns={
         "lat": "text",
         "lon": "text",
