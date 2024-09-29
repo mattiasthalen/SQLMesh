@@ -2,8 +2,10 @@ MODEL (
   name silver.stg__meteostat__point__daily,
   kind VIEW,
   grain city_hk,
-  references (city_hk__coords_hk, coords_hk),
-  audits (UNIQUE_VALUES(columns := city_hk), NOT_NULL(columns := city_hk))
+  references (
+    coords_hk
+  ),
+  audits (UNIQUE_VALUES(columns := coords_hk), NOT_NULL(columns := coords_hk))
 );
 
 WITH source_data AS (
@@ -15,16 +17,16 @@ WITH source_data AS (
     latitude::DECIMAL(18, 3) AS latitude,
     longitude::DECIMAL(18, 3) AS longitude,
     date::DATE AS date,
-    tavg::DECIMAL(18, 3) AS tavg,
-    tmin::DECIMAL(18, 3) AS tmin,
-    tmax::DECIMAL(18, 3) AS tmax,
-    prcp::DECIMAL(18, 3) AS prcp,
-    snow::DECIMAL(18, 3) AS snow,
-    wdir::DECIMAL(18, 3) AS wdir,
-    wspd::DECIMAL(18, 3) AS wspd,
-    wpgt::DECIMAL(18, 3) AS wpgt,
-    pres::DECIMAL(18, 3) AS pres,
-    tsun::DECIMAL(18, 3) AS tsun,
+    NULLIF(NULLIF(tavg, 'nan'), 'None')::DECIMAL(18, 3) AS tavg,
+    NULLIF(NULLIF(tmin, 'nan'), 'None')::DECIMAL(18, 3) AS tmin,
+    NULLIF(NULLIF(tmax, 'nan'), 'None')::DECIMAL(18, 3) AS tmax,
+    NULLIF(NULLIF(prcp, 'nan'), 'None')::DECIMAL(18, 3) AS prcp,
+    NULLIF(NULLIF(snow, 'nan'), 'None')::DECIMAL(18, 3) AS snow,
+    NULLIF(NULLIF(wdir, 'nan'), 'None')::DECIMAL(18, 3) AS wdir,
+    NULLIF(NULLIF(wspd, 'nan'), 'None')::DECIMAL(18, 3) AS wspd,
+    NULLIF(NULLIF(wpgt, 'nan'), 'None')::DECIMAL(18, 3) AS wpgt,
+    NULLIF(NULLIF(pres, 'nan'), 'None')::DECIMAL(18, 3) AS pres,
+    NULLIF(NULLIF(tsun, 'nan'), 'None')::DECIMAL(18, 3) AS tsun,
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
