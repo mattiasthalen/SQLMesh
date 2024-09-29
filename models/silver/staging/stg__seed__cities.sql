@@ -23,8 +23,11 @@ WITH source_data AS (
     'seed' AS source_system,
     'cities' AS source_table,
     @generate_surrogate_key__sha_256(city)::BLOB AS city_hk,
+    @generate_surrogate_key__sha_256(city, valid_from)::BLOB AS city_pit_hk,
     @generate_surrogate_key__sha_256(city, latitude, longitude)::BLOB AS city_hk__coords_hk,
     @generate_surrogate_key__sha_256(latitude, longitude)::BLOB AS coords_hk,
+    city AS city_bk,
+    CONCAT(latitude, '|', longitude) AS coords_bk,
     *
   FROM casted_data
 )

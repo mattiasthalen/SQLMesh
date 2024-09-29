@@ -26,7 +26,10 @@ WITH source_data AS (
     'raw_stores' AS source_table,
     @generate_surrogate_key__sha_256(source_system, id)::BLOB AS store_hk,
     @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS store_pit_hk,
+    @generate_surrogate_key__sha_256(name)::BLOB AS city_hk,
+    @generate_surrogate_key__sha_256(id, name)::BLOB AS store_hk__city__hk,
     id AS store_bk,
+    name AS city_bk,
     *
   FROM casted_data
 )
