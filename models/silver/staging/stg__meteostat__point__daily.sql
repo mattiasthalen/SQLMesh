@@ -34,6 +34,7 @@ WITH source_data AS (
     'point__daily' AS source_table,
     @generate_surrogate_key__sha_256(latitude, longitude)::BLOB AS coords_hk,
     @generate_surrogate_key__sha_256(latitude, longitude, valid_from)::BLOB AS coords_pit_hk,
+    CONCAT(latitude, '|', longitude) AS coords_bk,
     *
   FROM casted_data
 )
