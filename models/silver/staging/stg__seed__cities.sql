@@ -2,8 +2,8 @@ MODEL (
   name silver.stg__seed__cities,
   kind VIEW,
   grain city_hk,
-  references (city_hk__coords_hk, city_hk, coords_hk),
-  audits (UNIQUE_VALUES(columns := coords_pit_hk), NOT_NULL(columns := coords_pit_hk))
+  references (city_hk__coords_hk, coords_hk),
+  audits (UNIQUE_VALUES(columns := city_hk), NOT_NULL(columns := city_hk))
 );
 
 WITH source_data AS (
@@ -25,7 +25,6 @@ WITH source_data AS (
     @generate_surrogate_key__sha_256(city)::BLOB AS city_hk,
     @generate_surrogate_key__sha_256(city, latitude, longitude)::BLOB AS city_hk__coords_hk,
     @generate_surrogate_key__sha_256(latitude, longitude)::BLOB AS coords_hk,
-    @generate_surrogate_key__sha_256(latitude, longitude, valid_from)::BLOB AS coords_pit_hk,
     *
   FROM casted_data
 )
