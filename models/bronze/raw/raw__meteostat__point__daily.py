@@ -33,7 +33,7 @@ def execute(
     end: datetime,
     execution_time: datetime,
     **kwargs: t.Any,
-) -> pd.DataFrame:
+) -> pd.DataFrame | None:
 
     locations = {
         "Philadelphia": {"lat": "39.9526", "lon": "-75.1652"},
@@ -85,7 +85,7 @@ def execute(
     all_data__filtered = [df for df in all_data if not df.empty]
 
     if not all_data__filtered:
-        return locations_df
+        return None
     
     weather_df = pd.concat(all_data__filtered, ignore_index=True)
     final_df = locations_df.merge(weather_df, on='city', how='left')
