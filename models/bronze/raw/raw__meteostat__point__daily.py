@@ -10,7 +10,6 @@ from sqlmesh.core.model.kind import ModelKindName
     "bronze.raw__meteostat__point__daily",
     kind="full",
     columns={
-        "city": "text",
         "lat": "text",
         "lon": "text",
         "date": "text",
@@ -79,13 +78,13 @@ def execute(
             print(f"No data available for {row['city']}")
             continue
 
-        df['city'] = row['city']
+        df['lat'] = row['lat']
+        df['lon'] = row['lon']
 
         print(f"{row['city']}: {len(df)}")
 
         all_data.append(df)
 
-    weather_df = pd.concat(all_data, ignore_index=True)
-    final_df = locations_df.merge(weather_df, on='city', how='inner')
+    final_df = pd.concat(all_data, ignore_index=True)
 
     return final_df
