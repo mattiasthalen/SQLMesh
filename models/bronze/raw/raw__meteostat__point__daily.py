@@ -1,6 +1,7 @@
 import pandas as pd
 import typing as t
 import requests
+import time
 
 from datetime import datetime
 from sqlmesh import ExecutionContext, model
@@ -13,8 +14,8 @@ from sqlmesh.core.model.kind import ModelKindName
         time_column="date"
     ),
     columns={
-        "lat": "text",
-        "lon": "text",
+        "latitude": "text",
+        "longitude": "text",
         "date": "text",
 	    "tavg": "text",
 	    "tmin": "text",
@@ -36,19 +37,10 @@ def execute(
     execution_time: datetime,
     **kwargs: t.Any,
 ) -> pd.DataFrame | None:
-
-    locations = {
-        "Philadelphia": {"lat": "39.9526", "lon": "-75.1652"},
-        "Brooklyn": {"lat": "40.6782", "lon": "-73.9442"},
-        "Chicago": {"lat": "41.8781", "lon": "-87.6298"},
-        "San Francisco": {"lat": "37.7749", "lon": "-122.4194"},
-        "New Orleans": {"lat": "29.9511", "lon": "-90.0715"},
-        "Los Angeles": {"lat": "34.0522", "lon": "-118.2437"}
-    }
-
-    locations_df = pd.DataFrame.from_dict(locations, orient='index').reset_index()
-    locations_df.columns = ['city', 'lat', 'lon']
-
+    
+    raw__seed__cities = context.table("bronze.raw__seed__cities")
+    raw__seed__cities__df = context.fetchdf(f"SELECT * FROM {raw__seed__cities}")
+    
     url = "https://meteostat.p.rapidapi.com/point/daily"
 
     headers = {
@@ -58,17 +50,26 @@ def execute(
 
     all_data = []
 
-    for _, row in locations_df.iterrows():
+    for _, row in raw__seed__cities__df.iterrows():
         querystring = {
-            "lat": row['lat'],
-            "lon": row['lon'],
+            "lat": row['latitude'],
+            "lon": row['longitude'],
             "start": start.strftime('%Y-%m-%d'),
             "end": end.strftime('%Y-%m-%d')
         }
 
-        response = requests.get(url, headers=headers, params=querystring)
+        for attempt in range(5):
+            response = requests.get(url, headers=headers, params=querystring)
+            if response.status_code == 200:
+                break
+            elif response.status_code == 429:
+                print(f"Rate limit exceeded. Retrying in 3 seconds...")
+                time.sleep(3)
+            else:
+                print(f"Error fetching data for {row['city']}: {response.status_code}")
+                break
+
         if response.status_code != 200:
-            print(f"Failed to fetch data for {row['city']}, status code: {response.status_code}")
             continue
 
         data = response.json()
@@ -77,16 +78,13 @@ def execute(
             continue
 
         df = pd.DataFrame(data['data'])
-        if df.empty:
-            print(f"No data available for {row['city']}")
-            continue
 
-        df['lat'] = row['lat']
-        df['lon'] = row['lon']
+        df['latitude'] = row['latitude']
+        df['longitude'] = row['longitude']
 
         print(f"{row['city']}: {len(df)}")
 
-        all_data.append(df)
+        all_data.append(df.astype(str))
 
     final_df = pd.concat(all_data, ignore_index=True)
 
