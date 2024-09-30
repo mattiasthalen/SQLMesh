@@ -44,20 +44,26 @@ SELECT
   sat__item.source_table, /* Source table of the fact record */
   sat__item.valid_from, /* Timestamp when the order line record became valid (inclusive) */
   sat__item.valid_to /* Timestamp of when the order line record expired (exclusive) */
-FROM silver.bridge__customer__order__store__city__coords
+FROM silver /* Links */.link__customer__order
 INNER JOIN silver.link__order__product
-  ON bridge__customer__order__store__city__coords.order_hk = link__order__product.order_hk
+  ON link__customer__order.order_hk = link__order__product.order_hk
+INNER JOIN silver.link__order__store
+  ON link__customer__order.order_hk = link__order__store.order_hk
+INNER JOIN silver.link__store__city
+  ON link__order__store.store_hk = link__store__city.store_hk
+INNER JOIN silver.link__city__coords
+  ON link__store__city.city_hk = link__city__coords.city_hk
 /* Hubs */
 INNER JOIN silver.hub__customer
-  ON bridge__customer__order__store__city__coords.customer_hk = hub__customer.customer_hk
+  ON link__customer__order.customer_hk = hub__customer.customer_hk
 INNER JOIN silver.hub__order
-  ON bridge__customer__order__store__city__coords.order_hk = hub__order.order_hk
+  ON link__customer__order.order_hk = hub__order.order_hk
 INNER JOIN silver.hub__store
-  ON bridge__customer__order__store__city__coords.store_hk = hub__store.store_hk
+  ON link__order__store.store_hk = hub__store.store_hk
 INNER JOIN silver.hub__city
-  ON bridge__customer__order__store__city__coords.city_hk = hub__city.city_hk
+  ON link__store__city.city_hk = hub__city.city_hk
 INNER JOIN silver.hub__coords
-  ON bridge__customer__order__store__city__coords.coords_hk = hub__coords.coords_hk
+  ON link__city__coords.coords_hk = hub__coords.coords_hk
 INNER JOIN silver.hub__product
   ON link__order__product.product_hk = hub__product.product_hk
 /* Satellites */
