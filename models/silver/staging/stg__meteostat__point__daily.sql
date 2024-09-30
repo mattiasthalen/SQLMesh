@@ -30,15 +30,21 @@ WITH source_data AS (
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
-), final_data AS (
+), data_vault AS (
   SELECT
     'meteostat' AS source_system,
     'point__daily' AS source_table,
-    @generate_surrogate_key__sha_256(latitude, longitude)::BLOB AS coords_hk,
-    @generate_surrogate_key__sha_256(latitude, longitude, valid_from)::BLOB AS coords_pit_hk,
     CONCAT(latitude, '|', longitude) AS coords_bk,
+    CONCAT(source_system, '|', latitude, '|', longitude, '|', date) AS weather_bk,
     *
   FROM casted_data
+), final_data AS (
+  SELECT
+    @generate_surrogate_key__sha_256(coords_bk)::BLOB AS coords_hk,
+    @generate_surrogate_key__sha_256(weather_bk)::BLOB AS weather_hk,
+    @generate_surrogate_key__sha_256(weather_bk, valid_from)::BLOB AS weather_pit_hk,
+    *
+  FROM data_vault
 )
 SELECT
   *

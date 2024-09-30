@@ -20,18 +20,22 @@ WITH source_data AS (
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
-), final_data AS (
+), data_vault AS (
   SELECT
     'jaffle_shop' AS source_system,
     'raw_supplies' AS source_table,
-    @generate_surrogate_key__sha_256(source_system, id)::BLOB AS supply_hk,
-    @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS supply_pit_hk,
-    @generate_surrogate_key__sha_256(source_system, sku)::BLOB AS product_hk,
-    @generate_surrogate_key__sha_256(source_system, id, sku)::BLOB AS supply_hk__product_hk,
-    id AS supply_bk,
-    sku AS product_bk,
+    CONCAT(source_system, '|', id) AS supply_bk,
+    CONCAT(source_system, '|', sku) AS product_bk,
     *
   FROM casted_data
+), final_data AS (
+  SELECT
+    @generate_surrogate_key__sha_256(supply_bk)::BLOB AS supply_hk,
+    @generate_surrogate_key__sha_256(supply_bk, valid_from)::BLOB AS supply_pit_hk,
+    @generate_surrogate_key__sha_256(product_bk)::BLOB AS product_hk,
+    @generate_surrogate_key__sha_256(supply_bk, product_bk)::BLOB AS supply_hk__product_hk,
+    *
+  FROM data_vault
 )
 SELECT
   *

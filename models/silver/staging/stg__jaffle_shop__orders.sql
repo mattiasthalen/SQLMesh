@@ -23,21 +23,25 @@ WITH source_data AS (
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
-), final_data AS (
+), data_vault AS (
   SELECT
     'jaffle_shop' AS source_system,
     'raw_orders' AS source_table,
-    @generate_surrogate_key__sha_256(source_system, id)::BLOB AS order_hk,
-    @generate_surrogate_key__sha_256(source_system, id, valid_from)::BLOB AS order_pit_hk,
-    @generate_surrogate_key__sha_256(source_system, customer_id)::BLOB AS customer_hk,
-    @generate_surrogate_key__sha_256(source_system, store_id)::BLOB AS store_hk,
-    @generate_surrogate_key__sha_256(source_system, id, store_id)::BLOB AS order_hk__store_hk,
-    @generate_surrogate_key__sha_256(source_system, customer_id, id)::BLOB AS customer_hk__order_hk,
-    id AS order_bk,
-    customer_id AS customer_bk,
-    store_id AS store_bk,
+    CONCAT(source_system, '|', id) AS order_bk,
+    CONCAT(source_system, '|', customer_id) AS customer_bk,
+    CONCAT(source_system, '|', store_id) AS store_bk,
     *
   FROM casted_data
+), final_data AS (
+  SELECT
+    @generate_surrogate_key__sha_256(order_bk)::BLOB AS order_hk,
+    @generate_surrogate_key__sha_256(order_bk, valid_from)::BLOB AS order_pit_hk,
+    @generate_surrogate_key__sha_256(customer_bk)::BLOB AS customer_hk,
+    @generate_surrogate_key__sha_256(store_bk)::BLOB AS store_hk,
+    @generate_surrogate_key__sha_256(order_bk, store_bk)::BLOB AS order_hk__store_hk,
+    @generate_surrogate_key__sha_256(customer_bk, order_bk)::BLOB AS customer_hk__order_hk,
+    *
+  FROM data_vault
 )
 SELECT
   *

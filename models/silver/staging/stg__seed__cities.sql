@@ -18,18 +18,22 @@ WITH source_data AS (
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
-), final_data AS (
+), data_vault AS (
   SELECT
     'seed' AS source_system,
     'cities' AS source_table,
-    @generate_surrogate_key__sha_256(city)::BLOB AS city_hk,
-    @generate_surrogate_key__sha_256(city, valid_from)::BLOB AS city_pit_hk,
-    @generate_surrogate_key__sha_256(city, latitude, longitude)::BLOB AS city_hk__coords_hk,
-    @generate_surrogate_key__sha_256(latitude, longitude)::BLOB AS coords_hk,
     city AS city_bk,
     CONCAT(latitude, '|', longitude) AS coords_bk,
     *
   FROM casted_data
+), final_data AS (
+  SELECT
+    @generate_surrogate_key__sha_256(city_bk)::BLOB AS city_hk,
+    @generate_surrogate_key__sha_256(city_bk, valid_from)::BLOB AS city_pit_hk,
+    @generate_surrogate_key__sha_256(city_bk, coords_bk)::BLOB AS city_hk__coords_hk,
+    @generate_surrogate_key__sha_256(coords_bk)::BLOB AS coords_hk,
+    *
+  FROM data_vault
 )
 SELECT
   *
