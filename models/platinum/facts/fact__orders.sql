@@ -2,9 +2,17 @@
 MODEL (
   name platinum.fact__orders__ux,
   kind VIEW,
-  grain item_pit_hk,
-  references ("order_pit_hk", "customer_pit_hk", "product_pit_hk", "store_pit_hk"),
-  audits (UNIQUE_VALUES(columns := item_pit_hk), NOT_NULL(columns := item_pit_hk))
+  grain fact_record_hk,
+  references (
+    item_pit_hk,
+    order_pit_hk,
+    customer_pit_hk,
+    product_pit_hk,
+    store_pit_hk,
+    city_pit_hk,
+    weather_pit_hk
+  ),
+  audits (UNIQUE_VALUES(columns := fact_record_hk), NOT_NULL(columns := fact_record_hk))
 );
 
 SELECT
