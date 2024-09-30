@@ -21,12 +21,12 @@ WITH source_data AS (
     NULLIF(NULLIF(tmin, 'nan'), 'None')::DECIMAL(18, 3) AS tmin,
     NULLIF(NULLIF(tmax, 'nan'), 'None')::DECIMAL(18, 3) AS tmax,
     NULLIF(NULLIF(prcp, 'nan'), 'None')::DECIMAL(18, 3) AS prcp,
-    NULLIF(NULLIF(snow, 'nan'), 'None')::DECIMAL(18, 3) AS snow,
-    NULLIF(NULLIF(wdir, 'nan'), 'None')::DECIMAL(18, 3) AS wdir,
+    NULLIF(NULLIF(snow, 'nan'), 'None')::INT AS snow,
+    NULLIF(NULLIF(wdir, 'nan'), 'None')::INT AS wdir,
     NULLIF(NULLIF(wspd, 'nan'), 'None')::DECIMAL(18, 3) AS wspd,
     NULLIF(NULLIF(wpgt, 'nan'), 'None')::DECIMAL(18, 3) AS wpgt,
     NULLIF(NULLIF(pres, 'nan'), 'None')::DECIMAL(18, 3) AS pres,
-    NULLIF(NULLIF(tsun, 'nan'), 'None')::DECIMAL(18, 3) AS tsun,
+    NULLIF(NULLIF(tsun, 'nan'), 'None')::INT AS tsun,
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
