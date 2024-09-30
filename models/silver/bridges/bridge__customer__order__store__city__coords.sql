@@ -19,7 +19,8 @@ SELECT
   hub__order.order_hk,
   hub__store.store_hk,
   hub__city.city_hk,
-  hub__coords.coords_hk
+  hub__coords.coords_hk,
+  @execution_ts AS bridged_at
 FROM silver.hub__customer
 INNER JOIN silver.link__customer__order
   ON hub__customer.customer_hk = link__customer__order.customer_hk
