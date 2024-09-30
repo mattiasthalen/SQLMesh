@@ -1,6 +1,6 @@
 MODEL (
   name silver.hub__tweet,
-  kind VIEW,
+  kind FULL,
   audits (UNIQUE_VALUES(columns := tweet_hk), NOT_NULL(columns := tweet_hk))
 );
 

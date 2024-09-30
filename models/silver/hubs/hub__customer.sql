@@ -1,6 +1,6 @@
 MODEL (
   name silver.hub__customer,
-  kind VIEW,
+  kind FULL,
   audits (UNIQUE_VALUES(columns := customer_hk), NOT_NULL(columns := customer_hk))
 );
 

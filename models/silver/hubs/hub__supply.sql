@@ -1,6 +1,6 @@
 MODEL (
   name silver.hub__supply,
-  kind VIEW,
+  kind FULL,
   audits (UNIQUE_VALUES(columns := supply_hk), NOT_NULL(columns := supply_hk))
 );
 

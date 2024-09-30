@@ -1,6 +1,6 @@
 MODEL (
   name silver.link__order__product,
-  kind VIEW,
+  kind FULL,
   audits (
     UNIQUE_VALUES(columns := order_hk__product_hk),
     NOT_NULL(columns := (order_hk__product_hk, order_hk, product_hk))

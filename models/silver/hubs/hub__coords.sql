@@ -1,6 +1,6 @@
 MODEL (
   name silver.hub__coords,
-  kind VIEW,
+  kind FULL,
   audits (UNIQUE_VALUES(columns := coords_hk), NOT_NULL(columns := coords_hk))
 );
 
