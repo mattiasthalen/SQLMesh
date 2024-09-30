@@ -7,18 +7,12 @@ MODEL (
   )
 );
 
-SELECT
-  city_hk__coords_hk,
-  city_hk,
-  coords_hk,
-  source_system,
-  source_table,
-  MIN(valid_from) AS valid_from,
-  MAX(valid_to) AS valid_to
-FROM silver.stg__seed__cities
-GROUP BY
-  city_hk__coords_hk,
-  city_hk,
-  coords_hk,
-  source_system,
-  source_table
+@data_vault__load_link(
+  sources := silver.stg__seed__cities,
+  link_key := city_hk__coords_hk,
+  hash_keys := (city_hk, coords_hk),
+  source_system := source_system,
+  source_table := source_table,
+  load_date := valid_from,
+  load_end_date := valid_to
+)
