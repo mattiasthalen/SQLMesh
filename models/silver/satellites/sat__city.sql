@@ -7,6 +7,7 @@ MODEL (
 SELECT
   city_hk,
   city_pit_hk,
+  city,
   latitude,
   longitude,
   source_system,
