@@ -40,9 +40,9 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(coords_bk)::BLOB AS coords_hk,
-    @generate_surrogate_key__sha_256(weather_bk)::BLOB AS weather_hk,
-    @generate_surrogate_key__sha_256(weather_bk, valid_from)::BLOB AS weather_pit_hk,
+    @generate_surrogate_key__sha_256(coords_bk) AS coords_hk,
+    @generate_surrogate_key__sha_256(weather_bk) AS weather_hk,
+    @generate_surrogate_key__sha_256(weather_bk, valid_from) AS weather_pit_hk,
     *
   FROM data_vault
 )

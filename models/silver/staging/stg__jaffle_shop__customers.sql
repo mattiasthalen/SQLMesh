@@ -27,8 +27,8 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(customer_bk)::BLOB AS customer_hk,
-    @generate_surrogate_key__sha_256(customer_bk, valid_from)::BLOB AS customer_pit_hk,
+    @generate_surrogate_key__sha_256(customer_bk) AS customer_hk,
+    @generate_surrogate_key__sha_256(customer_bk, valid_from) AS customer_pit_hk,
     *
   FROM data_vault
 )

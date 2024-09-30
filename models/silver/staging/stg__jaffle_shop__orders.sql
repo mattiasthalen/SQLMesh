@@ -34,12 +34,12 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(order_bk)::BLOB AS order_hk,
-    @generate_surrogate_key__sha_256(order_bk, valid_from)::BLOB AS order_pit_hk,
-    @generate_surrogate_key__sha_256(customer_bk)::BLOB AS customer_hk,
-    @generate_surrogate_key__sha_256(store_bk)::BLOB AS store_hk,
-    @generate_surrogate_key__sha_256(order_bk, store_bk)::BLOB AS order_hk__store_hk,
-    @generate_surrogate_key__sha_256(customer_bk, order_bk)::BLOB AS customer_hk__order_hk,
+    @generate_surrogate_key__sha_256(order_bk) AS order_hk,
+    @generate_surrogate_key__sha_256(order_bk, valid_from) AS order_pit_hk,
+    @generate_surrogate_key__sha_256(customer_bk) AS customer_hk,
+    @generate_surrogate_key__sha_256(store_bk) AS store_hk,
+    @generate_surrogate_key__sha_256(order_bk, store_bk) AS order_hk__store_hk,
+    @generate_surrogate_key__sha_256(customer_bk, order_bk) AS customer_hk__order_hk,
     *
   FROM data_vault
 )

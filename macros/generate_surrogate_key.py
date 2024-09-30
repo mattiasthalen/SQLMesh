@@ -25,4 +25,4 @@ def generate_surrogate_key__sha_256(evaluator, *fields: exp.Expression) -> exp.F
                 exp.Literal.string("_sqlmesh_surrogate_key_null_"),
             )
         )
-    return exp.func("SHA256", exp.func("CONCAT", *string_fields))
+    return exp.cast(exp.func("SHA256", exp.func("CONCAT", *string_fields)), exp.DataType.build("binary(32)"))

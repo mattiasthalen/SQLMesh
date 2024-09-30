@@ -30,11 +30,11 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(item_bk)::BLOB AS item_hk,
-    @generate_surrogate_key__sha_256(item_bk, valid_from)::BLOB AS item_pit_hk,
-    @generate_surrogate_key__sha_256(order_bk)::BLOB AS order_hk,
-    @generate_surrogate_key__sha_256(product_bk)::BLOB AS product_hk,
-    @generate_surrogate_key__sha_256(order_bk, product_bk)::BLOB AS order_hk__product_hk,
+    @generate_surrogate_key__sha_256(item_bk) AS item_hk,
+    @generate_surrogate_key__sha_256(item_bk, valid_from) AS item_pit_hk,
+    @generate_surrogate_key__sha_256(order_bk) AS order_hk,
+    @generate_surrogate_key__sha_256(product_bk) AS product_hk,
+    @generate_surrogate_key__sha_256(order_bk, product_bk) AS order_hk__product_hk,
     1 AS quantity,
     *
   FROM data_vault

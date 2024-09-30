@@ -30,10 +30,10 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(tweeter_bk)::BLOB AS tweeter_hk,
-    @generate_surrogate_key__sha_256(tweet_bk)::BLOB AS tweet_hk,
-    @generate_surrogate_key__sha_256(tweet_bk, valid_from)::BLOB AS tweet_pit_hk,
-    @generate_surrogate_key__sha_256(tweeter_bk, tweet_bk)::BLOB AS tweeter_hk__tweet_hk,
+    @generate_surrogate_key__sha_256(tweeter_bk) AS tweeter_hk,
+    @generate_surrogate_key__sha_256(tweet_bk) AS tweet_hk,
+    @generate_surrogate_key__sha_256(tweet_bk, valid_from) AS tweet_pit_hk,
+    @generate_surrogate_key__sha_256(tweeter_bk, tweet_bk) AS tweeter_hk__tweet_hk,
     *
   FROM data_vault
 )

@@ -30,10 +30,10 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(store_bk)::BLOB AS store_hk,
-    @generate_surrogate_key__sha_256(store_bk, valid_from)::BLOB AS store_pit_hk,
-    @generate_surrogate_key__sha_256(city_bk)::BLOB AS city_hk,
-    @generate_surrogate_key__sha_256(store_bk, city_bk)::BLOB AS store_hk__city__hk,
+    @generate_surrogate_key__sha_256(store_bk) AS store_hk,
+    @generate_surrogate_key__sha_256(store_bk, valid_from) AS store_pit_hk,
+    @generate_surrogate_key__sha_256(city_bk) AS city_hk,
+    @generate_surrogate_key__sha_256(store_bk, city_bk) AS store_hk__city__hk,
     *
   FROM data_vault
 )

@@ -30,8 +30,8 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(product_bk)::BLOB AS product_hk,
-    @generate_surrogate_key__sha_256(product_bk, valid_from)::BLOB AS product_pit_hk,
+    @generate_surrogate_key__sha_256(product_bk) AS product_hk,
+    @generate_surrogate_key__sha_256(product_bk, valid_from) AS product_pit_hk,
     *
   FROM data_vault
 )

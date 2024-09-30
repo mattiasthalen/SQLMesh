@@ -30,10 +30,10 @@ WITH source_data AS (
   FROM casted_data
 ), final_data AS (
   SELECT
-    @generate_surrogate_key__sha_256(supply_bk)::BLOB AS supply_hk,
-    @generate_surrogate_key__sha_256(supply_bk, valid_from)::BLOB AS supply_pit_hk,
-    @generate_surrogate_key__sha_256(product_bk)::BLOB AS product_hk,
-    @generate_surrogate_key__sha_256(supply_bk, product_bk)::BLOB AS supply_hk__product_hk,
+    @generate_surrogate_key__sha_256(supply_bk) AS supply_hk,
+    @generate_surrogate_key__sha_256(supply_bk, valid_from) AS supply_pit_hk,
+    @generate_surrogate_key__sha_256(product_bk) AS product_hk,
+    @generate_surrogate_key__sha_256(supply_bk, product_bk) AS supply_hk__product_hk,
     *
   FROM data_vault
 )
