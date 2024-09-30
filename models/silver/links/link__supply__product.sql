@@ -1,6 +1,7 @@
 MODEL (
   name silver.link__supply__product,
-  kind VIEW,
+  cron '@hourly',
+  kind FULL,
   audits (
     UNIQUE_VALUES(columns := supply_hk__product_hk),
     NOT_NULL(columns := (supply_hk__product_hk, supply_hk, product_hk))

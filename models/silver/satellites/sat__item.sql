@@ -1,6 +1,7 @@
 MODEL (
   name silver.sat__item,
-  kind VIEW,
+  cron '@hourly',
+  kind FULL,
   audits (UNIQUE_VALUES(columns := item_pit_hk), NOT_NULL(columns := item_pit_hk))
 );
 

@@ -1,6 +1,7 @@
 MODEL (
   name silver.sat__tweet,
-  kind VIEW,
+  cron '@hourly',
+  kind FULL,
   audits (UNIQUE_VALUES(columns := tweet_pit_hk), NOT_NULL(columns := tweet_pit_hk))
 );
 

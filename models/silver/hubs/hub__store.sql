@@ -1,6 +1,7 @@
 MODEL (
   name silver.hub__store,
-  kind VIEW,
+  cron '@hourly',
+  kind FULL,
   audits (UNIQUE_VALUES(columns := store_hk), NOT_NULL(columns := store_hk))
 );
 
