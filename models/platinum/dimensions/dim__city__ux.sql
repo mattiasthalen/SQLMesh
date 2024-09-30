@@ -1,4 +1,4 @@
-/* Type 2 slowly changing dimension table for customers */
+/* Type 2 slowly changing dimension table for customers, UX formatted */
 MODEL (
   name platinum.dim__city__ux,
   kind VIEW,
