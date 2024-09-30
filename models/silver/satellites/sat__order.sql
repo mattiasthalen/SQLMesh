@@ -1,6 +1,6 @@
 MODEL (
   name silver.sat__order,
-  kind FULL,
+  kind VIEW,
   audits (UNIQUE_VALUES(columns := order_pit_hk), NOT_NULL(columns := order_pit_hk))
 );
 

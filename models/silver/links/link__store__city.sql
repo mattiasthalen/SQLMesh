@@ -1,6 +1,6 @@
 MODEL (
   name silver.link__store__city,
-  kind FULL,
+  kind VIEW,
   audits (
     UNIQUE_VALUES(columns := store_hk__city__hk),
     NOT_NULL(columns := (store_hk__city__hk, store_hk, city_hk))

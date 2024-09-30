@@ -1,6 +1,6 @@
 MODEL (
   name silver.link__tweeter__tweet,
-  kind FULL,
+  kind VIEW,
   audits (
     UNIQUE_VALUES(columns := tweeter_hk__tweet_hk),
     NOT_NULL(columns := (tweeter_hk__tweet_hk, tweeter_hk, tweet_hk))

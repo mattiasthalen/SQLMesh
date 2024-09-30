@@ -1,6 +1,6 @@
 MODEL (
   name silver.sat__weather,
-  kind FULL,
+  kind VIEW,
   audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))
 );
 

@@ -1,6 +1,6 @@
 MODEL (
   name silver.sat__supply,
-  kind FULL,
+  kind VIEW,
   audits (UNIQUE_VALUES(columns := supply_pit_hk), NOT_NULL(columns := supply_pit_hk))
 );
 

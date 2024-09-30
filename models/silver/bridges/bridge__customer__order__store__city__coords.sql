@@ -1,6 +1,6 @@
 MODEL (
   name silver.bridge__customer__order__store__city__coords,
-  kind FULL,
+  kind VIEW,
   audits (
     UNIQUE_VALUES(columns := bridge_hk),
     NOT_NULL(columns := (bridge_hk, customer_hk, order_hk, store_hk, city_hk, coords_hk))
