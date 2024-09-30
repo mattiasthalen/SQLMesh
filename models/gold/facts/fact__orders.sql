@@ -44,7 +44,8 @@ SELECT
   sat__item.source_table, /* Source table of the fact record */
   sat__item.valid_from, /* Timestamp when the order line record became valid (inclusive) */
   sat__item.valid_to /* Timestamp of when the order line record expired (exclusive) */
-FROM silver /* Links */.link__customer__order
+/* Links */
+FROM silver.link__customer__order
 INNER JOIN silver.link__order__product
   ON link__customer__order.order_hk = link__order__product.order_hk
 INNER JOIN silver.link__order__store
