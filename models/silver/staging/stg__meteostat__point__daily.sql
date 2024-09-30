@@ -5,7 +5,7 @@ MODEL (
   references (
     coords_hk
   ),
-  audits (UNIQUE_VALUES(columns := coords_hk), NOT_NULL(columns := coords_hk))
+  audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))
 );
 
 WITH source_data AS (
