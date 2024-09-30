@@ -4,13 +4,13 @@ MODEL (
   audits (UNIQUE_VALUES(columns := item_pit_hk), NOT_NULL(columns := item_pit_hk))
 );
 
-SELECT
-  order_hk__product_hk,
-  item_hk,
-  item_pit_hk,
-  quantity,
-  source_system,
-  source_table,
-  valid_from,
-  valid_to
-FROM silver.stg__jaffle_shop__items
+@data_vault__load_satellite(
+  source := silver.stg__jaffle_shop__items,
+  hash_key := item_hk,
+  pit_key := item_pit_hk,
+  payload := (order_hk__product_hk, quantity, filename),
+  source_system := source_system,
+  source_table := source_table,
+  load_date := valid_from,
+  load_end_date := valid_to
+)
