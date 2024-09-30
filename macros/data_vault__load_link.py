@@ -19,13 +19,15 @@ def data_vault__load_link(
 
     if not isinstance(hash_keys, exp.Tuple):
         hash_keys = exp.Tuple(expressions=[hash_keys])
+    
+    hash_keys__select = ', '.join([str(hash_key) for hash_key in hash_keys.expressions])
 
     cte__union__body: str = " UNION ALL ".join(
         f"""
             SELECT
                 {index} as source_index,
                 {link_key},
-                {', '.join(hash_keys)},
+                {hash_keys__select},
                 {source_system},
                 {source_table},
                 MIN({load_date}) AS {load_date},
@@ -33,7 +35,7 @@ def data_vault__load_link(
             FROM {source}
             GROUP BY
                 {link_key},
-                {', '.join(hash_keys)},
+                {hash_keys__select},
                 {source_system},
                 {source_table}
         """
@@ -46,7 +48,7 @@ def data_vault__load_link(
     ,   cte__reduce AS (
             SELECT DISTINCT ON ({link_key})
                 {link_key},
-                {', '.join(hash_keys)},
+                {hash_keys__select},
                 {source_system},
                 {source_table},
                 {load_date}
