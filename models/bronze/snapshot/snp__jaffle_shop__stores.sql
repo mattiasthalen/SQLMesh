@@ -12,5 +12,6 @@ MODEL (
 );
 
 SELECT
+  @execution_ts AS snapshot_updated_at,
   *
 FROM bronze.raw__jaffle_shop__stores
