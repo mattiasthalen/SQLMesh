@@ -8,11 +8,14 @@ MODEL (
 );
 
 SELECT
+  fact_record_hk AS "fact_record_hk", /* Primary hash key for the fact record */
   item_pit_hk AS "item_pit_hk", /* Primary point in time hash key to the order line */
   order_pit_hk AS "order_pit_hk", /* Foreign point in time hash key to the order */
   customer_pit_hk AS "customer_pit_hk", /* Foreign point in time hash key to the customer */
   product_pit_hk AS "product_pit_hk", /* Foreign point in time hash key to the product */
   store_pit_hk AS "store_pit_hk", /* Foreign point in time hash key to the store */
+  city_pit_hk AS "city_pit_hk", /* Foreign point in time hash key to the city */
+  weather_pit_hk AS "weather_pit_hk", /* Foreign point in time hash key to the weather stats */
   ordered_at AS "Ordered At", /* Timestamp of when the order was placed */
   quantity AS "Quantity", /* Ordered quantity */
   price AS "Unit Price", /* Unit price */

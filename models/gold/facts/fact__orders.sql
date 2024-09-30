@@ -3,17 +3,36 @@ MODEL (
   name gold.fact__orders,
   cron '@hourly',
   kind FULL,
-  grain item_pit_hk,
-  references (order_pit_hk, customer_pit_hk, product_pit_hk, store_pit_hk),
-  audits (UNIQUE_VALUES(columns := item_pit_hk), NOT_NULL(columns := item_pit_hk))
+  grain fact_record_hk,
+  references (
+    item_pit_hk,
+    order_pit_hk,
+    customer_pit_hk,
+    product_pit_hk,
+    store_pit_hk,
+    city_pit_hk,
+    weather_pit_hk
+  ),
+  audits (UNIQUE_VALUES(columns := fact_record_hk), NOT_NULL(columns := fact_record_hk))
 );
 
 SELECT
-  sat__item.item_pit_hk, /* Primary point in time hash key to the order line */
+  @generate_surrogate_key__sha_256(
+    sat__item.item_pit_hk,
+    sat__order.order_pit_hk,
+    sat__customer.customer_pit_hk,
+    sat__product.product_pit_hk,
+    sat__store.store_pit_hk,
+    sat__city.city_pit_hk,
+    sat__weather.weather_pit_hk
+  ) AS fact_record_hk, /* Primary hash key for the fact record */
+  sat__item.item_pit_hk, /* Foreign point in time hash key to the order line */
   sat__order.order_pit_hk, /* Foreign point in time hash key to the order */
   sat__customer.customer_pit_hk, /* Foreign point in time hash key to the customer */
   sat__product.product_pit_hk, /* Foreign point in time hash key to the product */
   sat__store.store_pit_hk, /* Foreign point in time hash key to the store */
+  sat__city.city_pit_hk, /* Foreign point in time hash key to the city */
+  sat__weather.weather_pit_hk, /* Foreign point in time hash key to the weather stats */
   sat__order.ordered_at, /* Timestamp of when the order was placed */
   sat__item.quantity, /* Ordered quantity */
   sat__product.price, /* Unit price */
@@ -25,27 +44,43 @@ SELECT
   sat__item.source_table, /* Source table of the fact record */
   sat__item.valid_from, /* Timestamp when the order line record became valid (inclusive) */
   sat__item.valid_to /* Timestamp of when the order line record expired (exclusive) */
-FROM silver.link__customer__order
+FROM silver.bridge__customer__order__store__city__coords
 INNER JOIN silver.link__order__product
-  ON link__customer__order.order_hk = link__order__product.order_hk
-  AND link__customer__order.valid_from BETWEEN link__order__product.valid_from AND link__order__product.valid_to
-INNER JOIN silver.link__order__store
-  ON link__customer__order.order_hk = link__order__store.order_hk
-  AND link__customer__order.valid_from BETWEEN link__order__store.valid_from AND link__order__store.valid_to
-INNER JOIN silver.sat__order
-  ON link__customer__order.order_hk = sat__order.order_hk
-  AND link__customer__order.valid_from BETWEEN sat__order.valid_from AND sat__order.valid_to
-INNER JOIN silver.sat__customer
-  ON link__customer__order.customer_hk = sat__customer.customer_hk
-  AND link__customer__order.valid_from BETWEEN sat__customer.valid_from AND sat__customer.valid_to
-INNER JOIN silver.sat__item
+  ON bridge__customer__order__store__city__coords.order_hk = link__order__product.order_hk
+/* Hubs */
+INNER JOIN silver.hub__customer
+  ON bridge__customer__order__store__city__coords.customer_hk = hub__customer.customer_hk
+INNER JOIN silver.hub__order
+  ON bridge__customer__order__store__city__coords.order_hk = hub__order.order_hk
+INNER JOIN silver.hub__store
+  ON bridge__customer__order__store__city__coords.store_hk = hub__store.store_hk
+INNER JOIN silver.hub__city
+  ON bridge__customer__order__store__city__coords.city_hk = hub__city.city_hk
+INNER JOIN silver.hub__coords
+  ON bridge__customer__order__store__city__coords.coords_hk = hub__coords.coords_hk
+INNER JOIN silver.hub__product
+  ON link__order__product.product_hk = hub__product.product_hk
+/* Satellites */
+LEFT JOIN silver.sat__order
+  ON hub__order.order_hk = sat__order.order_hk
+LEFT JOIN silver.sat__item
   ON link__order__product.order_hk__product_hk = sat__item.order_hk__product_hk
-  AND link__customer__order.valid_from BETWEEN sat__item.valid_from AND sat__item.valid_to
-INNER JOIN silver.sat__product
-  ON link__order__product.product_hk = sat__product.product_hk
-  AND link__customer__order.valid_from BETWEEN sat__product.valid_from AND sat__product.valid_to
-INNER JOIN silver.sat__store
-  ON link__order__store.store_hk = sat__store.store_hk
-  AND link__customer__order.valid_from BETWEEN sat__store.valid_from AND sat__store.valid_to;
+  AND sat__order.ordered_at BETWEEN sat__item.valid_from AND sat__item.valid_to
+LEFT JOIN silver.sat__product
+  ON hub__product.product_hk = sat__product.product_hk
+  AND sat__order.ordered_at BETWEEN sat__product.valid_from AND sat__product.valid_to
+LEFT JOIN silver.sat__customer
+  ON hub__customer.customer_hk = sat__customer.customer_hk
+  AND sat__order.ordered_at BETWEEN sat__customer.valid_from AND sat__customer.valid_to
+LEFT JOIN silver.sat__store
+  ON hub__store.store_hk = sat__store.store_hk
+  AND sat__order.ordered_at BETWEEN sat__store.valid_from AND sat__store.valid_to
+LEFT JOIN silver.sat__city
+  ON hub__city.city_hk = sat__city.city_hk
+  AND sat__order.ordered_at BETWEEN sat__city.valid_from AND sat__city.valid_to
+LEFT JOIN silver.sat__weather
+  ON hub__coords.coords_hk = sat__weather.coords_hk
+  AND CAST(sat__order.ordered_at AS DATE) = sat__weather.date
+  AND sat__order.ordered_at BETWEEN sat__weather.valid_from AND sat__weather.valid_to;
 
 @export_to_parquet('gold.fact__orders', 'exports')
