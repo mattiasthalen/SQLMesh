@@ -27,6 +27,7 @@ WITH source_data AS (
     NULLIF(NULLIF(wpgt, 'nan'), 'None')::DECIMAL(18, 3) AS wpgt,
     NULLIF(NULLIF(pres, 'nan'), 'None')::DECIMAL(18, 3) AS pres,
     NULLIF(NULLIF(tsun, 'nan'), 'None')::INT AS tsun,
+    snapshot_updated_at::TIMESTAMP AS snapshot_updated_at,
     valid_from::TIMESTAMP AS valid_from,
     COALESCE(valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS valid_to
   FROM source_data
