@@ -14,6 +14,5 @@ MODEL (
   hash_keys := (store_hk, city_hk),
   source_system := source_system,
   source_table := source_table,
-  load_date := cdc_valid_from,
-  load_end_date := cdc_valid_to
+  valid_from := cdc_valid_from
 )

@@ -10,8 +10,7 @@ def data_vault__load_link(
     hash_keys: exp.Column | exp.Tuple,
     source_system: exp.Column,
     source_table: exp.Column,
-    load_date: exp.Column,
-    load_end_date: exp.Column,
+    valid_from: exp.Column
     ) -> exp.Expression:
 
     if not isinstance(sources, exp.Tuple):
@@ -30,8 +29,7 @@ def data_vault__load_link(
                 {hash_keys__select},
                 {source_system},
                 {source_table},
-                MIN({load_date}) AS {load_date},
-                MAX({load_end_date}) AS {load_end_date}
+                MIN({valid_from}) AS {valid_from}
             FROM {source}
             GROUP BY
                 {link_key},
@@ -51,7 +49,7 @@ def data_vault__load_link(
                 {hash_keys__select},
                 {source_system},
                 {source_table},
-                {load_date}
+                {valid_from}
             FROM cte__union_all
             ORDER BY {link_key}, source_index
         )

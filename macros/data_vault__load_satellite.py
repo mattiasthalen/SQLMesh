@@ -11,8 +11,8 @@ def data_vault__load_satellite(
     payload: exp.Column | exp.Tuple,
     source_system: exp.Column,
     source_table: exp.Column,
-    load_date: exp.Column,
-    load_end_date: exp.Column,
+    valid_from: exp.Column,
+    valid_to: exp.Column
     ) -> exp.Expression:
 
     if not isinstance(payload, exp.Tuple):
@@ -27,8 +27,8 @@ def data_vault__load_satellite(
                 {payload__select},
                 {source_system},
                 {source_table},
-                {load_date},
-                {load_end_date}
+                {valid_from},
+                {valid_to}
             FROM {source}
         """
 

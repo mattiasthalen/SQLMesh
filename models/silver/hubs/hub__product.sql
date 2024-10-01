@@ -15,5 +15,5 @@ MODEL (
   hash_key := product_hk,
   source_system := source_system,
   source_table := source_table,
-  load_date := cdc_valid_from
+  valid_from := cdc_valid_from
 )
