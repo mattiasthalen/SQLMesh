@@ -12,6 +12,6 @@ MODEL (
   payload := (id, name, opened_at, tax_rate, filename),
   source_system := source_system,
   source_table := source_table,
-  load_date := snapshot_valid_from,
-  load_end_date := snapshot_valid_to
+  load_date := cdc_valid_from,
+  load_end_date := cdc_valid_to
 )

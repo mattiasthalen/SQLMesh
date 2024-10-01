@@ -17,8 +17,8 @@ SELECT
   filename AS store__filename, /* Filename of the import */
   source_system AS store__source_system, /* Source system of the store record */
   source_table AS store__source_table, /* Source table of the store record */
-  snapshot_valid_from AS store__record_valid_from, /* Timestamp when the store record became valid (inclusive) */
-  snapshot_valid_to AS store__record_valid_to /* Timestamp of when the store record expired (exclusive) */
+  cdc_valid_from AS store__record_valid_from, /* Timestamp when the store record became valid (inclusive) */
+  cdc_valid_to AS store__record_valid_to /* Timestamp of when the store record expired (exclusive) */
 FROM silver.sat__store;
 
 @export_to_parquet('gold.dim__stores', 'exports')

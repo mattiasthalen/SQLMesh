@@ -42,8 +42,8 @@ SELECT
   subtotal_price + tax AS price_with_tax, /* Price, including tax, for the order line */
   sat__item.source_system, /* Source system of the fact record */
   sat__item.source_table, /* Source table of the fact record */
-  sat__item.snapshot_valid_from AS valid_from, /* Timestamp when the order line record became valid (inclusive) */
-  sat__item.snapshot_valid_to AS valid_to /* Timestamp of when the order line record expired (exclusive) */
+  sat__item.cdc_valid_from AS valid_from, /* Timestamp when the order line record became valid (inclusive) */
+  sat__item.cdc_valid_to AS valid_to /* Timestamp of when the order line record expired (exclusive) */
 /* Links */
 FROM silver.link__customer__order
 INNER JOIN silver.link__order__product
@@ -72,22 +72,22 @@ LEFT JOIN silver.sat__order
   ON hub__order.order_hk = sat__order.order_hk
 LEFT JOIN silver.sat__item
   ON link__order__product.order_hk__product_hk = sat__item.order_hk__product_hk
-  AND sat__order.ordered_at BETWEEN sat__item.snapshot_valid_from AND sat__item.snapshot_valid_to
+  AND sat__order.ordered_at BETWEEN sat__item.cdc_valid_from AND sat__item.cdc_valid_to
 LEFT JOIN silver.sat__product
   ON hub__product.product_hk = sat__product.product_hk
-  AND sat__order.ordered_at BETWEEN sat__product.snapshot_valid_from AND sat__product.snapshot_valid_to
+  AND sat__order.ordered_at BETWEEN sat__product.cdc_valid_from AND sat__product.cdc_valid_to
 LEFT JOIN silver.sat__customer
   ON hub__customer.customer_hk = sat__customer.customer_hk
-  AND sat__order.ordered_at BETWEEN sat__customer.snapshot_valid_from AND sat__customer.snapshot_valid_to
+  AND sat__order.ordered_at BETWEEN sat__customer.cdc_valid_from AND sat__customer.cdc_valid_to
 LEFT JOIN silver.sat__store
   ON hub__store.store_hk = sat__store.store_hk
-  AND sat__order.ordered_at BETWEEN sat__store.snapshot_valid_from AND sat__store.snapshot_valid_to
+  AND sat__order.ordered_at BETWEEN sat__store.cdc_valid_from AND sat__store.cdc_valid_to
 LEFT JOIN silver.sat__city
   ON hub__city.city_hk = sat__city.city_hk
-  AND sat__order.ordered_at BETWEEN sat__city.snapshot_valid_from AND sat__city.snapshot_valid_to
+  AND sat__order.ordered_at BETWEEN sat__city.cdc_valid_from AND sat__city.cdc_valid_to
 LEFT JOIN silver.sat__weather
   ON hub__coords.coords_hk = sat__weather.coords_hk
   AND CAST(sat__order.ordered_at AS DATE) = sat__weather.date
-  AND sat__order.ordered_at BETWEEN sat__weather.snapshot_valid_from AND sat__weather.snapshot_valid_to;
+  AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to;
 
 @export_to_parquet('gold.fact__orders', 'exports')
