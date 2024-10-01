@@ -17,6 +17,7 @@ SELECT
   filename AS store__filename, /* Filename of the import */
   source_system AS store__source_system, /* Source system of the store record */
   source_table AS store__source_table, /* Source table of the store record */
+  cdc_updated_at AS store__record_updated_at, /* Timestamp when the store record was updated */
   cdc_valid_from AS store__record_valid_from, /* Timestamp when the store record became valid (inclusive) */
   cdc_valid_to AS store__record_valid_to /* Timestamp of when the store record expired (exclusive) */
 FROM silver.sat__store;

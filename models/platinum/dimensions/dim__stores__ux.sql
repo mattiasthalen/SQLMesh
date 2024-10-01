@@ -16,6 +16,7 @@ SELECT
   store__filename AS "Store - Filename", /* Filename of the import */
   store__source_system AS "Store - Source System", /* Source system of the store record */
   store__source_table AS "Store - Source Table", /* Source table of the store record */
+  store__record_updated_at AS "Store - Record Updated At", /* Timestamp when the store record was updated */
   store__record_valid_from AS "Store - Record Valid From", /* Timestamp when the store record became valid (inclusive) */
   store__record_valid_to AS "Store - Record Valid To" /* Timestamp of when the store record expired (exclusive) */
 FROM gold.dim__stores;

@@ -23,10 +23,11 @@ SELECT
   wpgt AS weather__wind__peak_gust, /* The peak wind gust in km/h */
   pres AS weather__pressure, /* The average sea-level air pressure in hPa */
   tsun AS weather__daily_sunshine, /* The daily sunshine total in minutes (m) */
-  source_system AS weather__source_system, /* Source system of the customer record */
-  source_table AS weather__source_table, /* Source table of the customer record */
-  cdc_valid_from AS weather__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
-  cdc_valid_to AS weather__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
+  source_system AS weather__source_system, /* Source system of the weather record */
+  source_table AS weather__source_table, /* Source table of the weather record */
+  cdc_updated_at AS weather__record_updated_at, /* Timestamp when the weather record was updated */
+  cdc_valid_from AS weather__record_valid_from, /* Timestamp when the weather record became valid (inclusive) */
+  cdc_valid_to AS weather__record_valid_to /* Timestamp of when the weather record expired (exclusive) */
 FROM silver.sat__weather;
 
 @export_to_parquet('gold.dim__weather', 'exports')

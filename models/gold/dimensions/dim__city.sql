@@ -15,6 +15,7 @@ SELECT
   longitude AS city__longitude, /* Longitude of the city */
   source_system AS city__source_system, /* Source system of the customer record */
   source_table AS city__source_table, /* Source table of the customer record */
+  cdc_updated_at AS city__record_updated_at, /* Timestamp when the customer record was updated */
   cdc_valid_from AS city__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
   cdc_valid_to AS city__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
 FROM silver.sat__city;

@@ -31,10 +31,9 @@ SELECT
   subtotal_price AS "Subtotal", /* Subtotal for the order line */
   tax AS "Tax Paid", /* Tax paid for the order line */
   price_with_tax AS "Price With Tax", /* Price, including tax, for the order line */
-  source_system AS "Source System", /* Source system of the fact record */
-  source_table AS "Source Table", /* Source table of the fact record */
-  valid_from AS "Valid From", /* Timestamp when the order line record became valid (inclusive) */
-  valid_to AS "Valid To" /* Timestamp of when the order line record expired (exclusive) */
+  fact_record__updated_at AS "Fact Record - Updated At", /* Timestamp when the fact record was updated */
+  fact_record__valid_from AS "Fact Record - Valid From", /* Timestamp when the fact record record became valid (inclusive) */
+  fact_record__valid_to AS "Fact Record - Valid To" /* Timestamp of when the fact record record expired (exclusive) */
 FROM gold.fact__orders;
 
 @export_to_parquet('platinum.fact__orders__ux', 'exports')

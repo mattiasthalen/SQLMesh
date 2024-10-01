@@ -15,6 +15,7 @@ SELECT
   filename AS customer__filename, /* Filename of the import */
   source_system AS customer__source_system, /* Source system of the customer record */
   source_table AS customer__source_table, /* Source table of the customer record */
+  cdc_updated_at AS customer__record_updated_at, /* Timestamp when the customer record was updated */
   cdc_valid_from AS customer__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
   cdc_valid_to AS customer__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
 FROM silver.sat__customer;

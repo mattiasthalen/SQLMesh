@@ -14,6 +14,7 @@ SELECT
   customer__filename AS "Customer - Filename", /* Filename of the import */
   customer__source_system AS "Customer - Source System", /* Source system of the customer record */
   customer__source_table AS "Customer - Source Table", /* Source table of the customer record */
+  customer__record_updated_at AS "Customer - Record Updated At", /* Timestamp when the customer record was updated */
   customer__record_valid_from AS "Customer - Record Valid From", /* Timestamp when the customer record became valid (inclusive) */
   customer__record_valid_to AS "Customer - Record Valid To" /* Timestamp of when the customer record expired (exclusive) */
 FROM gold.dim__customers;
