@@ -34,7 +34,7 @@ WITH source_data AS (
     @generate_surrogate_key__sha_256(store_bk) AS store_hk,
     @generate_surrogate_key__sha_256(store_bk, cdc_valid_from) AS store_pit_hk,
     @generate_surrogate_key__sha_256(city_bk) AS city_hk,
-    @generate_surrogate_key__sha_256(store_bk, city_bk) AS store_hk__city__hk,
+    @generate_surrogate_key__sha_256(store_bk, city_bk) AS store_hk__city_hk,
     *
   FROM data_vault
 )

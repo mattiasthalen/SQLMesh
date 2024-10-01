@@ -3,14 +3,14 @@ MODEL (
   cron '@hourly',
   kind FULL,
   audits (
-    UNIQUE_VALUES(columns := store_hk__city__hk),
-    NOT_NULL(columns := (store_hk__city__hk, store_hk, city_hk))
+    UNIQUE_VALUES(columns := store_hk__city_hk),
+    NOT_NULL(columns := (store_hk__city_hk, store_hk, city_hk))
   )
 );
 
 @data_vault__load_link(
   sources := silver.stg__jaffle_shop__stores,
-  link_key := store_hk__city__hk,
+  link_key := store_hk__city_hk,
   hash_keys := (store_hk, city_hk),
   source_system := source_system,
   source_table := source_table,
