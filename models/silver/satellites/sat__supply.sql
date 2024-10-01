@@ -12,6 +12,7 @@ MODEL (
   payload := (id, name, cost, perishable, filename),
   source_system := source_system,
   source_table := source_table,
+  updated_at := cdc_updated_at,
   valid_from := cdc_valid_from,
   valid_to := cdc_valid_to
 )

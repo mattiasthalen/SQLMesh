@@ -11,6 +11,7 @@ def data_vault__load_satellite(
     payload: exp.Column | exp.Tuple,
     source_system: exp.Column,
     source_table: exp.Column,
+    updated_at: exp.Column,
     valid_from: exp.Column,
     valid_to: exp.Column
     ) -> exp.Expression:
@@ -27,6 +28,7 @@ def data_vault__load_satellite(
                 {payload__select},
                 {source_system},
                 {source_table},
+                {updated_at},
                 {valid_from},
                 {valid_to}
             FROM {source}

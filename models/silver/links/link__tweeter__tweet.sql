@@ -14,5 +14,5 @@ MODEL (
   hash_keys := (tweeter_hk, tweet_hk),
   source_system := source_system,
   source_table := source_table,
-  valid_from := cdc_valid_from
+  updated_at := cdc_updated_at
 )

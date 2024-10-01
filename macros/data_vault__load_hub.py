@@ -10,7 +10,7 @@ def data_vault__load_hub(
     hash_key: exp.Column,
     source_system: exp.Column,
     source_table: exp.Column,
-    valid_from: exp.Column
+    updated_at: exp.Column
     ) -> exp.Expression:
 
     if not isinstance(sources, exp.Tuple):
@@ -24,7 +24,7 @@ def data_vault__load_hub(
                 {business_key},
                 {source_system},
                 {source_table},
-                MIN({valid_from}) AS {valid_from}
+                MIN({updated_at}) AS {updated_at}
             FROM {source}
             GROUP BY
                 {hash_key},
@@ -44,7 +44,7 @@ def data_vault__load_hub(
                 {business_key},
                 {source_system},
                 {source_table},
-                {valid_from}
+                {updated_at}
             FROM cte__union_all
             ORDER BY {business_key}, source_index
         )

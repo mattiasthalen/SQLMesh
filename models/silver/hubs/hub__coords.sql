@@ -11,5 +11,5 @@ MODEL (
   hash_key := coords_hk,
   source_system := source_system,
   source_table := source_table,
-  valid_from := cdc_valid_from
+  updated_at := cdc_valid_from
 )
