@@ -15,8 +15,8 @@ SELECT
   longitude AS city__longitude, /* Longitude of the city */
   source_system AS city__source_system, /* Source system of the customer record */
   source_table AS city__source_table, /* Source table of the customer record */
-  valid_from AS city__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
-  valid_to AS city__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
+  snapshot_valid_from AS city__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
+  snapshot_valid_to AS city__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
 FROM silver.sat__city;
 
 @export_to_parquet('gold.dim__city', 'exports')

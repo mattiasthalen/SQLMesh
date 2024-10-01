@@ -11,5 +11,5 @@ MODEL (
   hash_key := city_hk,
   source_system := source_system,
   source_table := source_table,
-  load_date := valid_from
+  load_date := snapshot_valid_from
 )

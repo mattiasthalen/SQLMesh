@@ -3,11 +3,13 @@ MODEL (
   cron '*/5 * * * *',
   kind SCD_TYPE_2_BY_COLUMN (
     unique_key id,
-    columns *
+    columns *,
+    valid_from_name snapshot_valid_from,
+    valid_to_name snapshot_valid_to
   ),
   audits (
-    UNIQUE_COMBINATION_OF_COLUMNS(columns := (id, valid_from)),
-    NOT_NULL(columns := (id, valid_from))
+    UNIQUE_COMBINATION_OF_COLUMNS(columns := (id, snapshot_valid_from)),
+    NOT_NULL(columns := (id, snapshot_valid_from))
   )
 );
 

@@ -25,8 +25,8 @@ SELECT
   tsun AS weather__daily_sunshine, /* The daily sunshine total in minutes (m) */
   source_system AS weather__source_system, /* Source system of the customer record */
   source_table AS weather__source_table, /* Source table of the customer record */
-  valid_from AS weather__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
-  valid_to AS weather__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
+  snapshot_valid_from AS weather__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
+  snapshot_valid_to AS weather__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
 FROM silver.sat__weather;
 
 @export_to_parquet('gold.dim__weather', 'exports')
