@@ -1,5 +1,6 @@
 MODEL (
   name bronze.raw__jaffle_shop__products,
+  cron '*/10 * * * *',
   kind VIEW,
   columns (
     sku TEXT,

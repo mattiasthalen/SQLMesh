@@ -1,7 +1,6 @@
 /* Type 2 slowly changing dimension table for products */
 MODEL (
   name gold.dim__products,
-  cron '@hourly',
   kind FULL,
   grain product_pit_hk,
   audits (UNIQUE_VALUES(columns := product_pit_hk), NOT_NULL(columns := product_pit_hk))

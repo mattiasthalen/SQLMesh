@@ -1,5 +1,6 @@
 MODEL (
   name bronze.raw__jaffle_shop__tweets,
+  cron '*/10 * * * *',
   kind VIEW,
   columns (
     id TEXT,
