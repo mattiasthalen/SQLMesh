@@ -1,5 +1,4 @@
 MODEL (
-  name silver.stg__seed__cities,
   kind VIEW,
   grain city_hk,
   references (city_hk__coords_hk, coords_hk),

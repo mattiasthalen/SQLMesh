@@ -1,5 +1,4 @@
 MODEL (
-  name silver.sat__weather,
   cron '@hourly',
   kind FULL,
   audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))

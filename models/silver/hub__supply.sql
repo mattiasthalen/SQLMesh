@@ -1,5 +1,4 @@
 MODEL (
-  name silver.hub__supply,
   cron '@hourly',
   kind FULL,
   audits (UNIQUE_VALUES(columns := supply_hk), NOT_NULL(columns := supply_hk))

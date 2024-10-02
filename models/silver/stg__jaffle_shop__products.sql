@@ -1,5 +1,4 @@
 MODEL (
-  name silver.stg__jaffle_shop__products,
   kind VIEW,
   grain product_pit_hk,
   references product_hk,

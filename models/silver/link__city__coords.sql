@@ -1,5 +1,4 @@
 MODEL (
-  name silver.link__city__coords,
   cron '@hourly',
   kind FULL,
   audits (

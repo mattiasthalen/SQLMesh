@@ -1,5 +1,4 @@
 MODEL (
-  name silver.bridge__customer__order__product,
   cron '@hourly',
   kind FULL,
   audits (

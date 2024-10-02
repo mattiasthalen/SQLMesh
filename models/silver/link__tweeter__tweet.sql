@@ -1,5 +1,4 @@
 MODEL (
-  name silver.link__tweeter__tweet,
   cron '@hourly',
   kind FULL,
   audits (

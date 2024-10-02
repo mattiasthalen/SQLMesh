@@ -1,5 +1,4 @@
 MODEL (
-  name silver.sat__city,
   cron '@hourly',
   kind FULL,
   audits (UNIQUE_VALUES(columns := city_pit_hk), NOT_NULL(columns := city_pit_hk))

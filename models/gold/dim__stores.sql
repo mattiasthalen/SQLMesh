@@ -1,6 +1,5 @@
 /* Type 2 slowly changing dimension table for stores */
 MODEL (
-  name gold.dim__stores,
   kind FULL,
   grain store_pit_hk,
   audits (UNIQUE_VALUES(columns := store_pit_hk), NOT_NULL(columns := store_pit_hk))

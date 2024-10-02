@@ -1,5 +1,4 @@
 MODEL (
-  name silver.stg__meteostat__point__daily,
   kind VIEW,
   grain city_hk,
   references (

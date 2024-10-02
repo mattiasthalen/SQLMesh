@@ -1,5 +1,4 @@
 MODEL (
-  name silver.stg__jaffle_shop__tweets,
   kind VIEW,
   grain tweet_pit_hk,
   references (tweeter_hk__tweet_hk, tweeter_hk, tweet_hk),

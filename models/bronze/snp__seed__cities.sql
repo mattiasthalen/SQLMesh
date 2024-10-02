@@ -1,5 +1,4 @@
 MODEL (
-  name bronze.snp__seed__cities,
   kind SCD_TYPE_2_BY_COLUMN (
     unique_key city,
     columns *,

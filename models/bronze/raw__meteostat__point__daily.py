@@ -8,7 +8,6 @@ from sqlmesh import ExecutionContext, model
 from sqlmesh.core.model.kind import ModelKindName
 
 @model(
-    "bronze.raw__meteostat__point__daily",
     cron="@daily",
     kind=dict(
         name=ModelKindName.INCREMENTAL_BY_TIME_RANGE,

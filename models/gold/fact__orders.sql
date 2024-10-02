@@ -1,6 +1,5 @@
 /* Type 2 slowly changing fact table for order lines */
 MODEL (
-  name gold.fact__orders,
   kind FULL,
   grain fact_record_hk,
   references (

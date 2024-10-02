@@ -1,5 +1,4 @@
 MODEL (
-  name silver.link__order__product,
   cron '@hourly',
   kind FULL,
   audits (

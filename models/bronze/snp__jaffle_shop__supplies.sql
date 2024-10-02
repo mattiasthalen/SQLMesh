@@ -1,5 +1,4 @@
 MODEL (
-  name bronze.snp__jaffle_shop__supplies,
   kind SCD_TYPE_2_BY_COLUMN (
     unique_key id,
     columns *,

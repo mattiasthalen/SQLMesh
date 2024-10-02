@@ -1,5 +1,4 @@
 MODEL (
-  name bronze.snp__meteostat__point__daily,
   kind SCD_TYPE_2_BY_COLUMN (
     unique_key (latitude, longitude, date),
     columns *,
