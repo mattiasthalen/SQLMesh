@@ -6,9 +6,9 @@ MODEL (
 
 @data_vault__load_hub(
   sources := silver.stg__jaffle_shop__tweets,
-  business_key := tweet_bk,
-  hash_key := tweet_hk,
-  source_system := source_system,
-  source_table := source_table,
-  updated_at := cdc_updated_at
+  business_key := 'tweet_bk',
+  hash_key := 'tweet_hk',
+  source_system := 'source_system',
+  source_table := 'source_table',
+  updated_at := 'cdc_updated_at'
 )

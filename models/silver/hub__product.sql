@@ -10,9 +10,9 @@ MODEL (
     silver.stg__jaffle_shop__items,
     silver.stg__jaffle_shop__supplies
   ),
-  business_key := product_bk,
-  hash_key := product_hk,
-  source_system := source_system,
-  source_table := source_table,
-  updated_at := cdc_updated_at
+  business_key := 'product_bk',
+  hash_key := 'product_hk',
+  source_system := 'source_system',
+  source_table := 'source_table',
+  updated_at := 'cdc_updated_at'
 )
