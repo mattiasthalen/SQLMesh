@@ -3,13 +3,13 @@ AUDIT (
 );
 
 SELECT
-  *
-FROM @this_model
+  tm.@fk_column
+FROM @this_model AS tm
 WHERE
   NOT EXISTS(
     SELECT
       1
-    FROM @target_table
+    FROM @target_table AS tt
     WHERE
-      @pk_column = @this_model.@fk_column
+      tt.@pk_column = tm.@fk_column
   )
