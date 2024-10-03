@@ -12,9 +12,6 @@ def data_vault__load_hub(
     updated_at: str
     ) -> str:
 
-    start = evaluator.locals.get("start_ts") or '1970-01-01 00:00:00'
-    end = evaluator.locals.get("end_ts") or '1970-01-01 23:59:59'
-
     if not isinstance(sources, exp.Tuple):
         sources = exp.Tuple(expressions=[sources])
 
@@ -44,8 +41,14 @@ def data_vault__load_hub(
     cte__distinct: str = f"cte__distinct AS (SELECT DISTINCT ON ({business_key}) * FROM cte__union ORDER BY {business_key}, source_index)"
     cte: str = f"WITH {cte__union}, {cte__distinct}"
 
-    where: str = f"WHERE {updated_at} BETWEEN '{start}' AND '{end}'"
+    start = evaluator.locals.get("start_ts")
+    end = evaluator.locals.get("end_ts")
 
-    sql: str = f"{cte} SELECT * FROM cte__union {where};"
+    where: str = "WHERE 1 = 1"
+
+    if start and end:
+        where = f"WHERE {updated_at} BETWEEN '{start}' AND '{end}'"
+
+    sql: str = f"{cte} SELECT * FROM cte__distinct {where};"
 
     return sql
