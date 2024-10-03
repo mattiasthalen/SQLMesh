@@ -5,11 +5,11 @@ from sqlglot import exp
 def data_vault__load_hub(
     evaluator: MacroEvaluator,
     sources: exp.Table | exp.Tuple,
-    business_key: str,
-    hash_key: str,
-    source_system: str,
-    source_table: str,
-    updated_at: str
+    business_key: exp.Column,
+    hash_key: exp.Column,
+    source_system: exp.Column,
+    source_table: exp.Column,
+    updated_at: exp.Column
     ) -> str:
 
     if not isinstance(sources, exp.Tuple):
