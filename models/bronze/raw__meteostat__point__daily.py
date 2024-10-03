@@ -63,8 +63,9 @@ def execute(
             if response.status_code == 200:
                 break
             elif response.status_code == 429:
-                print(f"Rate limit exceeded. Retrying in 3 seconds...")
-                time.sleep(1)
+                sleep_duration = 1
+                print(f"Rate limit exceeded. Retrying in {sleep_duration} seconds...")
+                time.sleep(sleep_duration)
             else:
                 print(f"Error fetching data for {row['city']}: {response.status_code}")
                 break
