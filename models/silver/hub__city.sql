@@ -1,7 +1,9 @@
 MODEL (
   cron '@hourly',
-  kind FULL,
-  audits (UNIQUE_VALUES(columns := city_hk), NOT_NULL(columns := city_hk))
+  kind INCREMENTAL_BY_TIME_RANGE (
+    time_column (cdc_updated_at, '%Y-%m-%d %H:%M:%S')
+  ),
+  audits (UNIQUE_VALUES(columns := city_bk), NOT_NULL(columns := city_bk))
 );
 
 @data_vault__load_hub(

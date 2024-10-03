@@ -21,6 +21,14 @@ def data_vault__load_satellite(
     
     payload__select = ', '.join([str(column) for column in payload.expressions])
 
+    start = evaluator.locals.get("start_ts")
+    end = evaluator.locals.get("end_ts")
+
+    where: str = "WHERE 1 = 1"
+
+    if start and end:
+        where = f"WHERE {updated_at} BETWEEN '{start}' AND '{end}'"
+
     sql: str = f"""
             SELECT
                 {hash_key},
@@ -32,6 +40,7 @@ def data_vault__load_satellite(
                 {valid_from},
                 {valid_to}
             FROM {source}
+            {where}
         """
 
     return sql
