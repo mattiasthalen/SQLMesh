@@ -21,7 +21,7 @@ def data_vault__load_link(
     
     hash_keys__select = ', '.join([str(hash_key) for hash_key in hash_keys.expressions])
 
-    cte__union__body: str = " UNION ALL ".join(
+    cte__union: str = " UNION ALL ".join(
         f"""
             SELECT
                 {index} as source_index,
@@ -40,21 +40,30 @@ def data_vault__load_link(
         for index, source in enumerate(sources)
     )
 
-    cte__union: str = f"WITH cte__union_all AS ({cte__union__body})"
-
-    cte__reduce: str = f"""
-    ,   cte__reduce AS (
-            SELECT DISTINCT ON ({link_key})
-                {link_key},
-                {hash_keys__select},
-                {source_system},
-                {source_table},
-                {updated_at}
-            FROM cte__union_all
-            ORDER BY {link_key}, source_index
-        )
+    cte__distinct: str = f"""
+        SELECT DISTINCT ON ({link_key})
+            {link_key},
+            {hash_keys__select},
+            {source_system},
+            {source_table},
+            {updated_at}
+        FROM cte__union
+        ORDER BY {link_key}, source_index
     """
 
-    sql: str = f"{cte__union}{cte__reduce} SELECT * FROM cte__reduce;"
+    start = evaluator.locals.get("start_ts")
+    end = evaluator.locals.get("end_ts")
+
+    where: str = "WHERE 1 = 1"
+
+    if start and end:
+        where = f"WHERE {updated_at} BETWEEN '{start}' AND '{end}'"
+
+    sql: str = f"""
+        WITH
+            cte__union AS ({cte__union})
+        ,   cte__distinct AS ({cte__distinct})
+        SELECT * FROM cte__distinct {where};
+    """
 
     return sql
