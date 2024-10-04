@@ -39,6 +39,8 @@ def execute(
     **kwargs: t.Any,
 ) -> pd.DataFrame | None:
     
+    return None
+    
     raw__seed__cities = context.table("bronze.raw__seed__cities")
     raw__seed__cities__df = context.fetchdf(f"SELECT * FROM {raw__seed__cities}")
     
