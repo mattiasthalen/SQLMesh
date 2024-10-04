@@ -3,7 +3,12 @@ MODEL (
   kind INCREMENTAL_BY_TIME_RANGE (
     time_column (cdc_updated_at, '%Y-%m-%d %H:%M:%S')
   ),
-  audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))
+  audits (
+    UNIQUE_VALUES(columns := weather_pit_hk),
+    NOT_NULL(columns := weather_pit_hk),
+    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__coords, fk_column := coords_hk, pk_column := coords_hk)
+  ),
+  depends_on [silver.hub__coords]
 );
 
 @data_vault__load_satellite(

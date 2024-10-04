@@ -3,7 +3,12 @@ MODEL (
   kind INCREMENTAL_BY_TIME_RANGE (
     time_column (cdc_updated_at, '%Y-%m-%d %H:%M:%S')
   ),
-  audits (UNIQUE_VALUES(columns := tweet_pit_hk), NOT_NULL(columns := tweet_pit_hk))
+  audits (
+    UNIQUE_VALUES(columns := tweet_pit_hk),
+    NOT_NULL(columns := tweet_pit_hk),
+    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__tweet, fk_column := tweet_hk, pk_column := tweet_hk)
+  ),
+  depends_on [silver.hub__tweet]
 );
 
 @data_vault__load_satellite(
