@@ -9,7 +9,7 @@ MODEL (
     ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__store, fk_column := store_hk, pk_column := store_hk),
     ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__city, fk_column := city_hk, pk_column := city_hk)
   ),
-  depends_on (silver.hub__store, silver.hub__city)
+  depends_on [silver.hub__store, silver.hub__city]
 );
 
 @data_vault__load_link(

@@ -13,7 +13,7 @@ MODEL (
     ),
     ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__order, fk_column := order_hk, pk_column := order_hk)
   ),
-  depends_on (silver.hub__customer, silver.hub__order)
+  depends_on [silver.hub__customer, silver.hub__order]
 );
 
 @data_vault__load_link(

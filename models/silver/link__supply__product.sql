@@ -13,7 +13,7 @@ MODEL (
       pk_column := product_hk
     )
   ),
-  depends_on (silver.hub__supply, silver.hub__product)
+  depends_on [silver.hub__supply, silver.hub__product]
 );
 
 @data_vault__load_link(
