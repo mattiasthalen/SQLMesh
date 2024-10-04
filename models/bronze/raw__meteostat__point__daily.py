@@ -37,9 +37,10 @@ def execute(
     end: datetime,
     execution_time: datetime,
     **kwargs: t.Any,
-) -> pd.DataFrame | None:
+) -> t.Generator[pd.DataFrame, None, None]:
     
-    return None
+    no_data = yield from ()
+    return no_data
     
     raw__seed__cities = context.table("bronze.raw__seed__cities")
     raw__seed__cities__df = context.fetchdf(f"SELECT * FROM {raw__seed__cities}")
