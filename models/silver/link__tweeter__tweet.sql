@@ -6,9 +6,14 @@ MODEL (
   audits (
     UNIQUE_VALUES(columns := tweeter_hk__tweet_hk),
     NOT_NULL(columns := (tweeter_hk__tweet_hk, tweeter_hk, tweet_hk)),
+    ASSERT_FK_PK_INTEGRITY(
+      target_table := silver.hub__tweeter,
+      fk_column := tweeter_hk,
+      pk_column := tweeter_hk
+    ),
     ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__tweet, fk_column := tweet_hk, pk_column := tweet_hk)
   ),
-  depends_on [silver.hub__tweet]
+  depends_on [silver.hub__tweeter, silver.hub__tweet]
 );
 
 @data_vault__load_link(
