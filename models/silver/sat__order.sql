@@ -6,13 +6,9 @@ MODEL (
   audits (
     UNIQUE_VALUES(columns := order_pit_hk),
     NOT_NULL(columns := order_pit_hk),
-    ASSERT_FK_PK_INTEGRITY(
-      target_table := silver.hub__customer,
-      fk_column := customer_hk,
-      pk_column := customer_hk
-    )
+    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__order, fk_column := order_hk, pk_column := order_hk)
   ),
-  depends_on [silver.hub__customer]
+  depends_on [silver.hub__order]
 );
 
 @data_vault__load_satellite(

@@ -7,12 +7,12 @@ MODEL (
     UNIQUE_VALUES(columns := customer_pit_hk),
     NOT_NULL(columns := customer_pit_hk),
     ASSERT_FK_PK_INTEGRITY(
-      target_table := silver.hub__country,
-      fk_column := country_hk,
-      pk_column := country_hk
+      target_table := silver.hub__customer,
+      fk_column := customer_hk,
+      pk_column := customer_hk
     )
   ),
-  depends_on [silver.hub__country]
+  depends_on [silver.hub__customer]
 );
 
 @data_vault__load_satellite(
