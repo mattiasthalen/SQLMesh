@@ -9,6 +9,7 @@ from sqlmesh.core.model.kind import ModelKindName
 
 @model(
     cron="@daily",
+    end='2024-08-29 23:59:59',
     kind=dict(
         name=ModelKindName.INCREMENTAL_BY_TIME_RANGE,
         time_column="date"

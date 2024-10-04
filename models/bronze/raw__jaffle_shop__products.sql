@@ -1,5 +1,6 @@
 MODEL (
   cron '*/10 * * * *',
+  end '2024-08-29 23:59:59',
   kind VIEW,
   columns (
     sku TEXT,
