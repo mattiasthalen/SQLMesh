@@ -57,13 +57,13 @@ SELECT
     sat__weather.cdc_valid_from
   ) AS fact_record__valid_from, /* Timestamp when the fact record became valid (inclusive) */
   LEAST(
-    sat__order.cdc_valid_from,
-    sat__item.cdc_valid_from,
-    sat__product.cdc_valid_from,
-    sat__customer.cdc_valid_from,
-    sat__store.cdc_valid_from,
-    sat__city.cdc_valid_from,
-    sat__weather.cdc_valid_from
+    sat__order.cdc_valid_to,
+    sat__item.cdc_valid_to,
+    sat__product.cdc_valid_to,
+    sat__customer.cdc_valid_to,
+    sat__store.cdc_valid_to,
+    sat__city.cdc_valid_to,
+    sat__weather.cdc_valid_to
   ) AS fact_record__valid_to /* Timestamp of when the fact record expired (exclusive) */
 /* Links */
 FROM silver.bridge__customer__order__store__city__coords
