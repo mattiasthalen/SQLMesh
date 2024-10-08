@@ -1,6 +1,8 @@
 /* Type 2 slowly changing dimension table for customers */
 MODEL (
-  kind FULL,
+  kind INCREMENTAL_BY_TIME_RANGE (
+    time_column (city__record_updated_at, '%Y-%m-%d %H:%M:%S')
+  ),
   grain city_pit_hk,
   audits (UNIQUE_VALUES(columns := city_pit_hk), NOT_NULL(columns := city_pit_hk))
 );
@@ -16,6 +18,8 @@ SELECT
   cdc_updated_at AS city__record_updated_at, /* Timestamp when the customer record was updated */
   cdc_valid_from AS city__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
   cdc_valid_to AS city__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
-FROM silver.sat__city;
+FROM silver.sat__city
+WHERE
+  city__record_updated_at BETWEEN @start_ts AND @end_ts;
 
 @export_to_parquet('gold.dim__city', 'exports')

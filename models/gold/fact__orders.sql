@@ -1,6 +1,8 @@
 /* Type 2 slowly changing fact table for order lines */
 MODEL (
-  kind FULL,
+  kind INCREMENTAL_BY_TIME_RANGE (
+    time_column (fact_record__updated_at, '%Y-%m-%d %H:%M:%S')
+  ),
   grain fact_record_hk,
   references (
     item_pit_hk,
@@ -91,6 +93,8 @@ LEFT JOIN silver.sat__city
 LEFT JOIN silver.sat__weather
   ON bridge__customer__order__store__city__coords.coords_hk = sat__weather.coords_hk
   AND CAST(sat__order.ordered_at AS DATE) = sat__weather.date
-  AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to;
+  AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to
+WHERE
+  fact_record__updated_at BETWEEN @start_ts AND @end_ts;
 
 @export_to_parquet('gold.fact__orders', 'exports')

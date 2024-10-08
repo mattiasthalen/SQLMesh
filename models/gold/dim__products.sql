@@ -1,6 +1,8 @@
 /* Type 2 slowly changing dimension table for products */
 MODEL (
-  kind FULL,
+  kind INCREMENTAL_BY_TIME_RANGE (
+    time_column (product__record_updated_at, '%Y-%m-%d %H:%M:%S')
+  ),
   grain product_pit_hk,
   audits (UNIQUE_VALUES(columns := product_pit_hk), NOT_NULL(columns := product_pit_hk))
 );
@@ -19,6 +21,8 @@ SELECT
   cdc_updated_at AS product__record_updated_at, /* Timestamp when the product record was updated */
   cdc_valid_from AS product__record_valid_from, /* Timestamp when the product record became valid (inclusive) */
   cdc_valid_to AS product__record_valid_to /* Timestamp of when the product record expired (exclusive) */
-FROM silver.sat__product;
+FROM silver.sat__product
+WHERE
+  product__record_updated_at BETWEEN @start_ts AND @end_ts;
 
 @export_to_parquet('gold.dim__products', 'exports')

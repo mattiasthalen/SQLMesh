@@ -1,6 +1,8 @@
 /* Type 2 slowly changing dimension table for stores */
 MODEL (
-  kind FULL,
+  kind INCREMENTAL_BY_TIME_RANGE (
+    time_column (store__record_updated_at, '%Y-%m-%d %H:%M:%S')
+  ),
   grain store_pit_hk,
   audits (UNIQUE_VALUES(columns := store_pit_hk), NOT_NULL(columns := store_pit_hk))
 );
@@ -18,6 +20,8 @@ SELECT
   cdc_updated_at AS store__record_updated_at, /* Timestamp when the store record was updated */
   cdc_valid_from AS store__record_valid_from, /* Timestamp when the store record became valid (inclusive) */
   cdc_valid_to AS store__record_valid_to /* Timestamp of when the store record expired (exclusive) */
-FROM silver.sat__store;
+FROM silver.sat__store
+WHERE
+  store__record_updated_at BETWEEN @start_ts AND @end_ts;
 
 @export_to_parquet('gold.dim__stores', 'exports')

@@ -1,6 +1,8 @@
 /* Type 2 slowly changing dimension table for customers */
 MODEL (
-  kind FULL,
+  kind INCREMENTAL_BY_TIME_RANGE (
+    time_column (weather__record_updated_at, '%Y-%m-%d %H:%M:%S')
+  ),
   grain weather_pit_hk,
   audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))
 );
@@ -26,6 +28,8 @@ SELECT
   cdc_updated_at AS weather__record_updated_at, /* Timestamp when the weather record was updated */
   cdc_valid_from AS weather__record_valid_from, /* Timestamp when the weather record became valid (inclusive) */
   cdc_valid_to AS weather__record_valid_to /* Timestamp of when the weather record expired (exclusive) */
-FROM silver.sat__weather;
+FROM silver.sat__weather
+WHERE
+  weather__record_updated_at BETWEEN @start_ts AND @end_ts;
 
 @export_to_parquet('gold.dim__weather', 'exports')
