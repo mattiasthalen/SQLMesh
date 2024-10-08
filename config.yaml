@@ -1,6 +1,6 @@
 project: jaffle_shop
 
-default_target_environment: dev
+default_target_environment: dev__{{ env_var('DEVELOPER', 'default') }}
 
 gateways:
   local:
