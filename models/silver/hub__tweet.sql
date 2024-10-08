@@ -1,7 +1,6 @@
 MODEL (
-  kind INCREMENTAL_BY_TIME_RANGE (
-    time_column (cdc_updated_at, '%Y-%m-%d %H:%M:%S')
-  ),
+  cron '@hourly',
+  kind FULL,
   audits (UNIQUE_VALUES(columns := tweet_bk), NOT_NULL(columns := tweet_bk))
 );
 

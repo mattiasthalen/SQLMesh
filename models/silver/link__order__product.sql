@@ -1,8 +1,6 @@
 MODEL (
   cron '@hourly',
-  kind INCREMENTAL_BY_TIME_RANGE (
-    time_column (cdc_updated_at, '%Y-%m-%d %H:%M:%S')
-  ),
+  kind FULL,
   audits (
     UNIQUE_VALUES(columns := order_hk__product_hk),
     NOT_NULL(columns := (order_hk__product_hk, order_hk, product_hk)),
