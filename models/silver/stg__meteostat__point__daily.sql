@@ -1,6 +1,6 @@
 MODEL (
   kind VIEW,
-  grain city_hk,
+  grain weather_pit_hk,
   references (
     coords_hk
   ),
