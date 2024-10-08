@@ -5,7 +5,7 @@ from sqlmesh import macro
 def export_to_parquet(evaluator, table_name: str, folder: str) -> str | None:
     
     # Early exit if the stage is not 'evaluating'
-    if evaluator.runtime_stage != 'testing':
+    if evaluator.runtime_stage != 'evaluating':
         return None
     
     # Construct the full file path using os.path to ensure it works across different OS
