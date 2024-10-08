@@ -1,5 +1,5 @@
 .cache/
-.env/
+.venv/
 exports/
 jaffle-data/
 logs/
@@ -7,3 +7,4 @@ __pycache__/
 
 *.duckdb
 *.wal
+*.env
