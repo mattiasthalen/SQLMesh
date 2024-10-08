@@ -22,4 +22,4 @@ FROM silver.sat__city
 WHERE
   city__record_updated_at BETWEEN @start_ts AND @end_ts;
 
-@export_to_parquet('gold.dim__city', 'exports')
+@export_to_parquet('gold.dim__cities', 'exports')
