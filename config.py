@@ -16,13 +16,14 @@ from sqlmesh.core.config import (
 
 # Define the path to your .env file
 env_file = Path('.env')
+env_var = 'DEFAULT_ENVIRONMENT'
 
 # Load existing environment variables from the .env file
 if env_file.exists():
     load_dotenv(dotenv_path=env_file)
 
 # Try to get the specific environment variable from the loaded .env file or os environment
-default_environment = os.getenv('DEFAULT_ENVIRONMENT')
+default_environment = os.getenv(env_var)
 
 # If the environment variable is not set, prompt the user for input
 if not default_environment:
@@ -30,9 +31,9 @@ if not default_environment:
         default_environment = input("Please enter the environment (e.g., dev__developer_name): ").strip()
         if default_environment:
             # Set it for the current process
-            os.environ['DEFAULT_ENVIRONMENT'] = default_environment
+            os.environ[env_var] = default_environment
             # Persist the environment variable to the .env file
-            set_key(env_file, 'DEFAULT_ENVIRONMENT', default_environment)
+            set_key(env_file, env_var, default_environment)
             break  # Exit the loop if input is not blank
         else:
             print("Environment cannot be blank. Please try again.")

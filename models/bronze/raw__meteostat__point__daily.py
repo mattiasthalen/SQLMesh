@@ -13,13 +13,14 @@ from sqlmesh.core.model.kind import ModelKindName
 
 # Define the path to your .env file
 env_file = Path('.env')
+env_var = 'X_RAPIDAPI_KEY'
 
 # Load existing environment variables from the .env file
 if env_file.exists():
     load_dotenv(dotenv_path=env_file)
 
 # Try to get the specific environment variable from the loaded .env file or os environment
-x_rapidapi_key = os.getenv('X_RAPIDAPI_KEY')
+x_rapidapi_key = os.getenv(env_var)
 
 # If the environment variable is not set, prompt the user for input
 if not x_rapidapi_key:
@@ -27,9 +28,9 @@ if not x_rapidapi_key:
         default_environment = input("Please enter the API key for rapid api: ").strip()
         if x_rapidapi_key:
             # Set it for the current process
-            os.environ['X_RAPIDAPI_KEY'] = x_rapidapi_key
+            os.environ[env_var] = x_rapidapi_key
             # Persist the environment variable to the .env file
-            set_key(env_file, 'X_RAPIDAPI_KEY', x_rapidapi_key)
+            set_key(env_file, env_var, x_rapidapi_key)
             break  # Exit the loop if input is not blank
         else:
             print("API key cannot be blank. Please try again.")
