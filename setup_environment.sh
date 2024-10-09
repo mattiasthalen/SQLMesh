@@ -18,8 +18,6 @@ pip install -r requirements.txt
 pre-commit install
 
 # Export environment variables from .env file
-set -a
-source .env
-set +a
+source export_env_vars.sh
 
 echo "Environment setup complete!"
