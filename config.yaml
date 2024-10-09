@@ -1,0 +1,27 @@
+project: jaffle_shop
+
+gateways:
+  local:
+    connection:
+      type: duckdb
+      database: warehouse.duckdb
+      extensions:
+        - parquet
+
+default_gateway: local
+
+model_defaults:
+  dialect: duckdb
+  start: 2018-01-01
+
+model_naming:
+  infer_names: true
+
+plan:
+  auto_categorize_changes:
+    external: full
+    python: full
+    sql: full
+    seed: full
+    
+default_target_environment: {{ env_var('DEFAULT_ENVIRONMENT', 'dev') }}
