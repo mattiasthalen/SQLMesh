@@ -7,7 +7,10 @@ from sqlmesh.core.config import (
     ModelDefaultsConfig,
     GatewayConfig,
     DuckDBConnectionConfig,
-    NameInferenceConfig
+    NameInferenceConfig,
+    AutoCategorizationMode,
+    CategorizerConfig,
+    PlanConfig
 )
 
 
@@ -53,5 +56,13 @@ config = Config(
     ),
     model_naming=NameInferenceConfig(
         infer_names=True
+    ),
+    plan=PlanConfig(
+        auto_categorize_changes=CategorizerConfig(
+            external=AutoCategorizationMode.FULL,
+            python=AutoCategorizationMode.FULL,
+            sql=AutoCategorizationMode.FULL,
+            seed=AutoCategorizationMode.FULL,
+        )
     )
 )
