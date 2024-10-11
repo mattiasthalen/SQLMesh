@@ -1,6 +1,5 @@
 /* Type 2 slowly changing dimension table for weather stats, UX formatted */
 MODEL (
-enabled false,
   kind VIEW,
   grain weather_pit_hk,
   audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))
@@ -23,8 +22,6 @@ SELECT
   weather__wind__peak_gust AS "Weather - Wind - Peak Gust", /* The peak wind gust in km/h */
   weather__pressure AS "Weather - Pressure", /* The average sea-level air pressure in hPa */
   weather__daily_sunshine AS "Weather - Daily Sunshine", /* The daily sunshine total in minutes (m) */
-  weather__source_system AS "Weather - Source System", /* Source system of the weather record */
-  weather__source_table AS "Weather - Source Table", /* Source table of the weather record */
   weather__record_updated_at AS "Weather - Record Updated At", /* Timestamp when the weather record was updated */
   weather__record_valid_from AS "Weather - Record Valid From", /* Timestamp when the weather record became valid (inclusive) */
   weather__record_valid_to AS "Weather - Record Valid To" /* Timestamp of when the weather record expired (exclusive) */
