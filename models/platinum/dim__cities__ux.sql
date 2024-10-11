@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  city_pit_id, /* Auto numbered version of the point in time hash key */
   city_hk, /* Surrogate hash key of the city */
   city_pit_hk, /* Point in time hash key of the city */
   city AS "City", /* Name of the city */

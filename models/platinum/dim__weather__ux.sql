@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  weather_pit_id, /* Auto numbered version of the point in time hash key */
   weather_hk, /* Surrogate hash key of the weather stats */
   weather_pit_hk, /* Point in time hash key of the weather stats */
   weather__latitude AS "Weather - Latitude", /* Latitude of the weather stats */

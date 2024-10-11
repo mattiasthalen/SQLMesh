@@ -24,6 +24,7 @@ SELECT
     sat__city.city_pit_hk,
     sat__weather.weather_pit_hk
   ) AS fact_record_hk, /* Primary hash key for the fact record */
+  ROW_NUMBER() OVER () AS fact_record_id, /* Auto numbered version of the fact record hash key */
   sat__item.item_pit_hk, /* Foreign point in time hash key to the order line */
   sat__order.order_pit_hk, /* Foreign point in time hash key to the order */
   sat__customer.customer_pit_hk, /* Foreign point in time hash key to the customer */

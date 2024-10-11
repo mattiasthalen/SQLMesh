@@ -15,6 +15,7 @@ MODEL (
 );
 
 SELECT
+  fact_record_id, /* Auto numbered version of the fact record hash key */
   fact_record_hk AS "fact_record_hk", /* Primary hash key for the fact record */
   item_pit_hk AS "item_pit_hk", /* Primary point in time hash key to the order line */
   order_pit_hk AS "order_pit_hk", /* Foreign point in time hash key to the order */

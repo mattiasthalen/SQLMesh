@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  customer_pit_id, /* Auto numbered version of the point in time hash key */
   customer_hk AS "customer_hk", /* Surrogate hash key of the customer */
   customer_pit_hk AS "customer_pit_hk", /* Point in time hash key of the customer */
   customer_id AS "Customer ID", /* Natural key for the customer */

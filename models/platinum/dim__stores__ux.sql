@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  store_pit_id, /* Auto numbered version of the point in time hash key */
   store_hk AS "store_hk", /* Surrogate hash key of the store */
   store_pit_hk AS "store_pit_hk", /* Point in time hash key of the store */
   store_id AS "Store ID", /* Natueral key of the store */
