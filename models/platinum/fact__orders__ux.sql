@@ -24,6 +24,11 @@ SELECT
   store_pit_hk AS "store_pit_hk", /* Foreign point in time hash key to the store */
   city_pit_hk AS "city_pit_hk", /* Foreign point in time hash key to the city */
   weather_pit_hk AS "weather_pit_hk", /* Foreign point in time hash key to the weather stats */
+  customer_pit_id, /* Auto numbered key for the customer */
+  product_pit_id, /* Auto numbered key for the product */
+  store_pit_id, /* Auto numbered key for the store */
+  city_pit_id, /* Auto numbered key for the city */
+  weather_pit_id, /* Auto numbered key for the weather stats */
   ordered_at AS "Ordered At", /* Timestamp of when the order was placed */
   quantity AS "Quantity", /* Ordered quantity */
   price AS "Unit Price", /* Unit price */
