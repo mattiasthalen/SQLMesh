@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  ROW_NUMBER() OVER () AS product_pit_id, /* Auto numbered version of the point in time hash key */
   product_hk, /* Surrogate hash key of the product */
   product_pit_hk, /* Point in time hash key of the product */
   sku AS product_id, /* Natural key of the product */

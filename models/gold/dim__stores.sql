@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  ROW_NUMBER() OVER () AS store_pit_id, /* Auto numbered version of the point in time hash key */
   store_hk, /* Surrogate hash key of the store */
   store_pit_hk, /* Point in time hash key of the store */
   id AS store_id, /* Natueral key of the store */

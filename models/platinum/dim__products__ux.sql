@@ -6,6 +6,7 @@ MODEL (
 );
 
 SELECT
+  product_pit_id, /* Auto numbered version of the point in time hash key */
   product_hk AS "product_hk", /* Surrogate hash key of the product */
   product_pit_hk AS "product_pit_hk", /* Point in time hash key of the product */
   product_id AS "Product ID", /* Natural key of the product */

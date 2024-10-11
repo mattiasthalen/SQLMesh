@@ -24,6 +24,7 @@ SELECT
     sat__city.city_pit_hk,
     sat__weather.weather_pit_hk
   ) AS fact_record_hk, /* Primary hash key for the fact record */
+  ROW_NUMBER() OVER () AS fact_record_id, /* Auto numbered version of the fact record hash key */
   sat__item.item_pit_hk, /* Foreign point in time hash key to the order line */
   sat__order.order_pit_hk, /* Foreign point in time hash key to the order */
   sat__customer.customer_pit_hk, /* Foreign point in time hash key to the customer */
@@ -31,6 +32,11 @@ SELECT
   sat__store.store_pit_hk, /* Foreign point in time hash key to the store */
   sat__city.city_pit_hk, /* Foreign point in time hash key to the city */
   sat__weather.weather_pit_hk, /* Foreign point in time hash key to the weather stats */
+  dim__customers.customer_pit_id, /* Auto numbered key for the customer */
+  dim__products.product_pit_id, /* Auto numbered key for the product */
+  dim__stores.store_pit_id, /* Auto numbered key for the store */
+  dim__cities.city_pit_id, /* Auto numbered key for the city */
+  dim__weather.weather_pit_id, /* Auto numbered key for the weather stats */
   sat__order.ordered_at, /* Timestamp of when the order was placed */
   sat__item.quantity, /* Ordered quantity */
   sat__product.price, /* Unit price */
@@ -91,6 +97,17 @@ LEFT JOIN silver.sat__city
 LEFT JOIN silver.sat__weather
   ON bridge__customer__order__store__city__coords.coords_hk = sat__weather.coords_hk
   AND CAST(sat__order.ordered_at AS DATE) = sat__weather.date
-  AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to;
+  AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to
+/* Dimensions */
+LEFT JOIN gold.dim__cities
+  ON sat__city.city_pit_hk = dim__cities.city_pit_hk
+LEFT JOIN gold.dim__products
+  ON sat__product.product_pit_hk = dim__products.product_pit_hk
+LEFT JOIN gold.dim__stores
+  ON sat__store.store_pit_hk = dim__stores.store_pit_hk
+LEFT JOIN gold.dim__customers
+  ON sat__customer.customer_pit_hk = dim__customers.customer_pit_hk
+LEFT JOIN gold.dim__weather
+  ON sat__weather.weather_pit_hk = dim__weather.weather_pit_hk;
 
 @export_to_parquet('gold.fact__orders', 'exports')
