@@ -1,5 +1,5 @@
 MODEL (
-  kind VIEW,
+  kind FULL,
   grain customer_pit_hk,
   references customer_hk,
   audits (UNIQUE_VALUES(columns := customer_pit_hk), NOT_NULL(columns := customer_pit_hk))

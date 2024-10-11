@@ -1,5 +1,5 @@
 MODEL (
-  kind VIEW,
+  kind FULL,
   grain supply_pit_hk,
   references (supply_hk, product_hk, supply_hk__product_hk)
 );

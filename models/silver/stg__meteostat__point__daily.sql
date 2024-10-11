@@ -1,5 +1,5 @@
 MODEL (
-  kind VIEW,
+  kind FULL,
   grain weather_pit_hk,
   references (
     coords_hk

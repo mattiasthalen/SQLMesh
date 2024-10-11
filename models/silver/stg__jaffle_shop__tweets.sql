@@ -1,5 +1,5 @@
 MODEL (
-  kind VIEW,
+  kind FULL,
   grain tweet_pit_hk,
   references (tweeter_hk__tweet_hk, tweeter_hk, tweet_hk),
   audits (UNIQUE_VALUES(columns := tweet_pit_hk), NOT_NULL(columns := tweet_pit_hk))
