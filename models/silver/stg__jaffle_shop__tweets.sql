@@ -20,23 +20,26 @@ WITH source_data AS (
     cdc_valid_from::TIMESTAMP AS cdc_valid_from,
     COALESCE(cdc_valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS cdc_valid_to
   FROM source_data
-), data_vault AS (
+  ), ghost_record AS ( 
+     SELECT
+       NULL AS id,
+       NULL AS user_id,
+       NULL AS tweeted_at,
+       NULL AS content,
+       NULL AS filename,
+       @execution_ts AS cdc_updated_at,
+       '1970-01-01 00:00:00'::TIMESTAMP AS cdc_valid_from,
+       '9999-12-31 23:59:59'::TIMESTAMP AS cdc_valid_to
+  ), union_data AS (
+      SELECT * FROM casted_data
+      UNION ALL
+      SELECT * FROM ghost_record
+  ), final_data AS (
   SELECT
-    'jaffle_shop' AS source_system,
-    'raw_tweets' AS source_table,
-    CONCAT(source_system, '|', id) AS tweet_bk,
-    CONCAT(source_system, '|', user_id) AS tweeter_bk,
+    @generate_surrogate_key__sha_256(id) AS tweet_hk,
+    @generate_surrogate_key__sha_256(id, cdc_valid_from) AS tweet_pit_hk,
+    @generate_surrogate_key__sha_256(user_id) AS tweeter_hk,
     *
-  FROM casted_data
-), final_data AS (
-  SELECT
-    @generate_surrogate_key__sha_256(tweeter_bk) AS tweeter_hk,
-    @generate_surrogate_key__sha_256(tweet_bk) AS tweet_hk,
-    @generate_surrogate_key__sha_256(tweet_bk, cdc_valid_from) AS tweet_pit_hk,
-    @generate_surrogate_key__sha_256(tweeter_bk, tweet_bk) AS tweeter_hk__tweet_hk,
-    *
-  FROM data_vault
+  FROM union_data
 )
-SELECT
-  *
-FROM final_data
+SELECT * FROM final_data;

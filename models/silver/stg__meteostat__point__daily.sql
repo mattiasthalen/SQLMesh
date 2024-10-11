@@ -30,22 +30,34 @@ WITH source_data AS (
     cdc_valid_from::TIMESTAMP AS cdc_valid_from,
     COALESCE(cdc_valid_to::TIMESTAMP, '9999-12-31 23:59:59'::TIMESTAMP) AS cdc_valid_to
   FROM source_data
-), data_vault AS (
+  ), ghost_record AS ( 
+     SELECT
+        NULL AS latitude,
+        NULL AS longitude,
+        NULL AS date,
+        NULL AS tavg,
+        NULL AS tmin,
+        NULL AS tmax,
+        NULL AS prcp,
+        NULL AS snow,
+        NULL AS wdir,
+        NULL AS wspd,
+        NULL AS wpgt,
+        NULL AS pres,
+        NULL AS tsun,
+       @execution_ts AS cdc_updated_at,
+       '1970-01-01 00:00:00'::TIMESTAMP AS cdc_valid_from,
+       '9999-12-31 23:59:59'::TIMESTAMP AS cdc_valid_to
+  ), union_data AS (
+      SELECT * FROM casted_data
+      UNION ALL
+      SELECT * FROM ghost_record
+  ), final_data AS (
   SELECT
-    'meteostat' AS source_system,
-    'point__daily' AS source_table,
-    CONCAT(latitude, '|', longitude) AS coords_bk,
-    CONCAT(source_system, '|', latitude, '|', longitude, '|', date) AS weather_bk,
+    @generate_surrogate_key__sha_256(latitude, longitude) AS coords_hk,
+    @generate_surrogate_key__sha_256(latitude, longitude, date) AS weather_hk,
+    @generate_surrogate_key__sha_256(latitude, longitude, date, cdc_valid_from) AS weather_pit_hk,
     *
-  FROM casted_data
-), final_data AS (
-  SELECT
-    @generate_surrogate_key__sha_256(coords_bk) AS coords_hk,
-    @generate_surrogate_key__sha_256(weather_bk) AS weather_hk,
-    @generate_surrogate_key__sha_256(weather_bk, cdc_valid_from) AS weather_pit_hk,
-    *
-  FROM data_vault
+  FROM union_data
 )
-SELECT
-  *
-FROM final_data
+SELECT * FROM final_data;
