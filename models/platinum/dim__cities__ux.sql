@@ -1,5 +1,6 @@
 /* Type 2 slowly changing dimension table for cities, UX formatted */
 MODEL (
+enabled false,
   kind VIEW,
   grain city_pit_hk,
   audits (UNIQUE_VALUES(columns := city_pit_hk), NOT_NULL(columns := city_pit_hk))

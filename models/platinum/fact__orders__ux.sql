@@ -1,5 +1,6 @@
 /* Type 2 slowly changing fact table for order lines, UX formatted */
 MODEL (
+    enabled false,
   kind VIEW,
   grain fact_record_hk,
   references (

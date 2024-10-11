@@ -1,5 +1,6 @@
 /* Type 2 slowly changing dimension table for weather stats, UX formatted */
 MODEL (
+enabled false,
   kind VIEW,
   grain weather_pit_hk,
   audits (UNIQUE_VALUES(columns := weather_pit_hk), NOT_NULL(columns := weather_pit_hk))

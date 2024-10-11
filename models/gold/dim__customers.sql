@@ -1,5 +1,6 @@
 /* Type 2 slowly changing dimension table for customers */
 MODEL (
+enabled false,
   kind FULL,
   grain customer_pit_hk,
   audits (UNIQUE_VALUES(columns := customer_pit_hk), NOT_NULL(columns := customer_pit_hk))
