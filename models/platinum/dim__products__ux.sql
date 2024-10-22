@@ -21,5 +21,3 @@ SELECT
   product__record_valid_from AS "Product - Record Valid From", /* Timestamp when the product record became valid (inclusive) */
   product__record_valid_to AS "Product - Record Valid To" /* Timestamp of when the product record expired (exclusive) */
 FROM gold.dim__products;
-
-@export_to_parquet('platinum.dim__products__ux', 'exports')

@@ -20,5 +20,3 @@ SELECT
   cdc_valid_from AS store__record_valid_from, /* Timestamp when the store record became valid (inclusive) */
   cdc_valid_to AS store__record_valid_to /* Timestamp of when the store record expired (exclusive) */
 FROM silver.sat__store;
-
-@export_to_parquet('gold.dim__stores', 'exports')

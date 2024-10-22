@@ -109,5 +109,3 @@ LEFT JOIN gold.dim__customers
   ON sat__customer.customer_pit_hk = dim__customers.customer_pit_hk
 LEFT JOIN gold.dim__weather
   ON sat__weather.weather_pit_hk = dim__weather.weather_pit_hk;
-
-@export_to_parquet('gold.fact__orders', 'exports')

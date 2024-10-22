@@ -40,5 +40,3 @@ SELECT
   fact_record__valid_from AS "Fact Record - Valid From", /* Timestamp when the fact record record became valid (inclusive) */
   fact_record__valid_to AS "Fact Record - Valid To" /* Timestamp of when the fact record record expired (exclusive) */
 FROM gold.fact__orders;
-
-@export_to_parquet('platinum.fact__orders__ux', 'exports')

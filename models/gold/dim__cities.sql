@@ -18,5 +18,3 @@ SELECT
   cdc_valid_from AS city__record_valid_from, /* Timestamp when the customer record became valid (inclusive) */
   cdc_valid_to AS city__record_valid_to /* Timestamp of when the customer record expired (exclusive) */
 FROM silver.sat__city;
-
-@export_to_parquet('gold.dim__cities', 'exports')

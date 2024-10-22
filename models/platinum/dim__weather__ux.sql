@@ -28,5 +28,3 @@ SELECT
   weather__record_valid_from AS "Weather - Record Valid From", /* Timestamp when the weather record became valid (inclusive) */
   weather__record_valid_to AS "Weather - Record Valid To" /* Timestamp of when the weather record expired (exclusive) */
 FROM gold.dim__weather;
-
-@export_to_parquet('platinum.dim__weather__ux', 'exports')

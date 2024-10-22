@@ -20,5 +20,3 @@ SELECT
   store__record_valid_from AS "Store - Record Valid From", /* Timestamp when the store record became valid (inclusive) */
   store__record_valid_to AS "Store - Record Valid To" /* Timestamp of when the store record expired (exclusive) */
 FROM gold.dim__stores;
-
-@export_to_parquet('platinum.dim__stores__ux', 'exports')

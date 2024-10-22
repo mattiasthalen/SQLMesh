@@ -18,5 +18,3 @@ SELECT
   customer__record_valid_from AS "Customer - Record Valid From", /* Timestamp when the customer record became valid (inclusive) */
   customer__record_valid_to AS "Customer - Record Valid To" /* Timestamp of when the customer record expired (exclusive) */
 FROM gold.dim__customers;
-
-@export_to_parquet('platinum.dim__customers__ux', 'exports')
