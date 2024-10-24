@@ -25,6 +25,7 @@ columns={
   }
 
 @model(
+    name="bronze.raw__meteostat__point__daily",
     cron="@daily",
     kind=dict(
         name=ModelKindName.INCREMENTAL_BY_TIME_RANGE,
