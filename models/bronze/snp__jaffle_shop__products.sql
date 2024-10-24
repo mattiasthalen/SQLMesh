@@ -12,6 +12,6 @@ MODEL (
 );
 
 SELECT
-  @execution_ts AS cdc_updated_at,
+  @execution_ts::TIMESTAMP AS cdc_updated_at,
   *
 FROM bronze.raw__jaffle_shop__products
