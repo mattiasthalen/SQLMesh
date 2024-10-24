@@ -1,9 +1,7 @@
 MODEL (
   cron '@hourly',
   kind FULL,
-  audits (UNIQUE_VALUES(columns := tweet_pit_hk), NOT_NULL(columns := tweet_pit_hk)) /*  TODO: This audit fails.
-    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__tweet, fk_column := tweet_hk, pk_column := tweet_hk) */,
-  depends_on [silver.hub__tweet]
+  audits (UNIQUE_VALUES(columns := tweet_pit_hk), NOT_NULL(columns := tweet_pit_hk))
 );
 
 @data_vault__load_satellite(

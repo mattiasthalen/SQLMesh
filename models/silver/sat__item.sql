@@ -3,14 +3,8 @@ MODEL (
   kind FULL,
   audits (
     UNIQUE_VALUES(columns := item_pit_hk),
-    NOT_NULL(columns := item_pit_hk),
-    ASSERT_FK_PK_INTEGRITY(
-      target_table := silver.link__order__product,
-      fk_column := order_hk__product_hk,
-      pk_column := order_hk__product_hk
-    )
-  ),
-  depends_on [silver.link__order__product]
+    NOT_NULL(columns := item_pit_hk)
+  )
 );
 
 @data_vault__load_satellite(

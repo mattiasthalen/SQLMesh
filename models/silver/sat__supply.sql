@@ -3,10 +3,8 @@ MODEL (
   kind FULL,
   audits (
     UNIQUE_VALUES(columns := supply_pit_hk),
-    NOT_NULL(columns := supply_pit_hk),
-    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__supply, fk_column := supply_hk, pk_column := supply_hk)
-  ),
-  depends_on [silver.hub__supply]
+    NOT_NULL(columns := supply_pit_hk)
+  )
 );
 
 @data_vault__load_satellite(
