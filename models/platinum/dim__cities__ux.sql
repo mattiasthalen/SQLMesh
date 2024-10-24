@@ -17,4 +17,4 @@ SELECT
   city__record_updated_at AS "City - Record Updated At", /* Timestamp when the city record was updated */
   city__record_valid_from AS "City - Record Valid From", /* Timestamp when the city record became valid (inclusive) */
   city__record_valid_to AS "City - Record Valid To" /* Timestamp of when the city record expired (exclusive) */
-FROM gold.dim__cities;
+FROM gold.dim__cities

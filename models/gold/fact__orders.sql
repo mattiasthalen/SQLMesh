@@ -93,7 +93,7 @@ LEFT JOIN silver.sat__city
   AND sat__order.ordered_at BETWEEN sat__city.cdc_valid_from AND sat__city.cdc_valid_to
 LEFT JOIN silver.sat__weather
   ON bridge__order.coords_hk = sat__weather.coords_hk
-  AND CAST(sat__order.ordered_at AS DATE) = sat__weather.date
+  AND sat__order.ordered_at::DATE = sat__weather.date
   AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to
 /* Dimensions */
 LEFT JOIN gold.dim__cities
@@ -105,4 +105,4 @@ LEFT JOIN gold.dim__stores
 LEFT JOIN gold.dim__customers
   ON sat__customer.customer_pit_hk = dim__customers.customer_pit_hk
 LEFT JOIN gold.dim__weather
-  ON sat__weather.weather_pit_hk = dim__weather.weather_pit_hk;
+  ON sat__weather.weather_pit_hk = dim__weather.weather_pit_hk

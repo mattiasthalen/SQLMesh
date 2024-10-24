@@ -20,4 +20,4 @@ SELECT
   product__record_updated_at AS "Product - Record Updated At", /* Timestamp when the product record was updated */
   product__record_valid_from AS "Product - Record Valid From", /* Timestamp when the product record became valid (inclusive) */
   product__record_valid_to AS "Product - Record Valid To" /* Timestamp of when the product record expired (exclusive) */
-FROM gold.dim__products;
+FROM gold.dim__products

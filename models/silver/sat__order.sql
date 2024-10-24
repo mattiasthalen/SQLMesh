@@ -1,10 +1,7 @@
 MODEL (
   cron '@hourly',
   kind FULL,
-  audits (
-    UNIQUE_VALUES(columns := order_pit_hk),
-    NOT_NULL(columns := order_pit_hk)
-  )
+  audits (UNIQUE_VALUES(columns := order_pit_hk), NOT_NULL(columns := order_pit_hk))
 );
 
 @data_vault__load_satellite(

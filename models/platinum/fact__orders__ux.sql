@@ -39,4 +39,4 @@ SELECT
   fact_record__updated_at AS "Fact Record - Updated At", /* Timestamp when the fact record was updated */
   fact_record__valid_from AS "Fact Record - Valid From", /* Timestamp when the fact record record became valid (inclusive) */
   fact_record__valid_to AS "Fact Record - Valid To" /* Timestamp of when the fact record record expired (exclusive) */
-FROM gold.fact__orders;
+FROM gold.fact__orders

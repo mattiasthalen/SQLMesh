@@ -27,4 +27,4 @@ SELECT
   cdc_updated_at AS weather__record_updated_at, /* Timestamp when the weather record was updated */
   cdc_valid_from AS weather__record_valid_from, /* Timestamp when the weather record became valid (inclusive) */
   cdc_valid_to AS weather__record_valid_to /* Timestamp of when the weather record expired (exclusive) */
-FROM silver.sat__weather;
+FROM silver.sat__weather

@@ -45,6 +45,6 @@ INNER JOIN silver.link__city__coords
 INNER JOIN silver.hub__coords
   ON link__city__coords.coords_hk = hub__coords.coords_hk
 INNER JOIN silver.link__order__product
-ON hub__order.order_hk = link__order__product.order_hk
+  ON hub__order.order_hk = link__order__product.order_hk
 INNER JOIN silver.hub__product
-ON link__order__product.product_hk = hub__product.product_hk
+  ON link__order__product.product_hk = hub__product.product_hk
