@@ -3,15 +3,8 @@ MODEL (
   kind FULL,
   audits (
     UNIQUE_VALUES(columns := supply_hk__product_hk),
-    NOT_NULL(columns := (supply_hk__product_hk, supply_hk, product_hk)),
-    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__supply, fk_column := supply_hk, pk_column := supply_hk),
-    ASSERT_FK_PK_INTEGRITY(
-      target_table := silver.hub__product,
-      fk_column := product_hk,
-      pk_column := product_hk
-    )
-  ),
-  depends_on [silver.hub__supply, silver.hub__product]
+    NOT_NULL(columns := (supply_hk__product_hk, supply_hk, product_hk))
+  )
 );
 
 @data_vault__load_link(

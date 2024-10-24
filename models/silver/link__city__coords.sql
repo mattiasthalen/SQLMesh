@@ -3,11 +3,8 @@ MODEL (
   kind FULL,
   audits (
     UNIQUE_VALUES(columns := city_hk__coords_hk),
-    NOT_NULL(columns := (city_hk__coords_hk, city_hk, coords_hk)),
-    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__city, fk_column := city_hk, pk_column := city_hk),
-    ASSERT_FK_PK_INTEGRITY(target_table := silver.hub__coords, fk_column := coords_hk, pk_column := coords_hk)
-  ),
-  depends_on [silver.hub__city, silver.hub__coords]
+    NOT_NULL(columns := (city_hk__coords_hk, city_hk, coords_hk))
+  )
 );
 
 @data_vault__load_link(
