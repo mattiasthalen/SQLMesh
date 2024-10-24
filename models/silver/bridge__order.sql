@@ -15,20 +15,20 @@ SELECT
     hub__store.store_hk,
     hub__city.city_hk,
     hub__coords.coords_hk,
-    link__customer__order.customer_hk__order_hk,
-    link__order__store.order_hk__store_hk,
-    link__store__city.store_hk__city_hk,
-    link__city__coords.city_hk__coords_hk
+    hub__product.product_hk
   ) AS bridge_hk,
   hub__customer.customer_hk,
   hub__order.order_hk,
   hub__store.store_hk,
   hub__city.city_hk,
   hub__coords.coords_hk,
+  hub__product.product_hk,
   link__customer__order.customer_hk__order_hk,
   link__order__store.order_hk__store_hk,
   link__store__city.store_hk__city_hk,
-  link__city__coords.city_hk__coords_hk
+  link__city__coords.city_hk__coords_hk,
+  link__customer__order.customer_hk__order_hk,
+  link__order__product.order_hk__product_hk
 FROM silver.hub__customer
 INNER JOIN silver.link__customer__order
   ON hub__customer.customer_hk = link__customer__order.customer_hk
@@ -46,3 +46,7 @@ INNER JOIN silver.link__city__coords
   ON hub__city.city_hk = link__city__coords.city_hk
 INNER JOIN silver.hub__coords
   ON link__city__coords.coords_hk = hub__coords.coords_hk
+INNER JOIN silver.link__order__product
+ON hub__order.order_hk = link__order__product.order_hk
+INNER JOIN silver.hub__product
+ON link__order__product.product_hk = hub__product.product_hk

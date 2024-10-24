@@ -72,30 +72,27 @@ SELECT
     sat__weather.cdc_valid_to
   ) AS fact_record__valid_to /* Timestamp of when the fact record expired (exclusive) */
 /* Links */
-FROM silver.bridge__customer__order__store__city__coords
-INNER JOIN silver.bridge__customer__order__product
-  ON bridge__customer__order__store__city__coords.customer_hk = bridge__customer__order__product.customer_hk
-  AND bridge__customer__order__store__city__coords.order_hk = bridge__customer__order__product.order_hk
+FROM silver.bridge__order
 /* Satellites */
 LEFT JOIN silver.sat__order
-  ON bridge__customer__order__store__city__coords.order_hk = sat__order.order_hk
+  ON bridge__order.order_hk = sat__order.order_hk
 LEFT JOIN silver.sat__item
-  ON bridge__customer__order__product.order_hk__product_hk = sat__item.order_hk__product_hk
+  ON bridge__order.order_hk__product_hk = sat__item.order_hk__product_hk
   AND sat__order.ordered_at BETWEEN sat__item.cdc_valid_from AND sat__item.cdc_valid_to
 LEFT JOIN silver.sat__product
-  ON bridge__customer__order__product.product_hk = sat__product.product_hk
+  ON bridge__order.product_hk = sat__product.product_hk
   AND sat__order.ordered_at BETWEEN sat__product.cdc_valid_from AND sat__product.cdc_valid_to
 LEFT JOIN silver.sat__customer
-  ON bridge__customer__order__store__city__coords.customer_hk = sat__customer.customer_hk
+  ON bridge__order.customer_hk = sat__customer.customer_hk
   AND sat__order.ordered_at BETWEEN sat__customer.cdc_valid_from AND sat__customer.cdc_valid_to
 LEFT JOIN silver.sat__store
-  ON bridge__customer__order__store__city__coords.store_hk = sat__store.store_hk
+  ON bridge__order.store_hk = sat__store.store_hk
   AND sat__order.ordered_at BETWEEN sat__store.cdc_valid_from AND sat__store.cdc_valid_to
 LEFT JOIN silver.sat__city
-  ON bridge__customer__order__store__city__coords.city_hk = sat__city.city_hk
+  ON bridge__order.city_hk = sat__city.city_hk
   AND sat__order.ordered_at BETWEEN sat__city.cdc_valid_from AND sat__city.cdc_valid_to
 LEFT JOIN silver.sat__weather
-  ON bridge__customer__order__store__city__coords.coords_hk = sat__weather.coords_hk
+  ON bridge__order.coords_hk = sat__weather.coords_hk
   AND CAST(sat__order.ordered_at AS DATE) = sat__weather.date
   AND sat__order.ordered_at BETWEEN sat__weather.cdc_valid_from AND sat__weather.cdc_valid_to
 /* Dimensions */
