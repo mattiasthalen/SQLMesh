@@ -1,5 +1,4 @@
 MODEL (
-  name silver.bridge__customer__order__store__city__coords,
   cron '@hourly',
   kind FULL,
   audits (
@@ -27,7 +26,6 @@ SELECT
   link__order__store.order_hk__store_hk,
   link__store__city.store_hk__city_hk,
   link__city__coords.city_hk__coords_hk,
-  link__customer__order.customer_hk__order_hk,
   link__order__product.order_hk__product_hk
 FROM silver.hub__customer
 INNER JOIN silver.link__customer__order
