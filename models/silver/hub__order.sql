@@ -1,5 +1,4 @@
 MODEL (
-  cron '@hourly',
   kind FULL,
   audits (UNIQUE_VALUES(columns := order_bk), NOT_NULL(columns := order_bk))
 );

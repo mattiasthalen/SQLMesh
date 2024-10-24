@@ -1,5 +1,4 @@
 MODEL (
-  cron '@hourly',
   kind FULL,
   audits (UNIQUE_VALUES(columns := tweeter_bk), NOT_NULL(columns := tweeter_bk))
 );
